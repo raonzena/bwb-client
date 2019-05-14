@@ -1,12 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
+import Search from './Components/Search';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-     Hello
-    </div>
-  );
+class App extends Component {
+  state = ({
+    isLogin: false,
+    user: {id:'', pw:'', nick_name:'', gender:''},
+  })
+
+  render(){
+    return (
+      <div className="App">
+        <Search />  
+      </div>
+    )
+  }
 }
 
 export default App;
