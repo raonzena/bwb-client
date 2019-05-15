@@ -20,14 +20,26 @@ class App extends Component {
     var _user;
     _user = (
       <Signup
-        // onIdCheck={function(e) {
-        //   console.log("쿠크다스");
-        // }}
-        onSubmit={function(_id, _pw, _nick_name, _gender) {
-          this.setState({
-            user: { id: _id, pw: _pw, nick_name: _nick_name, gender: _gender }
-          });
-        }.bind(this)}
+        onSubmit={(_id, _pw, _nick_name, _gender) => {
+          var user = {
+            id: _id,
+            pw: _pw,
+            nick_name: _nick_name,
+            gender: _gender
+          };
+          console.log(user);
+          fetch("http://localhost:3000/signup", {
+            method: "POST",
+            body: JSON.stringify(user),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(response => response)
+            .catch(err => {
+              console.log(err);
+            });
+        }}
       />
     );
 
