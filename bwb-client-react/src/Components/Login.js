@@ -7,13 +7,10 @@ class Login extends Component {
         <h2>로그인</h2>
         <form
           className="login-form"
-          action="/login"
-          method="post"
-          onSubmit={function(e) {
+          onSubmit={e => {
             e.preventDefault();
-            console.log(e.target.id.value, e.target.pw.value);
             this.props.onSubmit(e.target.id.value, e.target.pw.value);
-          }.bind(this)}
+          }}
         >
           <p>
             아이디:
@@ -21,7 +18,7 @@ class Login extends Component {
           </p>
           <p>
             비밀번호:
-            <input type="text" name="pw" placeholder="비밀번호" />
+            <input type="password" name="pw" placeholder="비밀번호" />
           </p>
           <p>
             <input type="submit" value="로그인" />

@@ -3,18 +3,27 @@ import Search from "./Components/Search";
 import "./App.css";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
-
+import Loading from "./Components/Loading";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: false,
+      isLogin: null,
       user: { id: "", pw: "", nick_name: "", gender: "" },
-      login_event: false,
-      signup_event: false
+      logsign_flag: null
     };
   }
-
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.setState({
+        isLogin: true
+      });
+    } else {
+      this.setState({
+        isLogin: false
+      });
+    }
+  };
   signup = () => {
     // 회원가입 컴포넌트에서 값을 받아오는 함수
     var _user;
@@ -27,7 +36,6 @@ class App extends Component {
             nick_name: _nick_name,
             gender: _gender
           };
-          console.log(user);
           fetch("http://localhost:3000/signup", {
             method: "POST",
             body: JSON.stringify(user),
@@ -35,8 +43,15 @@ class App extends Component {
               "Content-Type": "application/json"
             }
           })
-            .then(response => response)
+            .then(response => {
+              this.setState({
+                logsign_flag: null
+              });
+              alert("정상적으로 회원가입 되었습니다!");
+              return response;
+            })
             .catch(err => {
+              alert("회원가입에 실패하였습니다!");
               console.log(err);
             });
         }}
@@ -51,43 +66,95 @@ class App extends Component {
     // if문으로 id와 pw가 디비에 저장된 것과 일치하는지 확인해야함 / 로그인에 성공하면 isLogin true로 변경
     _loginUser = (
       <Login
-        onSubmit={function(_id, _pw) {
-          this.setState({
-            user: { id: _id, pw: _pw, nick_name: "", gender: "" } //디비에서 해당 아이디가 가지고 있는 닉네임과 젠더 불러오기
-          });
-        }.bind(this)}
+        onSubmit={(_id, _pw) => {
+          var loginUser = { id: _id, pw: _pw };
+
+          fetch("http://localhost:3000/login", {
+            method: "POST",
+            body: JSON.stringify(loginUser),
+            headers: { "Content-Type": "application/json" }
+          })
+            .then(response => {
+              this.setState({
+                isLogin: true
+              });
+              alert("로그인에 성공하였습니다!");
+              return response.json();
+            })
+            .then(token => {
+              localStorage.setItem("token", token);
+            })
+            .catch(err => {
+              console.log(err);
+              alert("로그인에 실패했습니다!");
+            });
+        }}
       />
     );
 
     return _loginUser;
   };
 
-  onSignup = value => {
-    console.log(value);
-    this.setState({
-      signup_event: value,
-      login_event: false
-    });
-  };
-  onLogin = value => {
-    console.log(value);
-    this.setState({
-      login_event: value,
-      signup_event: false
-    });
-  };
-  render() {
-    console.log(this.state.user);
-    console.log(this.state.login_event);
-    console.log(this.state.signup_event);
-    return (
-      <div className="App">
-        <Search onSignup={this.onSignup} onLogin={this.onLogin} />
+  logout = () => {
+    console.log("로그아웃");
+    var token = localStorage.getItem("token");
 
-        {this.state.signup_event ? this.signup() : false}
-        {this.state.login_event ? this.login() : false}
-      </div>
-    );
+    localStorage.removeItem("token");
+    this.setState({
+      logsign_flag: null,
+      isLogin: false
+    });
+    alert("정상적으로 로그아웃 되었습니다!");
+
+    // fetch("http://localhost:3000/logout", {
+    //   method: "GET",
+    //   body: token
+    // })
+    //   .then(response => {
+    //     this.setState({
+    //       signup_event: false
+    //     });
+    //     alert("정상적으로 로그아웃 되었습니다!");
+    //     return response;
+    //   })
+    //   .catch(err => {
+    //     alert("로그아웃에 실패했습니다!");
+    //     console.log(err);
+    //   });
+  };
+
+  onLogSign = value => {
+    this.setState({
+      logsign_flag: value
+    });
+  };
+
+  render() {
+    if (this.state.isLogin === null) {
+      return <Loading />;
+    } else if (this.state.isLogin === false) {
+      return (
+        <div className="App">
+          <Search onLogSign={this.onLogSign} />
+
+          {this.state.logsign_flag !== null
+            ? this.state.logsign_flag
+              ? this.signup()
+              : this.login()
+            : false}
+        </div>
+      );
+    } else if (this.state.isLogin === true) {
+      return (
+        <div className="App">
+          <Search
+            onLogSign={this.onLogSign}
+            logoutCheck={this.state.isLogin}
+            logout={this.logout}
+          />
+        </div>
+      );
+    }
   }
 }
 
