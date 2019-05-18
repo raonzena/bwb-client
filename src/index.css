@@ -11,3 +11,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.verifyId {
+}
+.verifyNickName {
+}
+.verifyPw {
+}
+.isPwCheck {
+  display: none;
+}
+.my-page {
+  display: none;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+  overflow: scroll;
+  background-color: aqua;
+  padding: 10px;
+  margin-right: 500px;
+}
+.my-page-button {
+  position: fixed;
+  right: 100px;
+  bottom: 100px;
+}
+.close-button {
+  position: fixed;
+  cursor: default;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  margin-right: 500px;
+}

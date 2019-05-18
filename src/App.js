@@ -1,60 +1,208 @@
-import React, {Component} from 'react';
-import FirstPage from './Pages/FirstPage';
-import Nav from './Pages/Search';
-import HomeButton from './Pages/HomeButton';
-import './App.css';
-
+import React, { Component } from "react";
+import "./App.css";
+import MapHouse from "./MapHouse";
+import SignApp from "./SignApp";
+import Loading from "./Components/Loading";
+import Login from "./Components/Login";
+import Signup from "./Components/Signup";
+import Logout from "./Components/Logout";
+import MeetingApp from "./MeetingApp";
+import MyPage from "./Pages/MyPage";
 class App extends Component {
-  state = ({
-    //실제 지도 검색 키워드//
-    searchValue: '',
-    searchPage: 1,
-    isLogin: false,
-    user: {id:'', pw:'', nick_name:'', gender:''},
-    site_event:false
-  })
-
-  //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
-  handleSearch = (e) => {
-    if(e.key === 'Enter'){
-      if(this.state.searchPage === 1){
-        this.setState({
-          searchValue: e.target.value,
-          searchPage: 2,
-        })
-      }else if(this.state.searchPage === 2){        
-    //여기에 본문페이지에 검색할 시 여기 함수가 적용됨.
-      this.setState({
-        searchValue: e.target.value,
-      })
-      
-      }
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogin: null,
+      signCheck: null,
+      currentItem: {}
+    };
   }
-
-  //홈버튼 누르면 메인화면으로
-  clickHomeButton = (e) => {
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.setState({
+        isLogin: true
+      });
+    } else {
+      this.setState({
+        isLogin: false
+      });
+    }
+  };
+  changeIsLogin = value => {
     this.setState({
-      searchPage: 1,
+      signCheck: value
+    });
+  };
+  getMyPageList = () => {
+    var id = localStorage.getItem("token");
+    fetch(`http://localhost:3000/mypage`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: id
+      }
     })
-  } 
-
-  render(){
-    
-    const { searchPage, searchValue } = this.state;
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log("json", json);
+        this.setState({
+          currentItem: json
+        });
+        document.querySelector(".my-page").style.display = "block";
+        document.querySelector(".my-page-button").style.display = "none";
+      });
+  };
+  render() {
+    console.log("app", this.state.isLogin);
+    if (this.state.isLogin === null) {
+      return <Loading />;
+    }
     return (
       <div className="App">
-      <div className="homeButton">
-          <HomeButton onClick = {this.clickHomeButton}/>
+        <div className="js-signApp signApp">
+          <SignApp
+            isLogin={this.state.isLogin}
+            changeIsLogin={this.changeIsLogin}
+          />
         </div>
-        <div className="square">
-          { searchPage === 1 ? <FirstPage onKeyDown = {this.handleSearch} onChange = {this.handleSearch}/> 
-                            : <Nav onKeyDown = {this.handleSearch} onChange = {this.handleSearch}
-                                      searchValue = {searchValue}/>}
-         
+        <div className="js-LogSign logSign">
+          {this.state.signCheck === "login" ? (
+            <Login
+              onSubmit={(_id, _pw) => {
+                var loginUser = { id: _id, pw: _pw };
+                fetch("http://localhost:3000/login", {
+                  method: "POST",
+                  body: JSON.stringify(loginUser),
+                  headers: { "Content-Type": "application/json" }
+                })
+                  .then(response => {
+                    if (response.status === 200) {
+                      this.setState({
+                        isLogin: true,
+                        signCheck: null
+                      });
+                      alert("로그인에 성공하였습니다!");
+                    } else if (response.status === 204) {
+                      alert("가입된 회원이 아닙니다!");
+                    } else if (response.status === 409) {
+                      alert("비밀번호가 일치하지 않습니다!");
+                    }
+                    return response.json();
+                  })
+                  .then(token => {
+                    localStorage.setItem("token", token.token);
+                  })
+                  .catch(err => {
+                    // console.log(err);
+                    return err;
+                  });
+              }}
+            />
+          ) : (
+            false
+          )}
+          {this.state.signCheck === "signup" ? (
+            <Signup
+              onSubmit={(_id, _pw, _nick_name, _gender) => {
+                var user = {
+                  id: _id,
+                  pw: _pw,
+                  nick_name: _nick_name,
+                  gender: _gender
+                };
+                fetch("http://localhost:3000/signup", {
+                  method: "POST",
+                  body: JSON.stringify(user),
+                  headers: {
+                    "Content-Type": "application/json"
+                  }
+                })
+                  .then(response => {
+                    console.log(response.status);
+                    if (response.status === 201) {
+                      this.setState({
+                        // isLogin: true,
+                        signCheck: "login"
+                      });
+                      // onLogSign(false);
+                      alert("정상적으로 회원가입 되었습니다!");
+                      return response;
+                    }
+
+                    return response;
+                  })
+                  .catch(err => {
+                    alert("회원가입에 실패하였습니다!");
+                    console.log(err);
+                    return err;
+                  });
+              }}
+            />
+          ) : (
+            false
+          )}
+          {this.state.signCheck === "logout" ? (
+            <Logout
+              onLogout={() => {
+                var token = localStorage.getItem("token");
+                fetch("http://localhost:3000/logout", {
+                  method: "GET",
+                  headers: {
+                    authorization: token
+                  }
+                })
+                  .then(response => {
+                    if (response.status === 201) {
+                      localStorage.removeItem("token");
+                      this.setState({
+                        isLogin: false,
+                        signCheck: null
+                      });
+                      alert("로그아웃 되었습니다");
+                      return response;
+                    }
+                    return response;
+                  })
+                  .catch(err => {
+                    alert("로그아웃에 실패했습니다");
+                    console.log(err);
+                    return err;
+                  });
+              }}
+            />
+          ) : (
+            false
+          )}
+        </div>
+        {/* /------------------------------------------------------합치는 작업영역
+        ---------------------------------------------------------------/ */}
+        {this.state.isLogin !== null ? (
+          this.state.isLogin ? (
+            <div>
+              <div className="MeetingApp">
+                <MeetingApp changeIsLogin={this.changeIsLogin} />
+              </div>
+              <button className="my-page-button" onClick={this.getMyPageList}>
+                MyPage
+              </button>
+              <MyPage currentItem={this.state.currentItem} />
+            </div>
+          ) : (
+            <div>
+              <div className="MeetingApp">
+                <MeetingApp changeIsLogin={this.changeIsLogin} />
+              </div>
+            </div>
+          )
+        ) : (
+          false
+        )}
+        <div className="js-MapHouse MapHouse">
+          <MapHouse isLogin={this.state.isLogin} />
         </div>
       </div>
-    )
+    );
   }
 }
 

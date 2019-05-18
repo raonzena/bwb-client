@@ -9,13 +9,7 @@ class Login extends Component {
           className="login-form"
           onSubmit={e => {
             e.preventDefault();
-            if (e.target.id.value === "") {
-              alert("아이디를 입력해주세요!");
-            } else if (e.target.pw.value === "") {
-              alert("비밀번호를 입력해주세요!");
-            } else {
-              this.props.onSubmit(e.target.id.value, e.target.pw.value);
-            }
+            this.props.onSubmit(e.target.id.value, e.target.pw.value);
           }}
         >
           <p>

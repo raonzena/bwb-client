@@ -1,12 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 class HomeButton extends Component {
-  render(){
-    return (
-      <div onClick = {this.props.onClick}>
-        home
-      </div>
-    )
+  render() {
+    return <div onClick={this.props.onClick}>home</div>;
   }
 }
 
