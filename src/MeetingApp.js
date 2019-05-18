@@ -155,13 +155,13 @@ class MeetingApp extends React.Component {
   render = () => (
     <div className="App">
       <header className="App-header">Modal Practice</header>
-      <div>
+      {/* <div>
         <LeftContainer
           fetchedMeetingList={this.state.fetchedMeetingList}
           reataurantname={placeName}
           getMeetingDetail={this.getMeetingDetail}
         />
-      </div>
+      </div> */}
       <React.Fragment>
         <MeetingDetailModal
           show={this.state.showMeetingDetailModal}

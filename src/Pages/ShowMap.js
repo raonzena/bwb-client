@@ -2,7 +2,7 @@
 //좌표를 받아서 그 좌표를 기준으로 주변의 맛집을 찾는다.
 
 import React, { Component, Fragment } from "react";
-import MeetingListsData from "./MeetingListsData";
+import MeetingLists from "../Components/MeetingLists";
 import "./MapSearchPlace.css";
 // import DetailRestaurant from "./DetailRestaurant";
 /* global google */
@@ -164,7 +164,11 @@ class ShowMap extends Component {
         <div>
           {meetingsInfos ? (
             meetingsInfos.map((ele, idx) => (
-              <MeetingListsData meetingsInfos={ele} key={idx} />
+              <MeetingLists
+                meetingsInfos={ele}
+                key={idx}
+                // restaurantInfos={restaurantInfos}
+              />
             ))
           ) : (
             <div>LOADING</div>
