@@ -1,19 +1,19 @@
 import React from "react";
 import MeetingListsContainer from "./MeetingListsContainer";
+import RestaurantMeetingList from "./RestaurantMeetingList";
 
 class LeftContainer extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
     this.state = {
       meetingsInfos: undefined
     };
   }
 
-  fetchMeetingLists = () => {
+  fetchMeetingLists = (restaurantInfos) => {
     fetch("http://localhost:3000/meetings/list/region", {
       method: "POST",
-      body: JSON.stringify({ restaurantInfos: this.props.restaurantInfos }),
+      body: JSON.stringify({ restaurantInfos: restaurantInfos }),
       headers: {
         "Content-Type": "application/json"
       }
@@ -33,7 +33,10 @@ class LeftContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
-      this.fetchMeetingLists();
+        this.fetchMeetingLists(this.props.restaurantInfos);
+    } 
+    if(prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
+        this.fetchMeetingLists(new Array(this.props.clickMarkerRestaurantInfo));
     }
   }
 
@@ -46,7 +49,11 @@ class LeftContainer extends React.Component {
             restaurantInfos={this.props.restaurantInfos}
             fetchMeetingLists={this.fetchMeetingLists}
           />
-        ) : null}
+        ) : 
+        (this.props.clickMarkerRestaurantInfo ? (
+            <RestaurantMeetingList clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
+            meetingsInfos={this.state.meetingsInfos}/>
+        ) : null)}
       </div>
     );
   }

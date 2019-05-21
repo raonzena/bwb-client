@@ -1,41 +1,27 @@
 import React, {Component} from "react";
-import fetch from "../helpers/fetch.js";
+import StarRatings from './react-star-ratings';
 
 
 class RestaurantMeetingList extends Component {
-  state = {
-    meetingsInfos : []
-  }
-  getRestaurantMeetingList = (placeId) => {
-    fetch.fetchMeetingList(placeId)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data)
-      this.setState = {
-        meetingInfos : data
-      }
-      return data;
-    })
-    .catch(err => {
-      console.log(err);
-      return err;
-    });
+  constructor(props) {
+    super(props);
   }
   
   render() {
+    let meetingInfos = this.props.meetingsInfos.result;
+    let restaurantInfo = this.props.clickMarkerRestaurantInfo;
+    console.log(restaurantInfo)
     return (
       <div id="meetingListContainer">
         <div>
-          <h1>{this.props.clickMarkerRestaurantInfo}</h1>
-          <p>{this.props.clickMarkerRestaurantInfo}</p>
-          <p>{this.props.clickMarkerRestaurantInfo}</p>
-          <p>{this.props.clickMarkerRestaurantInfo}</p>
+          <h1>{restaurantInfo.name}</h1>
+          <p>{restaurantInfo.formatted_address}</p>
+          <p>{restaurantInfo.formatted_phone_number}</p>
+          <a href="{restaurantInfo.website}">{restaurantInfo.website}</a>
         </div>
         <div>
-          { this.state.meetingsInfos.length > 0 ? (
-            this.state.meetingsInfos.map((meeting, index) => 
+          { meetingInfos.length > 0 ? (
+            meetingInfos.map((meeting, index) => 
               <div className="meetingListBtn" key={meeting.meetingId} index={meeting.meetingId} onClick={() => this.props.getMeetingDetail(meeting.placeId, meeting.meetingId)}>
                 <div><strong>{meeting.meetingName}</strong></div>
                 <div>{meeting.meetingTime}</div>
