@@ -19,7 +19,7 @@ const ReactRouter = () => {
         <Route path="/logout" component={Logout} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route pathe="/mypage" component={MyPage} />
+        <Route path="/mypage" component={MyPage} />
       </Router>
     </div>
   );

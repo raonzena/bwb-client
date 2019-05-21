@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import StarRatings from './react-star-ratings';
+// import StarRatings from './react-star-ratings';
 
 
 class RestaurantMeetingList extends Component {
@@ -8,9 +8,8 @@ class RestaurantMeetingList extends Component {
   }
   
   render() {
-    let meetingInfos = this.props.meetingsInfos.result;
+    let meetingInfos = this.props.meetingsInfos;
     let restaurantInfo = this.props.clickMarkerRestaurantInfo;
-    console.log(restaurantInfo)
     return (
       <div id="meetingListContainer">
         <div>
@@ -19,9 +18,10 @@ class RestaurantMeetingList extends Component {
           <p>{restaurantInfo.formatted_phone_number}</p>
           <a href="{restaurantInfo.website}">{restaurantInfo.website}</a>
         </div>
+        <div>현재 모임</div>
         <div>
-          { meetingInfos.length > 0 ? (
-            meetingInfos.map((meeting, index) => 
+          { meetingInfos.activeMeetings.length > 0 ? (
+            meetingInfos.activeMeetings.map((meeting, index) => 
               <div className="meetingListBtn" key={meeting.meetingId} index={meeting.meetingId} onClick={() => this.props.getMeetingDetail(meeting.placeId, meeting.meetingId)}>
                 <div><strong>{meeting.meetingName}</strong></div>
                 <div>{meeting.meetingTime}</div>
@@ -32,6 +32,19 @@ class RestaurantMeetingList extends Component {
             <div>
               참여 가능한 모임이 없습니다.
             </div>
+          } 
+          <button onClick={this.props.getNewMeetingModal}>모임 생성</button>
+          <div>지난 모임</div>
+          { meetingInfos.inActiveMeetings.length > 0 ? (
+            meetingInfos.inActiveMeetings.map((meeting, index) => 
+              <div className="meetingListBtn" key={meeting.meetingId} index={meeting.meetingId}>
+                <div><strong>{meeting.meetingName}</strong></div>
+                <div>{meeting.meetingTime}</div>
+                <div>{meeting.numberOfMembers + '/' + meeting.limit}</div>
+              </div>
+            ))
+            : 
+            null
           } 
         </div>
       </div>

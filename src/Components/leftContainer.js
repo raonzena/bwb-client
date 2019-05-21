@@ -1,6 +1,5 @@
 import React from "react";
 import MeetingListsContainer from "./MeetingListsContainer";
-import RestaurantMeetingList from "./RestaurantMeetingList";
 
 class LeftContainer extends React.Component {
   constructor(props) {
@@ -34,8 +33,8 @@ class LeftContainer extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
         this.fetchMeetingLists(this.props.restaurantInfos);
-    } 
-    if(prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
+    }
+    if (prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
         this.fetchMeetingLists(new Array(this.props.clickMarkerRestaurantInfo));
     }
   }
@@ -50,10 +49,15 @@ class LeftContainer extends React.Component {
             fetchMeetingLists={this.fetchMeetingLists}
           />
         ) : 
-        (this.props.clickMarkerRestaurantInfo ? (
-            <RestaurantMeetingList clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
-            meetingsInfos={this.state.meetingsInfos}/>
-        ) : null)}
+        this.props.clickMarkerRestaurantInfo ? (
+          <MeetingListsContainer
+            meetingsInfos={this.state.meetingsInfos}
+            restaurantInfos={this.props.restaurantInfos}
+            fetchMeetingLists={this.fetchMeetingLists}
+            clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
+          /> )
+        : null
+        }
       </div>
     );
   }

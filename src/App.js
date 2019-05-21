@@ -18,26 +18,6 @@ class App extends Component {
       });
     }
   };
-  getMyPageList = () => {
-    var id = localStorage.getItem("token");
-    fetch(`http://localhost:3000/mypage`, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: id
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log("json", json);
-        this.setState({
-          currentItem: json
-        });
-        document.querySelector(".my-page").style.display = "block";
-        document.querySelector(".my-page-button").style.display = "none";
-      });
-  };
   render() {
     return (
       <div>
