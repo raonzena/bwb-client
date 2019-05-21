@@ -68,41 +68,41 @@ const dateFormater = inputDate => {
 const MeetingDetailModal = props => {
   return props.show
     ? ReactDOM.createPortal(
-        <div className="modal">
-          <button className="closeBtn" onClick={props.closeModal}>
-            <span aria-hidden="true">&times;</span>
+      <div className="modal">
+        <button className="closeBtn" onClick={props.closeModal}>
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>
+          <strong>{props.data[0].meeting.name}</strong>{" "}
+        </h4>
+        <div>
+          <strong>주최자</strong> {props.data[0].meeting.user.nickname}
+        </div>
+        <div>
+          <strong>날짜/시간</strong>{" "}
+          {dateFormater(props.data[0].meeting.time)}
+        </div>
+        <div>
+          <strong>참가자</strong>{" "}
+          {displayParticipants(props.data).displayNames}{" "}
+          {displayParticipants(props.data).displayCounts}
+        </div>
+        {buttonDisplayIdentifier(props.data) === 0 ? null : (
+          <button
+            className="participateBtn"
+            onClick={() =>
+              props.buttonHandler(
+                buttonDisplayIdentifier(props.data),
+                props.data[0].meeting_id
+              )
+            }
+          >
+            {buttonDisplayIdentifier(props.data)}
           </button>
-          <h4>
-            <strong>{props.data[0].meeting.name}</strong>{" "}
-          </h4>
-          <div>
-            <strong>모임이름</strong> {props.data[0].meeting.user.nickname}
-          </div>
-          <div>
-            <strong>날짜/시간</strong>{" "}
-            {dateFormater(props.data[0].meeting.time)}
-          </div>
-          <div>
-            <strong>참가자</strong>{" "}
-            {displayParticipants(props.data).displayNames}{" "}
-            {displayParticipants(props.data).displayCounts}
-          </div>
-          {buttonDisplayIdentifier(props.data) === 0 ? null : (
-            <button
-              className="participateBtn"
-              onClick={() =>
-                props.buttonHandler(
-                  buttonDisplayIdentifier(props.data),
-                  props.data[0].meeting_id
-                )
-              }
-            >
-              {buttonDisplayIdentifier(props.data)}
-            </button>
-          )}
-        </div>,
-        document.querySelector("#modal_root")
-      )
+        )}
+      </div>,
+      document.querySelector("#modal_root")
+    )
     : null;
 };
 

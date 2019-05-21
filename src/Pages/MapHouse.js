@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
+import LeftContainer from "../Components/LeftContainer"
 
 Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
@@ -13,14 +14,19 @@ var infowindow;
 var service;
 
 class MapHouse extends Component {
-  restaurantInfos = [];
-  meetingsInfos = [];
+  //레스토랑인포담기
+
+  //마커 클릭시 정보 담기
+  clickMarkerRestaurantInfo = null;
+
+  //검색한 장소에 대한 경도, 위도 좌표
   lat = null;
   lng = null;
 
   state = {
     //실제 지도 검색 키워드//
-    searchValue: ""
+    searchValue: "",
+    restaurantInfos: []
   };
 
   //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
@@ -68,12 +74,14 @@ class MapHouse extends Component {
 
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        if (JSON.stringify(this.restaurantInfos) !== JSON.stringify(results)) {
+        if (JSON.stringify(results)) {
           console.log(results, "음식점 정보");
-          this.restaurantInfos = results;
+          this.setState({
+            restaurantInfos: results
+          })
           this.createMarkers(lat, lng, results, map);
           map.setCenter(results[0].geometry.location);
-          this.meetingsInfos = this.bringMeetingData(results);
+          // this.meetingsInfos = this.bringMeetingData(results);
         }
       }
     });
@@ -115,14 +123,19 @@ class MapHouse extends Component {
 
       infowindow.setPosition();
 
-      marker.addListener(
-        "click",
-        (locationMarker = place.geometry.location, thisMarker = marker) => {
-          return (function() {
-            infowindow.open(locationMarker.latLng, thisMarker);
-          })(locationMarker, thisMarker);
-        }
-      );
+      marker.addListener('click', (locationMarker = place.geometry.location, thisMarker = marker, placeId = place.place_id) => {
+        return (() => {
+          infowindow.open(locationMarker.latLng, thisMarker);
+          var service = new google.maps.places.PlacesService(map);
+          service.getDetails({ placeId: placeId }, (place, status) => {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              this.clickMarkerRestaurantInfo = place;
+              console.log(this.clickMarkerRestaurantInfo, 'this.clickMarkerResInfo')
+            }
+          })
+
+        })(locationMarker, thisMarker, placeId)
+      });
 
       var li = document.createElement("li");
       li.textContent = place.name;
@@ -134,49 +147,59 @@ class MapHouse extends Component {
     map.fitBounds(bounds);
   };
 
-  bringMeetingData = async restaurantInfos => {
-    var restaurantMeetingInfos = await Promise.all(
-      restaurantInfos.map((ele, idx) => {
-        return fetch(
-          "http://localhost:3000/meetings/list/region?q=" + ele.place_id,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-        )
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            return data;
-          })
-          .catch(err => {
-            console.log(err);
-            return err;
-          });
-      })
-    );
-    console.log(restaurantMeetingInfos, "resInfo");
-    return restaurantMeetingInfos;
-  };
+  // bringMeetingData = async restaurantInfos => {
+  //   var restaurantMeetingInfos = await Promise.all(
+  //     restaurantInfos.map((ele, idx) => {
+  //       return fetch(
+  //         "http://localhost:3000/meetings/list/region?q=" + ele.place_id,
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             "Content-Type": "application/json"
+  //           }
+  //         }
+  //       )
+  //         .then(response => {
+  //           return response.json();
+  //         })
+  //         .then(data => {
+  //           return data;
+  //         })
+  //         .catch(err => {
+  //           console.log(err);
+  //           return err;
+  //         });
+  //     })
+  //   );
+  //   console.log(restaurantMeetingInfos, "resInfo");
+  //   return restaurantMeetingInfos;
+  // };
 
   render() {
     return (
       <Fragment>
+        {/* 검색창 */}
         <MainSearch handleSearch={this.handleSearch} />
-        <div className="mapHead">
-          <div className="mapBody">
-            <div className="map" />
-            <div className="infowindow-content" />
-            <div className="right-panel">
-              <h2>Results</h2>
-              <ul className="places" />
-              <button className="more">More results</button>
+        <div className="rightContainer">
+          <div className="mapHead">
+            <div className="mapBody">
+              <div className="map" />
+              <div className="infowindow-content" />
+              <div className="right-panel">
+                <h2>Results</h2>
+                <ul className="places" />
+                <button className="more">More results</button>
+              </div>
             </div>
           </div>
         </div>
+        <div className="leftContainer">
+          <LeftContainer
+            restaurantInfos={this.state.restaurantInfos}
+            clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
+          />
+        </div>
+
       </Fragment>
     );
   }

@@ -100,8 +100,8 @@ class App extends Component {
               }}
             />
           ) : (
-            false
-          )}
+              false
+            )}
           {this.state.signCheck === "signup" ? (
             <Signup
               onSubmit={(_id, _pw, _nick_name, _gender) => {
@@ -140,8 +140,8 @@ class App extends Component {
               }}
             />
           ) : (
-            false
-          )}
+              false
+            )}
           {this.state.signCheck === "logout" ? (
             <Logout
               onLogout={() => {
@@ -172,8 +172,8 @@ class App extends Component {
               }}
             />
           ) : (
-            false
-          )}
+              false
+            )}
         </div>
         {/* /------------------------------------------------------합치는 작업영역
         ---------------------------------------------------------------/ */}
@@ -189,15 +189,15 @@ class App extends Component {
               <MyPage currentItem={this.state.currentItem} />
             </div>
           ) : (
-            <div>
-              <div className="MeetingApp">
-                <MeetingApp changeIsLogin={this.changeIsLogin} />
+              <div>
+                <div className="MeetingApp">
+                  <MeetingApp changeIsLogin={this.changeIsLogin} />
+                </div>
               </div>
-            </div>
-          )
+            )
         ) : (
-          false
-        )}
+            false
+          )}
         <div className="js-MapHouse MapHouse">
           <MapHouse isLogin={this.state.isLogin} />
         </div>
