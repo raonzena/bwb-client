@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
+import LeftContainer from '../Components/LeftContainer'
+
 
 Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
@@ -118,7 +120,7 @@ class MapHouse extends Component {
       marker.addListener(
         "click",
         (locationMarker = place.geometry.location, thisMarker = marker) => {
-          return (function() {
+          return (function () {
             infowindow.open(locationMarker.latLng, thisMarker);
           })(locationMarker, thisMarker);
         }
@@ -176,6 +178,11 @@ class MapHouse extends Component {
               <button className="more">More results</button>
             </div>
           </div>
+        </div>
+        <div className="leftContainer">
+          <LeftContainer
+            restaurantInfos={this.state.restaurantInfos}
+          />
         </div>
       </Fragment>
     );
