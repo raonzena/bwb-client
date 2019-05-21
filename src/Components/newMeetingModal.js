@@ -8,7 +8,7 @@ class NewMeetingModal extends React.Component {
     this.state = {
       month: new Date().getMonth() + 1,
       date: new Date().getDate(),
-      hour: new Date().getHours() + 1,
+      hour: null,
       minute: "00"
     };
     this.textInput = null;
