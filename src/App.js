@@ -19,9 +19,15 @@ class App extends Component {
   }
   handleSearch = e => {
     if (e.key === "Enter") {
-      this.setState({
-        searchValue: e.target.value
-      });
+      if( !e.target.value.length ){
+        alert(' 지역을 입력하세요! ')
+      }else{ 
+        let data = e.target.value;
+        e.target.value = '';
+        this.setState({
+          searchValue: data,
+        });
+      }
     }
   };
   getMyPageList = () => {
@@ -47,30 +53,33 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <Header />
-          <MainSearch handleSearch={this.handleSearch} />
-        </div>
-        <div>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/maphouse" component={MainSearch} redn />
-          <Route path="/logout" component={Logout} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
+        <div className="Whole-Scene">
+          
+            <Header />
+            
+          
+            <Route exact path="/" component={Main} />
+            <Route exact path="/maphouse" component={MainSearch} redn />
+            <Route path="/logout" component={Logout} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
 
-          {/* <Route path="/maphouse" component={MapHouse} /> */}
-        </div>
-        {this.state.searchValue !== undefined ? (
-          <MapHouse searchValue={this.state.searchValue} />
-        ) : (
-          false
-        )}
-        {/* <MapHouse searchValue={this.state.searchValue} /> */}
-        <div>
-          <button className="my-page-button" onClick={this.getMyPageList}>
-            MyPage
-          </button>
-          <MyPage currentItem={this.state.currentItem} />
+            {/* <Route path="/maphouse" component={MapHouse} /> */}
+          <MainSearch className="Search-House" handleSearch={this.handleSearch} />
+          <div className="Bodys">
+            {this.state.searchValue !== undefined ? (
+              <MapHouse searchValue={this.state.searchValue} />
+            ) : (
+              false
+            )}
+            {/* <MapHouse searchValue={this.state.searchValue} /> */}
+            <div>
+              <button className="my-page-button" onClick={this.getMyPageList}>
+                MyPage
+              </button>
+              <MyPage currentItem={this.state.currentItem} />
+            </div>
+          </div>
         </div>
       </Router>
     );

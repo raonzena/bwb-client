@@ -21,6 +21,7 @@ class NewMeetingModal extends React.Component {
       month: month
     });
   };
+  
   createSubmitData = () => {
     let submitData = {};
     submitData.meeting_name = this.name.value;

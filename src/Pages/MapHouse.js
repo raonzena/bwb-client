@@ -183,19 +183,23 @@ class MapHouse extends Component {
   render() {
     return (
       <Fragment>
-        <div className="rightContainer">
-          <div className="mapHead">
-            <div className="mapBody">
-              <div className="map" />
-              <div className="infowindow-content" />
+        <div className="Middle">
+          <div className="leftContainer">
+              <LeftContainer
+                restaurantInfos={this.state.restaurantInfos}
+                clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
+              />
+          </div>
+          
+          <div className="rightContainer">
+            <div className="mapHead">
+              <div className="mapBody">
+                <div className="map" />
+                <div className="infowindow-content" />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="leftContainer">
-          <LeftContainer
-            restaurantInfos={this.state.restaurantInfos}
-            clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
-          />
+          
         </div>
       </Fragment>
     );

@@ -2,10 +2,11 @@ import React, { Component, Fragment } from "react";
 
 const MainSearch = props => {
   return (
-    <div>
-      <input
+    <div className="Search-Div">
+      <input 
+        className="Input-Bar"
         type="text"
-        placeholder="검색하시오"
+        placeholder=" 지역을 검색하시오 "
         onKeyDown={props.handleSearch}
       />
     </div>
