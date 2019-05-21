@@ -2,10 +2,11 @@
        * element that contains the map. */
 .map {
   height: 100%;
+  width: 50%;
 }
 /* Optional: Makes the sample page fill the window. */
 .mapHead {
-  height: 100%;
+  height: 500px;
   margin: 0;
   padding: 0;
 }

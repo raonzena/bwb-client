@@ -1,5 +1,48 @@
 // localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTgwNjE3NTIwMDAsImRhdGEiOiJ0ZXN0NiIsImlzTG9naW4iOnRydWUsImV4cCI6MTU1ODE0ODE1MjAwMH0.pzw7IlVcnHFf24XqiYtxp4Lw9KDcF7ZoZLLI9dcBxBQ')
 
+//login fetch
+async function fetchLogin(loginUser) {
+  return await fetch("http://localhost:3000/login", {
+    method: "POST",
+    body: JSON.stringify(loginUser),
+    headers: { "Content-Type": "application/json" }
+  });
+}
+
+//signup fetch
+async function fetchSignup(user) {
+  return await fetch("http://localhost:3000/signup", {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+}
+//signup idCheck fetch
+async function fetchSignup_IdCheck(id) {
+  return await fetch(`http://localhost:3000/id/check?id=${id}`, {
+    method: "GET"
+  });
+}
+//signup nicknameCheck fetch
+async function fetchSignup_NickNameCheck(nick_name) {
+  return await fetch(
+    `http://localhost:3000/nickname/check?nick_name=${nick_name}`,
+    {
+      method: "GET"
+    }
+  );
+}
+// logout fetch
+async function fetchLogout(token) {
+  return await fetch("http://localhost:3000/logout", {
+    method: "GET",
+    headers: {
+      authorization: token
+    }
+  });
+}
 //미팅 디테일 fetch
 async function fetchMeetingDetail(placeId, index) {
   let token = localStorage.getItem("token");
@@ -93,6 +136,11 @@ async function createNewMeeting(data) {
 }
 
 module.exports = {
+  fetchLogin,
+  fetchSignup,
+  fetchSignup_IdCheck,
+  fetchSignup_NickNameCheck,
+  fetchLogout,
   fetchMeetingDetail,
   addMember,
   deleteMeeting,
