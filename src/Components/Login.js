@@ -2,7 +2,6 @@ import React from "react";
 import "../Headers/Header.css";
 import Fetch from "../helpers/fetch";
 const Login = ({ history }) => {
-  console.log(Fetch.fetchLogin);
   return (
     <div className="login">
       <h2>로그인</h2>
@@ -37,6 +36,8 @@ const Login = ({ history }) => {
                   document.querySelector(".login").style.display = "none";
                   document.querySelector(".signup").style.display = "none";
                   document.querySelector(".logout").style.display = "block";
+                  document.querySelector(".my-page-button").style.display =
+                    "block";
                   history.push("/");
                 })
                 .catch(err => {

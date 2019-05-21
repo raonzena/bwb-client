@@ -1,37 +1,28 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./App.css";
-import MapHouse from "./MapHouse";
-import SignApp from "./SignApp";
-import Loading from "./Components/Loading";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Main from "./ReactRoutes/Main";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
+import Header from "./Headers/Header";
 import Logout from "./Components/Logout";
-import MeetingApp from "./MeetingApp";
+import MapHouse from "./Pages/MapHouse";
+import MainSearch from "./Pages/MainSearch";
 import MyPage from "./Pages/MyPage";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: null,
-      signCheck: null,
+      searchValue: "",
       currentItem: {}
     };
   }
-  componentDidMount = () => {
-    if (localStorage.getItem("token")) {
+  handleSearch = e => {
+    if (e.key === "Enter") {
       this.setState({
-        isLogin: true
-      });
-    } else {
-      this.setState({
-        isLogin: false
+        searchValue: e.target.value
       });
     }
-  };
-  changeIsLogin = value => {
-    this.setState({
-      signCheck: value
-    });
   };
   getMyPageList = () => {
     var id = localStorage.getItem("token");
@@ -54,154 +45,34 @@ class App extends Component {
       });
   };
   render() {
-    console.log("app", this.state.isLogin);
-    if (this.state.isLogin === null) {
-      return <Loading />;
-    }
     return (
-      <div className="App">
-        <div className="js-signApp signApp">
-          <SignApp
-            isLogin={this.state.isLogin}
-            changeIsLogin={this.changeIsLogin}
-          />
+      <Router>
+        <div>
+          <Header />
+          <MainSearch handleSearch={this.handleSearch} />
         </div>
-        <div className="js-LogSign logSign">
-          {this.state.signCheck === "login" ? (
-            <Login
-              onSubmit={(_id, _pw) => {
-                var loginUser = { id: _id, pw: _pw };
-                fetch("http://localhost:3000/login", {
-                  method: "POST",
-                  body: JSON.stringify(loginUser),
-                  headers: { "Content-Type": "application/json" }
-                })
-                  .then(response => {
-                    if (response.status === 200) {
-                      this.setState({
-                        isLogin: true,
-                        signCheck: null
-                      });
-                      alert("로그인에 성공하였습니다!");
-                    } else if (response.status === 204) {
-                      alert("가입된 회원이 아닙니다!");
-                    } else if (response.status === 409) {
-                      alert("비밀번호가 일치하지 않습니다!");
-                    }
-                    return response.json();
-                  })
-                  .then(token => {
-                    localStorage.setItem("token", token.token);
-                  })
-                  .catch(err => {
-                    // console.log(err);
-                    return err;
-                  });
-              }}
-            />
-          ) : (
-              false
-            )}
-          {this.state.signCheck === "signup" ? (
-            <Signup
-              onSubmit={(_id, _pw, _nick_name, _gender) => {
-                var user = {
-                  id: _id,
-                  pw: _pw,
-                  nick_name: _nick_name,
-                  gender: _gender
-                };
-                fetch("http://localhost:3000/signup", {
-                  method: "POST",
-                  body: JSON.stringify(user),
-                  headers: {
-                    "Content-Type": "application/json"
-                  }
-                })
-                  .then(response => {
-                    console.log(response.status);
-                    if (response.status === 201) {
-                      this.setState({
-                        // isLogin: true,
-                        signCheck: "login"
-                      });
-                      // onLogSign(false);
-                      alert("정상적으로 회원가입 되었습니다!");
-                      return response;
-                    }
+        <div>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/maphouse" component={MainSearch} redn />
+          <Route path="/logout" component={Logout} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
 
-                    return response;
-                  })
-                  .catch(err => {
-                    alert("회원가입에 실패하였습니다!");
-                    console.log(err);
-                    return err;
-                  });
-              }}
-            />
-          ) : (
-              false
-            )}
-          {this.state.signCheck === "logout" ? (
-            <Logout
-              onLogout={() => {
-                var token = localStorage.getItem("token");
-                fetch("http://localhost:3000/logout", {
-                  method: "GET",
-                  headers: {
-                    authorization: token
-                  }
-                })
-                  .then(response => {
-                    if (response.status === 201) {
-                      localStorage.removeItem("token");
-                      this.setState({
-                        isLogin: false,
-                        signCheck: null
-                      });
-                      alert("로그아웃 되었습니다");
-                      return response;
-                    }
-                    return response;
-                  })
-                  .catch(err => {
-                    alert("로그아웃에 실패했습니다");
-                    console.log(err);
-                    return err;
-                  });
-              }}
-            />
-          ) : (
-              false
-            )}
+          {/* <Route path="/maphouse" component={MapHouse} /> */}
         </div>
-        {/* /------------------------------------------------------합치는 작업영역
-        ---------------------------------------------------------------/ */}
-        {this.state.isLogin !== null ? (
-          this.state.isLogin ? (
-            <div>
-              <div className="MeetingApp">
-                <MeetingApp changeIsLogin={this.changeIsLogin} />
-              </div>
-              <button className="my-page-button" onClick={this.getMyPageList}>
-                MyPage
-              </button>
-              <MyPage currentItem={this.state.currentItem} />
-            </div>
-          ) : (
-              <div>
-                <div className="MeetingApp">
-                  <MeetingApp changeIsLogin={this.changeIsLogin} />
-                </div>
-              </div>
-            )
+        {this.state.searchValue !== undefined ? (
+          <MapHouse searchValue={this.state.searchValue} />
         ) : (
-            false
-          )}
-        <div className="js-MapHouse MapHouse">
-          <MapHouse isLogin={this.state.isLogin} />
+          false
+        )}
+        {/* <MapHouse searchValue={this.state.searchValue} /> */}
+        <div>
+          <button className="my-page-button" onClick={this.getMyPageList}>
+            MyPage
+          </button>
+          <MyPage currentItem={this.state.currentItem} />
         </div>
-      </div>
+      </Router>
     );
   }
 }
