@@ -48,6 +48,13 @@ const Header = () => {
         <NavLink to="/signup" className="item signup" activeClassName="active">
           회원가입
         </NavLink>
+        <NavLink
+          to="/mypage"
+          className="my-page-button"
+          activeClassName="active"
+        >
+          mypage
+        </NavLink>
       </Fragment>
     </div>
   );
