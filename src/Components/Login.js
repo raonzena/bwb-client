@@ -1,8 +1,6 @@
 import React from "react";
-import "../Headers/Header.css";
-import Fetch from "../helpers/fetch";
-const Login = ({ history }) => {
-  console.log(Fetch.fetchLogin);
+// import "../Headers/Header.css";
+const Login = props => {
   return (
     <div className="login">
       <h2>로그인</h2>
@@ -22,27 +20,29 @@ const Login = ({ history }) => {
                 id: e.target.id.value,
                 pw: e.target.pw.value
               };
-
-              Fetch.fetchLogin(loginUser)
-                .then(response => {
-                  if (response.status === 204) {
-                    alert("가입된 회원이 아닙니다!");
-                  } else if (response.status === 409) {
-                    alert("비밀번호가 일치하지 않습니다!");
-                  }
-                  return response.json();
-                })
-                .then(token => {
-                  localStorage.setItem("token", token.token);
-                  document.querySelector(".login").style.display = "none";
-                  document.querySelector(".signup").style.display = "none";
-                  document.querySelector(".logout").style.display = "block";
-                  history.push("/");
-                })
-                .catch(err => {
-                  // console.log(err);
-                  return err;
-                });
+              props.onSubmit(e.target.id.value, e.target.pw.value);
+              document.querySelector(".my-page-button").style.display = "block";
+              // Fetch.fetchLogin(loginUser)
+              //   .then(response => {
+              //     if (response.status === 204) {
+              //       alert("가입된 회원이 아닙니다!");
+              //     } else if (response.status === 409) {
+              //       alert("비밀번호가 일치하지 않습니다!");
+              //     }
+              //     return response.json();
+              //   })
+              //   .then(token => {
+              //     localStorage.setItem("token", token.token);
+              //     // document.querySelector(".login").style.display = "none";
+              //     // document.querySelector(".signup").style.display = "none";
+              //     // document.querySelector(".logout").style.display = "block";
+              //     document.querySelector(".my-page-button").style.display =
+              //       "block";
+              //   })
+              //   .catch(err => {
+              //     // console.log(err);
+              //     return err;
+              //   });
             }
           }
           // this.props.onSubmit(e.target.id.value, e.target.pw.value);

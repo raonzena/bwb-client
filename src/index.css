@@ -33,6 +33,7 @@ code {
   margin-right: 500px;
 }
 .my-page-button {
+  display: none;
   position: fixed;
   right: 100px;
   bottom: 100px;

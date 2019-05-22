@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import "./App.css";
-import MapHouse from "./MapHouse";
+import MapHouse from "./Pages/MapHouse";
 import SignApp from "./SignApp";
 import Loading from "./Components/Loading";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Logout from "./Components/Logout";
-import MeetingApp from "./MeetingApp";
+import MainSearch from "./Pages/MainSearch";
 import MyPage from "./Pages/MyPage";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: null,
       signCheck: null,
-      currentItem: {}
+      currentItem: {},
+      searchValue: ""
     };
   }
   componentDidMount = () => {
@@ -25,6 +27,13 @@ class App extends Component {
     } else {
       this.setState({
         isLogin: false
+      });
+    }
+  };
+  handleSearch = e => {
+    if (e.key === "Enter") {
+      this.setState({
+        searchValue: e.target.value
       });
     }
   };
@@ -82,7 +91,7 @@ class App extends Component {
                         isLogin: true,
                         signCheck: null
                       });
-                      alert("로그인에 성공하였습니다!");
+                      // alert("로그인에 성공하였습니다!");
                     } else if (response.status === 204) {
                       alert("가입된 회원이 아닙니다!");
                     } else if (response.status === 409) {
@@ -100,8 +109,8 @@ class App extends Component {
               }}
             />
           ) : (
-              false
-            )}
+            false
+          )}
           {this.state.signCheck === "signup" ? (
             <Signup
               onSubmit={(_id, _pw, _nick_name, _gender) => {
@@ -140,8 +149,8 @@ class App extends Component {
               }}
             />
           ) : (
-              false
-            )}
+            false
+          )}
           {this.state.signCheck === "logout" ? (
             <Logout
               onLogout={() => {
@@ -159,7 +168,10 @@ class App extends Component {
                         isLogin: false,
                         signCheck: null
                       });
-                      alert("로그아웃 되었습니다");
+                      document.querySelector(".my-page-button").style.display =
+                        "none";
+                      document.querySelector(".my-page").style.display = "none";
+                      // alert("로그아웃 되었습니다");
                       return response;
                     }
                     return response;
@@ -172,35 +184,20 @@ class App extends Component {
               }}
             />
           ) : (
-              false
-            )}
-        </div>
-        {/* /------------------------------------------------------합치는 작업영역
-        ---------------------------------------------------------------/ */}
-        {this.state.isLogin !== null ? (
-          this.state.isLogin ? (
-            <div>
-              <div className="MeetingApp">
-                <MeetingApp changeIsLogin={this.changeIsLogin} />
-              </div>
-              <button className="my-page-button" onClick={this.getMyPageList}>
-                MyPage
-              </button>
-              <MyPage currentItem={this.state.currentItem} />
-            </div>
-          ) : (
-              <div>
-                <div className="MeetingApp">
-                  <MeetingApp changeIsLogin={this.changeIsLogin} />
-                </div>
-              </div>
-            )
-        ) : (
             false
           )}
-        <div className="js-MapHouse MapHouse">
-          <MapHouse isLogin={this.state.isLogin} />
         </div>
+        <MainSearch handleSearch={this.handleSearch} />
+
+        {this.state.searchValue !== undefined ? (
+          <MapHouse searchValue={this.state.searchValue} />
+        ) : (
+          false
+        )}
+        <button className="my-page-button" onClick={this.getMyPageList}>
+          MyPage
+        </button>
+        <MyPage currentItem={this.state.currentItem} />
       </div>
     );
   }

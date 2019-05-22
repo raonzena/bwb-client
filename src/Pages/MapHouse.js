@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
-import LeftContainer from "../Components/LeftContainer"
+import LeftContainer from "../Components/leftContainer";
 
 Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
@@ -17,7 +17,7 @@ class MapHouse extends Component {
   //레스토랑인포담기
 
   //마커 클릭시 정보 담기
-  clickMarkerRestaurantInfo = null;
+  // clickMarkerRestaurantInfo = null;
 
   //검색한 장소에 대한 경도, 위도 좌표
   lat = null;
@@ -26,7 +26,8 @@ class MapHouse extends Component {
   state = {
     //실제 지도 검색 키워드//
     searchValue: "",
-    restaurantInfos: []
+    restaurantInfos: [],
+    clickMarkerRestaurantInfo: null
   };
 
   //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
@@ -41,9 +42,9 @@ class MapHouse extends Component {
 
   //searchValue를 구글맵에 전달하여 위치 좌표를 받는 함수
 
-  loadSite = () => {
-    if (this.state.searchValue) {
-      Geocode.fromAddress(this.state.searchValue)
+  loadSite = data => {
+    if (data) {
+      Geocode.fromAddress(data)
         .then(response => {
           this.lat = response.results[0].geometry.location.lat;
           this.lng = response.results[0].geometry.location.lng;
@@ -78,7 +79,7 @@ class MapHouse extends Component {
           console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
-          })
+          });
           this.createMarkers(lat, lng, results, map);
           map.setCenter(results[0].geometry.location);
           // this.meetingsInfos = this.bringMeetingData(results);
@@ -89,12 +90,7 @@ class MapHouse extends Component {
 
   createMarkers = (lat, lng, places, map) => {
     var bounds = new google.maps.LatLngBounds();
-    var placesList = document.querySelector(".places");
-    if (placesList.firstChild) {
-      while (placesList.firstChild) {
-        placesList.removeChild(placesList.firstChild);
-      }
-    }
+
     for (let i = 0, place; (place = places[i]); i++) {
       var image = {
         url: place.icon,
@@ -123,24 +119,31 @@ class MapHouse extends Component {
 
       infowindow.setPosition();
 
-      marker.addListener('click', (locationMarker = place.geometry.location, thisMarker = marker, placeId = place.place_id) => {
-        return (() => {
-          infowindow.open(locationMarker.latLng, thisMarker);
-          var service = new google.maps.places.PlacesService(map);
-          service.getDetails({ placeId: placeId }, (place, status) => {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-              this.clickMarkerRestaurantInfo = place;
-              console.log(this.clickMarkerRestaurantInfo, 'this.clickMarkerResInfo')
-            }
-          })
-
-        })(locationMarker, thisMarker, placeId)
-      });
+      marker.addListener(
+        "click",
+        (
+          locationMarker = place.geometry.location,
+          thisMarker = marker,
+          placeId = place.place_id
+        ) => {
+          return (() => {
+            infowindow.open(locationMarker.latLng, thisMarker);
+            var service = new google.maps.places.PlacesService(map);
+            service.getDetails({ placeId: placeId }, (place, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                this.setState({
+                  clickMarkerRestaurantInfo: place,
+                  restaurantInfos: []
+                });
+              }
+            });
+          })(locationMarker, thisMarker, placeId);
+        }
+      );
 
       var li = document.createElement("li");
       li.textContent = place.name;
 
-      placesList.appendChild(li);
       bounds.extend(place.geometry.location);
     }
 
@@ -174,32 +177,27 @@ class MapHouse extends Component {
   //   console.log(restaurantMeetingInfos, "resInfo");
   //   return restaurantMeetingInfos;
   // };
-
+  componentWillReceiveProps() {
+    this.loadSite(this.props.searchValue);
+  }
   render() {
+    console.log(this.state.clickMarkerRestaurantInfo)
     return (
       <Fragment>
-        {/* 검색창 */}
-        <MainSearch handleSearch={this.handleSearch} />
         <div className="rightContainer">
           <div className="mapHead">
             <div className="mapBody">
               <div className="map" />
               <div className="infowindow-content" />
-              <div className="right-panel">
-                <h2>Results</h2>
-                <ul className="places" />
-                <button className="more">More results</button>
-              </div>
             </div>
           </div>
         </div>
         <div className="leftContainer">
           <LeftContainer
-            restaurantInfos={this.state.restaurantInfos}
-            clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
+            restaurantInfos={this.state.restaurantInfos} 
+            clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
           />
         </div>
-
       </Fragment>
     );
   }
