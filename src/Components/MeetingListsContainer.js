@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import MeetingLists from "./MeetingLists";
 import fetchHelper from "../helpers/fetch";
 import MeetingDetailModal from "./MeetingDetailModal";
@@ -15,7 +15,7 @@ class MeetingListsContainer extends React.Component {
             nickname: null
         };
     }
-    
+
     getMeetingDetail = (placeId, meetingId) => {
         fetchHelper
             .fetchMeetingDetail(placeId, meetingId)
@@ -57,7 +57,7 @@ class MeetingListsContainer extends React.Component {
                         }
                     } else {
                         this.toggleMeetingDetailModal();
-                        this.props.fetchMeetingLists();
+                        this.props.fetchMeetingLists(this.props.restaurantInfos);
                     }
                 });
             } else if (identifier === "참가 취소") {
@@ -71,7 +71,7 @@ class MeetingListsContainer extends React.Component {
                         }
                     } else {
                         this.toggleMeetingDetailModal();
-                        this.props.fetchMeetingLists();
+                        this.props.fetchMeetingLists(this.props.restaurantInfos);
                     }
                 });
             } else if (identifier === "모임 삭제") {
@@ -85,7 +85,7 @@ class MeetingListsContainer extends React.Component {
                         }
                     } else {
                         this.toggleMeetingDetailModal();
-                        this.props.fetchMeetingLists();
+                        this.props.fetchMeetingLists(this.props.restaurantInfos);
                     }
                 });
             } else if (identifier === "모임 생성") {
@@ -100,7 +100,7 @@ class MeetingListsContainer extends React.Component {
 
     submitNewMeeting = (createSubmitData) => {
         createSubmitData.placeId = this.props.clickMarkerRestaurantInfo.place_id;
-        if(!localStorage.getItem("token")) {
+        if (!localStorage.getItem("token")) {
             let response = window.confirm(
                 "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
             );
@@ -146,12 +146,12 @@ class MeetingListsContainer extends React.Component {
 
     getNickname = async () => {
         return await fetchHelper.fetchNickname()
-        .then(result => {
-            return result.json();
-        })
-        .then(json => {
-            return json;
-        });  
+            .then(result => {
+                return result.json();
+            })
+            .then(json => {
+                return json;
+            });
     }
 
     // componentDidMount = () => {
@@ -191,36 +191,36 @@ class MeetingListsContainer extends React.Component {
     };
 
     render() {
-        let nickname = this.getNickname();
+        // let nickname = this.getNickname();
         return (
             <div>
                 {this.props.meetingsInfos ?
                     (
                         this.props.clickMarkerRestaurantInfo ? (
-                        <Fragment>
-                            <RestaurantMeetingList 
-                                meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
-                                clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
-                                getMeetingDetail={this.getMeetingDetail}
-                                getNewMeetingModal={this.getNewMeetingModal}
-                                buttonHandler={this.fetchHandler}
-                                /> 
-                            <NewMeetingModal
-                                show={this.state.showNewMeetingModal}
-                                closeModal={this.toggleNewMeetingModal}
-                                submitNewMeeting={this.submitNewMeeting}
-                                placeName={this.props.clickMarkerRestaurantInfo.name}
-                                nickname={this.state.nickname}
-                                buttonHandler={this.fetchHandler}
-                            />
-                        </Fragment>
+                            <Fragment>
+                                <RestaurantMeetingList
+                                    meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
+                                    clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
+                                    getMeetingDetail={this.getMeetingDetail}
+                                    getNewMeetingModal={this.getNewMeetingModal}
+                                    buttonHandler={this.fetchHandler}
+                                />
+                                <NewMeetingModal
+                                    show={this.state.showNewMeetingModal}
+                                    closeModal={this.toggleNewMeetingModal}
+                                    submitNewMeeting={this.submitNewMeeting}
+                                    placeName={this.props.clickMarkerRestaurantInfo.name}
+                                    nickname={this.state.nickname}
+                                    buttonHandler={this.fetchHandler}
+                                />
+                            </Fragment>
                         )
-                        : (
-                        <MeetingLists
-                            filteredMeetingLists={this.activationFilter(this.props.meetingsInfos.result)}
-                            getMeetingDetail={this.getMeetingDetail}
-                            restaurantInfos={this.props.restaurantInfos} />)
-                        )
+                            : (
+                                <MeetingLists
+                                    filteredMeetingLists={this.activationFilter(this.props.meetingsInfos.result)}
+                                    getMeetingDetail={this.getMeetingDetail}
+                                    restaurantInfos={this.props.restaurantInfos} />)
+                    )
                     :
                     null
                 }
