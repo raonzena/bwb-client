@@ -192,6 +192,7 @@ class MeetingListsContainer extends React.Component {
                                     getMeetingDetail={this.getMeetingDetail}
                                     getNewMeetingModal={this.getNewMeetingModal}
                                     buttonHandler={this.fetchHandler}
+                                    backToMeetingList={this.props.backToMeetingList}
                                 />
                                 <NewMeetingModal
                                     show={this.state.showNewMeetingModal}
