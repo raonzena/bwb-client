@@ -44,7 +44,9 @@ class RestaurantMeetingList extends Component {
               </div>
             ))
             : 
-            null
+            <div>
+              지난 모임이 없습니다.
+            </div>
           } 
         </div>
       </div>
