@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
-import LeftContainer from "../Components/LeftContainer";
+import LeftContainer from "../Components/leftContainer";
 
 Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
@@ -17,7 +17,7 @@ class MapHouse extends Component {
   //레스토랑인포담기
 
   //마커 클릭시 정보 담기
-  clickMarkerRestaurantInfo = null;
+  // clickMarkerRestaurantInfo = null;
 
   //검색한 장소에 대한 경도, 위도 좌표
   lat = null;
@@ -26,7 +26,8 @@ class MapHouse extends Component {
   state = {
     //실제 지도 검색 키워드//
     searchValue: "",
-    restaurantInfos: []
+    restaurantInfos: [],
+    clickMarkerRestaurantInfo: null
   };
 
   //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
@@ -130,11 +131,10 @@ class MapHouse extends Component {
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-                this.clickMarkerRestaurantInfo = place;
-                console.log(
-                  this.clickMarkerRestaurantInfo,
-                  "this.clickMarkerResInfo"
-                );
+                this.setState({
+                  clickMarkerRestaurantInfo: place,
+                  restaurantInfos: []
+                });
               }
             });
           })(locationMarker, thisMarker, placeId);
@@ -181,6 +181,7 @@ class MapHouse extends Component {
     this.loadSite(this.props.searchValue);
   }
   render() {
+    console.log(this.state.clickMarkerRestaurantInfo)
     return (
       <Fragment>
         <div className="rightContainer">
@@ -193,8 +194,8 @@ class MapHouse extends Component {
         </div>
         <div className="leftContainer">
           <LeftContainer
-            restaurantInfos={this.state.restaurantInfos}
-            clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
+            restaurantInfos={this.state.restaurantInfos} 
+            clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
           />
         </div>
       </Fragment>
