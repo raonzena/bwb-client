@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MySchedule from "../Components/MySchedule";
 
+
 class MyPage extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +18,7 @@ class MyPage extends Component {
         <div className="close-button" onClick={this.closeMyPageList}>
           X
         </div>
+          
         <h1>나의 BWB 일정</h1>
         <div>
           <h2>내가 만든 모임 일정</h2>

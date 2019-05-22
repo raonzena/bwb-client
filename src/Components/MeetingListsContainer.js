@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
+import "../App.css";
 import MeetingLists from "./MeetingLists";
 import fetchHelper from "../helpers/fetch";
 import MeetingDetailModal from "./MeetingDetailModal";
 import RestaurantMeetingList from "./RestaurantMeetingList";
 import NewMeetingModal from "./NewMeetingModal";
+
 
 class MeetingListsContainer extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class MeetingListsContainer extends React.Component {
             nickname: null
         };
     }
+    
 
     getMeetingDetail = (placeId, meetingId) => {
         fetchHelper

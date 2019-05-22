@@ -179,13 +179,13 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-        <div className="leftContainer">
+        {/* <div className="leftContainer">
           <LeftContainer
             restaurantInfos={this.state.restaurantInfos} 
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
             backToMeetingList={this.backToMeetingList}
           />
-        </div>
+        </div> */}
       </Fragment>
     );
   }

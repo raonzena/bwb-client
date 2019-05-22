@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import MeetingListsContainer from "./MeetingListsContainer";
 
 class LeftContainer extends React.Component {
@@ -42,7 +43,7 @@ class LeftContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="MeetingListsContainer">
         {this.props.restaurantInfos.length > 0 ? (
             this.props.clickMarkerRestaurantInfo ? (
                 <MeetingListsContainer

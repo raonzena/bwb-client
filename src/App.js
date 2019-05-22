@@ -6,8 +6,9 @@ import Loading from "./Components/Loading";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Logout from "./Components/Logout";
-import MainSearch from "./Pages/MainSearch";
 import MyPage from "./Pages/MyPage";
+import MainSearch from "./Pages/MainSearch";
+import ClickMarker from "./Pages/ClickMarker";
 
 class App extends Component {
   constructor(props) {
@@ -199,6 +200,7 @@ class App extends Component {
           <div className="MainSearchHouse">
             <MainSearch  handleSearch={this.handleSearch} />
           </div>
+          {/* <ClickMarker/> */}
           {this.state.searchValue !== undefined ? (
             <MapHouse searchValue={this.state.searchValue} />
           ) : (
@@ -209,7 +211,6 @@ class App extends Component {
           </button>
         </div>
         <MyPage currentItem={this.state.currentItem} />
-        
       </div>
     );
   }

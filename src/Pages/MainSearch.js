@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import HomeButton from "./HomeButton"
-import Test from './Test'
+import SearchButton from './SearchButton'
 
 
 
@@ -38,10 +38,10 @@ function MainSearch(props) {
                       input: classes.inputInput,
                     }}
                     onKeyDown={props.handleSearch}
-                    style={{ fontSize: 40 }}  
+                    style={{ fontSize: 25 }}  
                 />
               </Typography>
-              <Test className="Test" style={{ fontSize: 40 }} /> 
+              <SearchButton className="Test" style={{ fontSize: 40 }} /> 
             </Toolbar>
            
           </AppBar>
