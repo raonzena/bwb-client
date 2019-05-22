@@ -1,11 +1,18 @@
 
 #root {
-  height: 700px;
+  height: 70%;
+  width: 100%;
 }
 
+#modal_root {
+  height:300px;
+  width: 100%;
+}
 .App {
+  overflow-x: hidden;
   text-align: center;
-  height: 100%;
+  width: 100%;
+  height: 700px;
   background-color: rgb(53, 53, 129);
 }
 
@@ -47,9 +54,9 @@
 
 /* 여기부터가 Middle 파트(rightContainer + leftContainer) */
 
-.PageType{
+/* .PageType{
   margin-top: 500px;
-}
+} */
 
 .Heads {
   background-color: rgb(51, 2, 107);
@@ -58,15 +65,17 @@
   align-content: right;
   align-items: right;
 }
-.signApp{
-  width: 100%;
-  height: 50%;
-  margin-left: 45%;
-}
+
 
 .logSign{
   align-content: right;
   align-items: right;
+}
+
+.Contents{
+  margin-right:10%;
+  width: 100%;
+  height: 60%;
 }
 
 .MainSearchHouse{
@@ -78,8 +87,10 @@
 }
 
 .MainSearch{
-  width: 70%;
-  height: 50px;
+  margin-left:10%;
+  margin-right:10%;
+  width: 80%;
+  height: 100px;
 }
 
 .MainSearch-root-1{
@@ -103,40 +114,53 @@
   font-size: 10px;
 }
 
-.SearchBox{
- 
-}
 
 
-.Bodys {
+.Bodys{
   width: 100%;
-  height: 800px;
+  height: 100%;
   margin-top: 25px;
 }
 
 .Middle {
-  margin-left:5%;
-  margin-right:5%;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  height: 60%;
+  height: 100%;
 }
 
 .leftContainer{
   flex:1;
+  margin-left:5%;
   margin-top:1%;
-  margin-left:7%;
-  
-  width:80%;
+  width:40%;
 }
 
 .MeetingListsContainer {
-  margin-left:5%;
+  
 }
 
 .rightContainer{
-  flex:2;
-  margin:1%;
-  width:80%;
+  flex:1;
+  margin-top:1%;
+  width:60%;
+}
+
+.MyPageButton{
+  margin-top: 20%;
+  height: 30px;
+  width: 50%;
+  margin-left: 60%;
+}
+
+.MyPage{
+  height:500px;
+}
+
+.my-page {
+  height:500px;
+  width: 100%;
 }

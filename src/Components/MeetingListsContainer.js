@@ -183,12 +183,14 @@ class MeetingListsContainer extends React.Component {
     };
 
     render() {
+        console.log(this.props.clickMarkerRestaurantInfo)
         return (
-            <div>
+            <div className="HelloWorld">
                 {this.props.meetingsInfos ?
                     (
                         this.props.clickMarkerRestaurantInfo ? (
                             <Fragment>
+                                <div className="RestaurantMeetingList">
                                 <RestaurantMeetingList
                                     meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
                                     clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
@@ -197,6 +199,8 @@ class MeetingListsContainer extends React.Component {
                                     buttonHandler={this.fetchHandler}
                                     backToMeetingList={this.props.backToMeetingList}
                                 />
+                                </div>
+                                <div className="NewMeetingModal">
                                 <NewMeetingModal
                                     show={this.state.showNewMeetingModal}
                                     closeModal={this.toggleNewMeetingModal}
@@ -205,6 +209,7 @@ class MeetingListsContainer extends React.Component {
                                     nickname={this.state.nickname}
                                     buttonHandler={this.fetchHandler}
                                 />
+                                </div>
                             </Fragment>
                         )
                             : (

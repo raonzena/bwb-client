@@ -26,7 +26,7 @@ const styles = theme => ({
 
 function HomeIcon(props) {
   return (
-    <SvgIcon {...props}>
+    <SvgIcon {...props}  >
       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
     </SvgIcon>
   );
@@ -39,6 +39,7 @@ function SvgIcons(props) {
       
       {/* <HomeIcon className={classes.icon} color="primary" style={{ fontSize: 50 }} fontSize="large" /> */}
       <HomeIcon
+        
         className={classes.icon}
         color="primary"
         style={{ fontSize: 50 }} fontSize="large"

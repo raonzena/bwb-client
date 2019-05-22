@@ -6,7 +6,9 @@ class LeftContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meetingsInfos: undefined
+      meetingsInfos: undefined,
+      restaurantMeetingInfos: undefined,
+      clickMarkerRestaurantInfo: undefined,
     };
   }
 
@@ -21,9 +23,16 @@ class LeftContainer extends React.Component {
       .then(result => result.json())
       .then(fetchedMeetingLists => {
         console.log("fetched", fetchedMeetingLists);
-        this.setState({
-          meetingsInfos: fetchedMeetingLists
-        });
+        if(restaurantInfos === this.props.restaurantInfos) {
+            this.setState({
+                meetingsInfos: fetchedMeetingLists,
+                clickMarkerRestaurantInfo: this.props.clickMarkerRestaurantInfo,
+            });
+        } else {
+            this.setState({
+                restaurantMeetingInfos: fetchedMeetingLists,
+            });     
+        }
       });
   };
 
@@ -35,19 +44,20 @@ class LeftContainer extends React.Component {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
         this.fetchMeetingLists(this.props.restaurantInfos);
     }
-    
     if (prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
         this.fetchMeetingLists(new Array(this.props.clickMarkerRestaurantInfo));
     }
   }
 
   render() {
+    console.log(this.props, 'fuck')
+    console.log(this.state, 'shit')
     return (
       <div className="MeetingListsContainer">
         {this.props.restaurantInfos.length > 0 ? (
             this.props.clickMarkerRestaurantInfo ? (
                 <MeetingListsContainer
-                    meetingsInfos={this.state.meetingsInfos}
+                    meetingsInfos={this.state.restaurantMeetingInfos}
                     restaurantInfos={this.props.restaurantInfos}
                     fetchMeetingLists={this.fetchMeetingLists}
                     clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 

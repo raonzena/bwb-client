@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import MySchedule from "../Components/MySchedule";
 
-
 class MyPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   closeMyPageList = () => {
     document.querySelector(".my-page").style.display = "none";
     document.querySelector(".my-page-button").style.display = "block";
