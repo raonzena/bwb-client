@@ -1,6 +1,6 @@
 import React from "react";
-import MainSearch from "../Pages/MainSearch";
-import MapHouse from "../Pages/MapHouse";
+import MainSearch from "./MainSearch";
+import MapHouse from "./MapHouse";
 const Home = props => {
   return (
     <div>
