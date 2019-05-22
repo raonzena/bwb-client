@@ -21,13 +21,13 @@ const styles = {
 
 function MainSearch(props) {
   const { classes } = props;
-
+  
   return (
     <Fragment>
         <span className={classes.root}>
           <AppBar position="static" color="default">
             <Toolbar>
-            <Button color="inherit"><HomeButton/></Button>
+            <Button color="inherit" ><HomeButton className="HomeButton" onClick = {props.handleSearch}/></Button>
               <Typography className="Input-Bar" variant="h6" color="inherit" >            
                 <InputBase
                     className="Input-Bar"

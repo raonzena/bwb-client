@@ -37,6 +37,7 @@ class App extends Component {
         alert(' 지역을 입력하세요! ')
       }else{ 
         let data = e.target.value;
+        console.log(data, 'data')
         e.target.value = '';
         this.setState({
           searchValue: data,
@@ -198,13 +199,13 @@ class App extends Component {
         </div>
         <div className='Bodys'>
           <div className="MainSearchHouse">
-            <MainSearch  handleSearch={this.handleSearch} />
+            <MainSearch  handleSearch={this.handleSearch} searchValue = {this.state.searchValue} />
           </div>
           {/* <ClickMarker/> */}
           {this.state.searchValue !== undefined ? (
             <MapHouse searchValue={this.state.searchValue} />
           ) : (
-            false
+            null
           )}
           <button className="my-page-button" onClick={this.getMyPageList}>
             MyPage
