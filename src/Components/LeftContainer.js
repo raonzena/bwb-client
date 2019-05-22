@@ -34,6 +34,7 @@ class LeftContainer extends React.Component {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
         this.fetchMeetingLists(this.props.restaurantInfos);
     }
+    
     if (prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
         this.fetchMeetingLists(new Array(this.props.clickMarkerRestaurantInfo));
     }
@@ -43,20 +44,21 @@ class LeftContainer extends React.Component {
     return (
       <div>
         {this.props.restaurantInfos.length > 0 ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-          />
-        ) : 
-        this.props.clickMarkerRestaurantInfo ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-            clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
-          /> )
-        : null
+            this.props.clickMarkerRestaurantInfo ? (
+                <MeetingListsContainer
+                    meetingsInfos={this.state.meetingsInfos}
+                    restaurantInfos={this.props.restaurantInfos}
+                    fetchMeetingLists={this.fetchMeetingLists}
+                    clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
+                /> )
+                :
+                <MeetingListsContainer
+                    meetingsInfos={this.state.meetingsInfos}
+                    restaurantInfos={this.props.restaurantInfos}
+                    fetchMeetingLists={this.fetchMeetingLists}
+                />
+            ) : 
+            null
         }
       </div>
     );

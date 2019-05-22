@@ -132,8 +132,7 @@ class MapHouse extends Component {
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
                 this.setState({
-                  clickMarkerRestaurantInfo: place,
-                  restaurantInfos: []
+                  clickMarkerRestaurantInfo: place
                 });
               }
             });
