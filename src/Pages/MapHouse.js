@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
-import LeftContainer from "../Components/leftContainer";
+import LeftContainer from "../Components/LeftContainer";
 
 Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();

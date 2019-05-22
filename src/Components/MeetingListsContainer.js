@@ -191,7 +191,7 @@ class MeetingListsContainer extends React.Component {
     };
 
     render() {
-        let nickname = this.getNickname();
+        // let nickname = this.getNickname();
         return (
             <div>
                 {this.props.meetingsInfos ?
