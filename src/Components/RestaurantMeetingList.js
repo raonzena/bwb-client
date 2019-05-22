@@ -48,6 +48,7 @@ class RestaurantMeetingList extends Component {
               지난 모임이 없습니다.
             </div>
           } 
+            <button onClick={this.props.backToMeetingList}>리스트로 이동</button>
         </div>
       </div>
     );

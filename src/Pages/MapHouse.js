@@ -149,6 +149,12 @@ class MapHouse extends Component {
     map.fitBounds(bounds);
   };
 
+  backToMeetingList = () => {
+    this.setState({
+      clickMarkerRestaurantInfo: null
+    });
+  }
+
   // bringMeetingData = async restaurantInfos => {
   //   var restaurantMeetingInfos = await Promise.all(
   //     restaurantInfos.map((ele, idx) => {
@@ -195,6 +201,7 @@ class MapHouse extends Component {
           <LeftContainer
             restaurantInfos={this.state.restaurantInfos} 
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+            backToMeetingList={this.backToMeetingList}
           />
         </div>
       </Fragment>

@@ -50,6 +50,7 @@ class LeftContainer extends React.Component {
                     restaurantInfos={this.props.restaurantInfos}
                     fetchMeetingLists={this.fetchMeetingLists}
                     clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
+                    backToMeetingList={this.props.backToMeetingList}
                 /> )
                 :
                 <MeetingListsContainer
