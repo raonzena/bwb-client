@@ -16,7 +16,8 @@ class App extends Component {
       isLogin: null,
       signCheck: null,
       currentItem: {},
-      searchValue: ""
+      searchValue: "",
+      myPageFalg: null
     };
   }
   componentDidMount = () => {
@@ -37,9 +38,16 @@ class App extends Component {
       });
     }
   };
-  changeIsLogin = value => {
+  changeIsButton = value => {
     this.setState({
       signCheck: value
+    });
+  };
+  changeIsLogin = (flag, value, pageFlage) => {
+    this.setState({
+      signCheck: flag,
+      isLogin: value,
+      myPageFalg: pageFlage
     });
   };
   getMyPageList = () => {
@@ -60,6 +68,9 @@ class App extends Component {
         });
         document.querySelector(".my-page").style.display = "block";
         document.querySelector(".my-page-button").style.display = "none";
+      })
+      .catch(err => {
+        return err;
       });
   };
   render() {
@@ -69,126 +80,31 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <button className="home-button">홈버튼</button>
         <div className="js-signApp signApp">
           <SignApp
             isLogin={this.state.isLogin}
-            changeIsLogin={this.changeIsLogin}
+            changeIsButton={this.changeIsButton}
           />
         </div>
         <div className="js-LogSign logSign">
           {this.state.signCheck === "login" ? (
-            <Login
-              onSubmit={(_id, _pw) => {
-                var loginUser = { id: _id, pw: _pw };
-                fetch("http://localhost:3000/login", {
-                  method: "POST",
-                  body: JSON.stringify(loginUser),
-                  headers: { "Content-Type": "application/json" }
-                })
-                  .then(response => {
-                    if (response.status === 200) {
-                      this.setState({
-                        isLogin: true,
-                        signCheck: null
-                      });
-                      // alert("로그인에 성공하였습니다!");
-                    } else if (response.status === 204) {
-                      alert("가입된 회원이 아닙니다!");
-                    } else if (response.status === 409) {
-                      alert("비밀번호가 일치하지 않습니다!");
-                    }
-                    return response.json();
-                  })
-                  .then(token => {
-                    localStorage.setItem("token", token.token);
-                  })
-                  .catch(err => {
-                    // console.log(err);
-                    return err;
-                  });
-              }}
-            />
+            <Login changeIsLogin={this.changeIsLogin} />
           ) : (
             false
           )}
           {this.state.signCheck === "signup" ? (
-            <Signup
-              onSubmit={(_id, _pw, _nick_name, _gender) => {
-                var user = {
-                  id: _id,
-                  pw: _pw,
-                  nick_name: _nick_name,
-                  gender: _gender
-                };
-                fetch("http://localhost:3000/signup", {
-                  method: "POST",
-                  body: JSON.stringify(user),
-                  headers: {
-                    "Content-Type": "application/json"
-                  }
-                })
-                  .then(response => {
-                    console.log(response.status);
-                    if (response.status === 201) {
-                      this.setState({
-                        // isLogin: true,
-                        signCheck: "login"
-                      });
-                      // onLogSign(false);
-                      alert("정상적으로 회원가입 되었습니다!");
-                      return response;
-                    }
-
-                    return response;
-                  })
-                  .catch(err => {
-                    alert("회원가입에 실패하였습니다!");
-                    console.log(err);
-                    return err;
-                  });
-              }}
-            />
+            <Signup changeIsLogin={this.changeIsLogin} />
           ) : (
             false
           )}
           {this.state.signCheck === "logout" ? (
-            <Logout
-              onLogout={() => {
-                var token = localStorage.getItem("token");
-                fetch("http://localhost:3000/logout", {
-                  method: "GET",
-                  headers: {
-                    authorization: token
-                  }
-                })
-                  .then(response => {
-                    if (response.status === 201) {
-                      localStorage.removeItem("token");
-                      this.setState({
-                        isLogin: false,
-                        signCheck: null
-                      });
-                      document.querySelector(".my-page-button").style.display =
-                        "none";
-                      document.querySelector(".my-page").style.display = "none";
-                      // alert("로그아웃 되었습니다");
-                      return response;
-                    }
-                    return response;
-                  })
-                  .catch(err => {
-                    alert("로그아웃에 실패했습니다");
-                    console.log(err);
-                    return err;
-                  });
-              }}
-            />
+            <Logout changeIsLogin={this.changeIsLogin} />
           ) : (
             false
           )}
         </div>
         <MainSearch handleSearch={this.handleSearch} />
-
         {this.state.searchValue !== undefined ? (
           <MapHouse searchValue={this.state.searchValue} />
         ) : (

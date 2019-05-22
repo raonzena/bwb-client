@@ -16,7 +16,7 @@ class SignApp extends Component {
             className="signup-button"
             onClick={e => {
               e.stopPropagation();
-              this.props.changeIsLogin("signup");
+              this.props.changeIsButton("signup");
             }}
           >
             회원가입
@@ -25,7 +25,7 @@ class SignApp extends Component {
             className="login-button"
             onClick={e => {
               e.stopPropagation();
-              this.props.changeIsLogin("login");
+              this.props.changeIsButton("login");
 
               // onLogSign(false);
             }}
@@ -40,7 +40,7 @@ class SignApp extends Component {
           className="logout-button"
           onClick={e => {
             e.stopPropagation();
-            this.props.changeIsLogin("logout");
+            this.props.changeIsButton("logout");
 
             // onLogout(true);
           }}

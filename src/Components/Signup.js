@@ -146,12 +146,34 @@ class Signup extends Component {
               document.querySelector(".isPwCheck").innerHTML ===
                 "비밀번호가 일치합니다"
             ) {
-              this.props.onSubmit(
-                e.target.id.value,
-                e.target.pw.value,
-                e.target.nick_name.value,
-                e.target.gender.value
-              );
+              var user = {
+                id: e.target.id.value,
+                pw: e.target.pw.value,
+                nick_name: e.target.nick_name.value,
+                gender: e.target.gender.value
+              };
+              fetch("http://localhost:3000/signup", {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              })
+                .then(response => {
+                  console.log(response.status);
+                  if (response.status === 201) {
+                    this.props.changeIsLogin(null, false, null);
+                    // alert("정상적으로 회원가입 되었습니다!");
+                    return response;
+                  }
+
+                  return response;
+                })
+                .catch(err => {
+                  alert("회원가입에 실패하였습니다!");
+                  console.log(err);
+                  return err;
+                });
             }
           }}
         >
