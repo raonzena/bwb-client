@@ -16,7 +16,7 @@ class App extends Component {
       isLogin: null,
       signCheck: null,
       currentItem: {},
-      searchValue: ""
+      searchValue: "",
     };
   }
   componentDidMount = () => {
@@ -60,7 +60,7 @@ class App extends Component {
         return response.json();
       })
       .then(json => {
-        console.log("json", json);
+        // console.log("json", json);
         this.setState({
           currentItem: json
         });
@@ -69,7 +69,7 @@ class App extends Component {
       });
   };
   render() {
-    console.log("app", this.state.isLogin);
+    // console.log("app", this.state.isLogin);
     if (this.state.isLogin === null) {
       return <Loading />;
     }
@@ -135,7 +135,7 @@ class App extends Component {
                     }
                   })
                     .then(response => {
-                      console.log(response.status);
+                      // console.log(response.status);
                       if (response.status === 201) {
                         this.setState({
                           // isLogin: true,
@@ -196,8 +196,9 @@ class App extends Component {
             </div>
         </div>
         <div className='Bodys'>
-          <MainSearch handleSearch={this.handleSearch} />
-
+          <div className="MainSearchHouse">
+            <MainSearch  handleSearch={this.handleSearch} />
+          </div>
           {this.state.searchValue !== undefined ? (
             <MapHouse searchValue={this.state.searchValue} />
           ) : (

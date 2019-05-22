@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
-import blue from '@material-ui/core/colors/blue';
 import purple from '@material-ui/core/colors/purple'
 import deepPurple from '@material-ui/core/colors/deepPurple'
 
