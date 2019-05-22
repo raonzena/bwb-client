@@ -1,22 +1,35 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Main from "./ReactRoutes/Main";
+import MapHouse from "./Pages/MapHouse";
+import SignApp from "./SignApp";
+import Loading from "./Components/Loading";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
-import Header from "./Headers/Header";
 import Logout from "./Components/Logout";
-import MapHouse from "./Pages/MapHouse";
 import MainSearch from "./Pages/MainSearch";
 import MyPage from "./Pages/MyPage";
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchValue: "",
-      currentItem: {}
+      isLogin: null,
+      signCheck: null,
+      currentItem: {},
+      searchValue: ""
     };
   }
+  componentDidMount = () => {
+    if (localStorage.getItem("token")) {
+      this.setState({
+        isLogin: true
+      });
+    } else {
+      this.setState({
+        isLogin: false
+      });
+    }
+  };
   handleSearch = e => {
     if (e.key === "Enter") {
       if( !e.target.value.length ){
@@ -29,6 +42,11 @@ class App extends Component {
         });
       }
     }
+  };
+  changeIsLogin = value => {
+    this.setState({
+      signCheck: value
+    });
   };
   getMyPageList = () => {
     var id = localStorage.getItem("token");
@@ -51,37 +69,147 @@ class App extends Component {
       });
   };
   render() {
+    console.log("app", this.state.isLogin);
+    if (this.state.isLogin === null) {
+      return <Loading />;
+    }
     return (
-      <Router>
-        <div className="Whole-Scene">
-          
-            <Header />
-            
-          
-            <Route exact path="/" component={Main} />
-            <Route exact path="/maphouse" component={MainSearch} redn />
-            <Route path="/logout" component={Logout} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-
-            {/* <Route path="/maphouse" component={MapHouse} /> */}
-          <MainSearch className="Search-House" handleSearch={this.handleSearch} />
-          <div className="Bodys">
-            {this.state.searchValue !== undefined ? (
-              <MapHouse searchValue={this.state.searchValue} />
+      <div className="App">
+        <div className="Heads">
+          <div className="js-signApp signApp">
+            <SignApp
+              isLogin={this.state.isLogin}
+              changeIsLogin={this.changeIsLogin}
+            />
+          </div>
+          <div className="js-LogSign logSign">
+            {this.state.signCheck === "login" ? (
+              <Login
+                onSubmit={(_id, _pw) => {
+                  var loginUser = { id: _id, pw: _pw };
+                  fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    body: JSON.stringify(loginUser),
+                    headers: { "Content-Type": "application/json" }
+                  })
+                    .then(response => {
+                      if (response.status === 200) {
+                        this.setState({
+                          isLogin: true,
+                          signCheck: null
+                        });
+                        // alert("로그인에 성공하였습니다!");
+                      } else if (response.status === 204) {
+                        alert("가입된 회원이 아닙니다!");
+                      } else if (response.status === 409) {
+                        alert("비밀번호가 일치하지 않습니다!");
+                      }
+                      return response.json();
+                    })
+                    .then(token => {
+                      localStorage.setItem("token", token.token);
+                    })
+                    .catch(err => {
+                      // console.log(err);
+                      return err;
+                    });
+                }}
+              />
             ) : (
               false
             )}
-            {/* <MapHouse searchValue={this.state.searchValue} /> */}
-            <div>
-              <button className="my-page-button" onClick={this.getMyPageList}>
-                MyPage
-              </button>
-              <MyPage currentItem={this.state.currentItem} />
+            {this.state.signCheck === "signup" ? (
+              <Signup
+                onSubmit={(_id, _pw, _nick_name, _gender) => {
+                  var user = {
+                    id: _id,
+                    pw: _pw,
+                    nick_name: _nick_name,
+                    gender: _gender
+                  };
+                  fetch("http://localhost:3000/signup", {
+                    method: "POST",
+                    body: JSON.stringify(user),
+                    headers: {
+                      "Content-Type": "application/json"
+                    }
+                  })
+                    .then(response => {
+                      console.log(response.status);
+                      if (response.status === 201) {
+                        this.setState({
+                          // isLogin: true,
+                          signCheck: "login"
+                        });
+                        // onLogSign(false);
+                        alert("정상적으로 회원가입 되었습니다!");
+                        return response;
+                      }
+
+                      return response;
+                    })
+                    .catch(err => {
+                      alert("회원가입에 실패하였습니다!");
+                      console.log(err);
+                      return err;
+                    });
+                }}
+              />
+            ) : (
+              false
+            )}
+            {this.state.signCheck === "logout" ? (
+              <Logout
+                onLogout={() => {
+                  var token = localStorage.getItem("token");
+                  fetch("http://localhost:3000/logout", {
+                    method: "GET",
+                    headers: {
+                      authorization: token
+                    }
+                  })
+                    .then(response => {
+                      if (response.status === 201) {
+                        localStorage.removeItem("token");
+                        this.setState({
+                          isLogin: false,
+                          signCheck: null
+                        });
+                        document.querySelector(".my-page-button").style.display =
+                          "none";
+                        document.querySelector(".my-page").style.display = "none";
+                        // alert("로그아웃 되었습니다");
+                        return response;
+                      }
+                      return response;
+                    })
+                    .catch(err => {
+                      alert("로그아웃에 실패했습니다");
+                      console.log(err);
+                      return err;
+                    });
+                }}
+              />
+            ) : (
+              false
+            )}
             </div>
-          </div>
         </div>
-      </Router>
+        <div className='Bodys'>
+          <MainSearch handleSearch={this.handleSearch} />
+
+          {this.state.searchValue !== undefined ? (
+            <MapHouse searchValue={this.state.searchValue} />
+          ) : (
+            false
+          )}
+          <button className="my-page-button" onClick={this.getMyPageList}>
+            MyPage
+          </button>
+        </div>
+        <MyPage currentItem={this.state.currentItem} />
+        
+      </div>
     );
   }
 }

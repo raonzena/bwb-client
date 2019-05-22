@@ -1,7 +1,8 @@
 import React from "react";
 
-const Logout = ({ history }) => {
-  return <div>{history.push("/")}</div>;
-};
-
+class Logout extends React.Component {
+  render() {
+    return <div className="logout">{this.props.onLogout()}</div>;
+  }
+}
 export default Logout;
