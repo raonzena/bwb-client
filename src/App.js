@@ -1,23 +1,20 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import MapHouse from "./Pages/MapHouse";
-import SignApp from "./SignApp";
 import Loading from "./Components/Loading";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import Logout from "./Components/Logout";
-import MainSearch from "./Pages/MainSearch";
 import MyPage from "./Pages/MyPage";
-
+import Header from "./ReactRoute/Header";
+import Home from "./Pages/Home";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: null,
-      signCheck: null,
       currentItem: {},
-      searchValue: "",
-      myPageFalg: null
+      searchValue: ""
     };
   }
   componentDidMount = () => {
@@ -38,16 +35,10 @@ class App extends Component {
       });
     }
   };
-  changeIsButton = value => {
+
+  changeIsLogin = value => {
     this.setState({
-      signCheck: value
-    });
-  };
-  changeIsLogin = (flag, value, pageFlage) => {
-    this.setState({
-      signCheck: flag,
-      isLogin: value,
-      myPageFalg: pageFlage
+      isLogin: value
     });
   };
   getMyPageList = () => {
@@ -80,36 +71,40 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <button className="home-button">홈버튼</button>
         <div className="js-signApp signApp">
-          <SignApp
-            isLogin={this.state.isLogin}
-            changeIsButton={this.changeIsButton}
-          />
+          <Router>
+            <div>
+              <Header
+                isLogin={this.state.isLogin}
+                changeIsLogin={this.changeIsLogin}
+              />
+              <div>
+                {/* <Route exact path="/" render={() => <Home />} /> */}
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <Home
+                      handleSearch={this.handleSearch}
+                      searchValue={this.state.searchValue}
+                    />
+                  )}
+                />
+                <Route
+                  path="/login"
+                  render={props => (
+                    <Login
+                      isLogin={this.state.isLogin}
+                      changeIsLogin={this.changeIsLogin}
+                    />
+                  )}
+                />
+                <Route path="/signup" render={props => <Signup />} />
+                <Route path="/logout" component={Logout} />
+              </div>
+            </div>
+          </Router>
         </div>
-        <div className="js-LogSign logSign">
-          {this.state.signCheck === "login" ? (
-            <Login changeIsLogin={this.changeIsLogin} />
-          ) : (
-            false
-          )}
-          {this.state.signCheck === "signup" ? (
-            <Signup changeIsLogin={this.changeIsLogin} />
-          ) : (
-            false
-          )}
-          {this.state.signCheck === "logout" ? (
-            <Logout changeIsLogin={this.changeIsLogin} />
-          ) : (
-            false
-          )}
-        </div>
-        <MainSearch handleSearch={this.handleSearch} />
-        {this.state.searchValue !== undefined ? (
-          <MapHouse searchValue={this.state.searchValue} />
-        ) : (
-          false
-        )}
         <button className="my-page-button" onClick={this.getMyPageList}>
           MyPage
         </button>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 class Signup extends Component {
   id_check = false;
   nickname_check = false;
@@ -162,7 +161,9 @@ class Signup extends Component {
                 .then(response => {
                   console.log(response.status);
                   if (response.status === 201) {
-                    this.props.changeIsLogin(null, false, null);
+                    // this.props.changeIsLogin(false);
+                    window.location.href = "/login";
+                    // history.push("/");
                     // alert("정상적으로 회원가입 되었습니다!");
                     return response;
                   }

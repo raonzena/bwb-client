@@ -10,8 +10,6 @@ Geocode.enableDebug();
 /* global google */
 
 var map;
-var infowindow;
-var service;
 
 class MapHouse extends Component {
   //레스토랑인포담기
@@ -181,7 +179,7 @@ class MapHouse extends Component {
     this.loadSite(this.props.searchValue);
   }
   render() {
-    console.log(this.state.clickMarkerRestaurantInfo)
+    console.log(this.state.clickMarkerRestaurantInfo);
     return (
       <Fragment>
         <div className="rightContainer">
@@ -194,7 +192,7 @@ class MapHouse extends Component {
         </div>
         <div className="leftContainer">
           <LeftContainer
-            restaurantInfos={this.state.restaurantInfos} 
+            restaurantInfos={this.state.restaurantInfos}
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
           />
         </div>
