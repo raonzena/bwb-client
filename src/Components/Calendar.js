@@ -15,15 +15,17 @@ class Calendar extends React.Component {
   };
 
   dateCreator = month => {
-    console.log(">>>>", month);
-
     let dateByMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let startDate = 1;
     let dateOptionArr = [];
     let now = new Date();
     if (Number(month) === now.getMonth() + 1) {
-      console.log("!!!!!!!!!!!!!!!!!!!");
-      startDate = now.getDate();
+      let nowTime = Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) + 1
+      if (nowTime >= 21) {
+        startDate = now.getDate() + 1
+      } else {
+        startDate = now.getDate();
+      }
     }
     for (let i = startDate; i <= dateByMonth[month - 1]; i++) {
       dateOptionArr.push(
@@ -36,7 +38,6 @@ class Calendar extends React.Component {
   };
 
   hourCreator = (month, date) => {
-    console.log(month, date);
     let hourOptionArr = [];
     let now = new Date();
     let nowTime =
@@ -44,13 +45,10 @@ class Calendar extends React.Component {
       1;
     if (
       !(month === new Date().getMonth() + 1) ||
-      !(date === new Date().getDate())
+      !(date === new Date().getDate()) || nowTime >= 21
     ) {
       nowTime = 11;
     }
-    console.log(nowTime);
-    // this.props.onMinuteChange(nowTime);
-
     //hour dropdown
     for (let i = nowTime; i <= 21; i++) {
       hourOptionArr.push(

@@ -5,7 +5,8 @@ class LeftContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meetingsInfos: undefined
+      meetingsInfos: undefined,
+      restaurantMeetingInfos: undefined
     };
   }
 
@@ -20,9 +21,15 @@ class LeftContainer extends React.Component {
       .then(result => result.json())
       .then(fetchedMeetingLists => {
         console.log("fetched", fetchedMeetingLists);
-        this.setState({
-          meetingsInfos: fetchedMeetingLists
-        });
+        if(restaurantInfos === this.props.restaurantInfos) {
+            this.setState({
+                meetingsInfos: fetchedMeetingLists,
+            });
+        } else {
+            this.setState({
+                restaurantMeetingInfos: fetchedMeetingLists,
+            });     
+        }
       });
   };
 
@@ -43,20 +50,22 @@ class LeftContainer extends React.Component {
     return (
       <div>
         {this.props.restaurantInfos.length > 0 ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-          />
-        ) : 
-        this.props.clickMarkerRestaurantInfo ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-            clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
-          /> )
-        : null
+            this.props.clickMarkerRestaurantInfo ? (
+                <MeetingListsContainer
+                    meetingsInfos={this.state.restaurantMeetingInfos}
+                    restaurantInfos={this.props.restaurantInfos}
+                    fetchMeetingLists={this.fetchMeetingLists}
+                    clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
+                    backToMeetingList={this.props.backToMeetingList}
+                /> )
+                :
+                <MeetingListsContainer
+                    meetingsInfos={this.state.meetingsInfos}
+                    restaurantInfos={this.props.restaurantInfos}
+                    fetchMeetingLists={this.fetchMeetingLists}
+                />
+            ) : 
+            null
         }
       </div>
     );
