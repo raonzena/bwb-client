@@ -9,31 +9,50 @@ class MeetingLists extends React.Component {
     this.maxContentsNum = 6 //페이지 당 리스트 수 
   }
 
-  createActiveListBtnByPage = () => {
-    let activeMeetingBtnArr = [];
+  createMeetingListBtnByPage = () => {
+    let totalMeetingLists = [].concat(this.props.filteredMeetingLists.activeMeetings, this.props.filteredMeetingLists.inActiveMeetings)
+    let meetingBtnArr = [];
     for (let i = (this.state.currentPage - 1) * this.maxContentsNum; i < this.state.currentPage * (this.maxContentsNum); i++) {
-      console.log(i)
-      if (this.props.filteredMeetingLists.activeMeetings[i]) {
-        let aList = this.props.filteredMeetingLists.activeMeetings[i];
-        activeMeetingBtnArr.push(
-          <button
-            className="meetingListBtn"
-            key={aList.meetingId}
-            index={aList.meetingId}
-            onClick={() => this.props.getMeetingDetail(aList.placeId, aList.meetingId)}
-          >
-            <div>
-              <strong>{aList.meetingName}</strong>
-            </div>
-            <div>
-              <strong>{aList.restaurantName}</strong>
-            </div>
-            <div>{aList.meetingTime}</div>
-            <div>{aList.numberOfMembers + "/" + aList.limit}</div>
-          </button>)
+      if (totalMeetingLists[i]) {
+        let aList = totalMeetingLists[i];
+        if (totalMeetingLists[i].isActive) {
+          meetingBtnArr.push(
+            <button
+              className="activeMeetingListBtn"
+              key={aList.meetingId}
+              index={aList.meetingId}
+              onClick={() => this.props.getMeetingDetail(aList.placeId, aList.meetingId)}
+            >
+              <div>
+                <strong>{aList.meetingName}</strong>
+              </div>
+              <div>
+                <strong>{aList.restaurantName}</strong>
+              </div>
+              <div>{aList.meetingTime}</div>
+              <div>{aList.numberOfMembers + "/" + aList.limit}</div>
+            </button>)
+        } else {
+          meetingBtnArr.push(
+            <button
+              className="activeMeetingListBtn"
+              key={aList.meetingId}
+              index={aList.meetingId}
+              onClick={() => alert('종료된 모임입니다.')}
+            >
+              <div>
+                <strong>{aList.meetingName}</strong>
+              </div>
+              <div>
+                <strong>{aList.restaurantName}</strong>
+              </div>
+              <div>{aList.meetingTime}</div>
+              <div>{aList.numberOfMembers + "/" + aList.limit}</div>
+            </button>)
+        }
       }
     }
-    return activeMeetingBtnArr
+    return meetingBtnArr;
   }
 
   pageHandler = (idx) => {
@@ -56,36 +75,17 @@ class MeetingLists extends React.Component {
   }
 
   numOfMeetingLists = () => {
-    return this.props.filteredMeetingLists.activeMeetings.length + this.props.filteredMeetingLists.inActiveMeetings;
+    return this.props.filteredMeetingLists.activeMeetings.length + this.props.filteredMeetingLists.inActiveMeetings.length;
   }
+
   render() {
     return (
       <div id="meetingLists" >
         <div id="activeMeetingsList">
-          {this.props.filteredMeetingLists.activeMeetings ?
-            (this.createActiveListBtnByPage())
+          {this.props.filteredMeetingLists.activeMeetings || this.props.filteredMeetingLists.inActiveMeetings ?
+            (this.createMeetingListBtnByPage())
             : null
           }
-        </div>
-        <div id="inActiveMeetingsList">
-          {this.props.filteredMeetingLists.inActiveMeetings.length ?
-            (this.props.filteredMeetingLists.inActiveMeetings.map(aList => (
-              <button
-                className="meetingListBtn"
-                key={aList.meetingId}
-                index={aList.meetingId}
-              >
-                <div>
-                  <strong>{aList.meetingName}</strong>
-                </div>
-                <div>
-                  <strong>{aList.restaurantName}</strong>
-                </div>
-                <div>{aList.meetingTime}</div>
-                <div>{aList.numberOfMembers + "/" + aList.limit}</div>
-              </button>
-            )))
-            : null}
         </div>
         {this.numOfMeetingLists() > this.maxContentsNum ?
           this.createPageBtn()
