@@ -42,15 +42,26 @@
   background-color: rgb(51, 2, 107);
   width: 100%;
   height: 50px;
+  align-content: right;
+  align-items: right;
 }
 .signApp{
-  
   width: 100%;
-  height: 20%;
+  height: 50%;
+  margin-left: 45%;
+}
+
+.logSign{
+  align-content: right;
+  align-items: right;
 }
 
 .MainSearchHouse{
+  margin-left:15%;
+  margin-right:10%;
   width: 70%;
+  align-content: center;
+  align-items: center;
 }
 
 .MainSearch{

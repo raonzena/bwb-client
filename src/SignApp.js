@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 class SignApp extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class SignApp extends Component {
 
     if (this.props.isLogin === false) {
       _button = (
-        <div>
+        <Fragment>
           <button
             className="signup-button"
             onClick={e => {
@@ -32,7 +32,7 @@ class SignApp extends Component {
           >
             로그인
           </button>
-        </div>
+        </Fragment>
       );
     } else if (this.props.isLogin === true) {
       _button = (
@@ -47,6 +47,7 @@ class SignApp extends Component {
         >
           로그아웃
         </button>
+      
       );
     }
     return _button;

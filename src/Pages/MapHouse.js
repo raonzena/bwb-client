@@ -148,35 +148,13 @@ class MapHouse extends Component {
 
     map.fitBounds(bounds);
   };
-  
-  // 데이터 베이스에서 미팅정보 가져오는 함수
-  // bringMeetingData = async restaurantInfos => {
-  //   var restaurantMeetingInfos = await Promise.all(
-  //     restaurantInfos.map((ele, idx) => {
-  //       return fetch(
-  //         "http://localhost:3000/meetings/list/region?q=" + ele.place_id,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json"
-  //           }
-  //         }
-  //       )
-  //         .then(response => {
-  //           return response.json();
-  //         })
-  //         .then(data => {
-  //           return data;
-  //         })
-  //         .catch(err => {
-  //           console.log(err);
-  //           return err;
-  //         });
-  //     })
-  //   );
-  //   console.log(restaurantMeetingInfos, "resInfo");
-  //   return restaurantMeetingInfos;
-  // };
+
+  backToMeetingList = () => {
+    this.setState({
+      clickMarkerRestaurantInfo: null
+    });
+  }
+
   componentWillReceiveProps() {
     this.loadSite(this.props.searchValue);
   }
@@ -205,6 +183,7 @@ class MapHouse extends Component {
           <LeftContainer
             restaurantInfos={this.state.restaurantInfos} 
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+            backToMeetingList={this.backToMeetingList}
           />
         </div>
       </Fragment>
