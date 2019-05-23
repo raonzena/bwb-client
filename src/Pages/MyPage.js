@@ -46,6 +46,9 @@ class MyPage extends Component {
     if(preProps.isLogin !== this.props.isLogin) {
       this.getMyPageList();
     }
+    if(!this.props.isLogin) {
+      document.querySelector(".my-page").style.display = "none";
+    }
   }
 
   render() {
