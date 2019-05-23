@@ -17,15 +17,15 @@ class MySchedule extends Component {
 
     return (
       <Fragment>
-        <br/>
-        <br/>
-          ●  {this.props.meeting.restaurant_name}
-        <br/>
-          ●  {year}-{month}-{date} {hours}:{minutes}
-        <br/>
-          ● {this.props.meeting.member_count}/{this.props.meeting.limit}
-        <br/>
-        -----------------------------------
+        <div className="scheduleContents">
+          <br/>
+          🍾  {this.props.meeting.restaurant_name}
+          <br/>
+          🍾  {year}-{month}-{date} {hours}:{minutes}
+          <br/>
+          🍾 {this.props.meeting.member_count}/{this.props.meeting.limit}
+          <br/>
+        </div>
       </Fragment>
     );
   }

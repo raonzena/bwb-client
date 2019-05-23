@@ -34,7 +34,7 @@ class SearchButton extends React.Component {
           <DialogTitle id="alert-dialog-title">{"쏙았지?"}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              클릭할 시간에 코드한줄 더짜자
+              ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
             </DialogContentText>
           </DialogContent>
           <DialogActions>
