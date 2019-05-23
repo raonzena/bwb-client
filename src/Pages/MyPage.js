@@ -12,6 +12,11 @@ class MyPage extends Component {
     document.querySelector(".my-page").style.display = "none";
     document.querySelector(".my-page-button").style.display = "block";
   };
+  openMyPageList = () => {
+    this.getMyPageList();
+    document.querySelector(".my-page").style.display = "block";
+    document.querySelector(".my-page-button").style.display = "none";
+  }
   getMyPageList = async () => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
@@ -29,14 +34,13 @@ class MyPage extends Component {
         this.setState({
           currentItem : json
         });
-        document.querySelector(".my-page").style.display = "block";
-        document.querySelector(".my-page-button").style.display = "none";
       })
       .catch(err => {
         return err;
       });
     }
   };
+  
 
   componentDidUpdate = (preProps) => {
     if(preProps.isLogin !== this.props.isLogin) {
@@ -48,7 +52,7 @@ class MyPage extends Component {
     console.log("123",this.state.currentItem)
     return (
       <Fragment>
-        <button className="my-page-button" onClick={this.getMyPageList}>
+        <button className="my-page-button" onClick={this.openMyPageList}>
             MyPage
         </button>
         <div className="my-page">
