@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
 import LeftContainer from "../Components/LeftContainer";

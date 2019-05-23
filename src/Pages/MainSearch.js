@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
-import HomeButton from "./HomeButton"
 import SearchButton from './SearchButton'
-
-
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -39,8 +36,6 @@ function MainSearch(props) {
                       root: classes.inputRoot,
                       input: classes.inputInput,
                     }}
-                    // onKeyUp
-                    
                     onKeyPress={props.handleSearch}
                     style={{ fontSize: 25 }}  
                 />

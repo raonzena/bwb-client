@@ -8,7 +8,6 @@ import Logout from "./Components/Logout";
 import MyPage from "./Pages/MyPage";
 import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
-import MyPageButton from "./Pages/MyPageButton";
 
 class App extends Component {
   constructor(props) {
@@ -58,7 +57,7 @@ class App extends Component {
       isLogin: value,
     });
   };
-  
+
   render() {
     if (this.state.isLogin === null) {
       return <Loading />;
@@ -72,10 +71,8 @@ class App extends Component {
                 isLogin={this.state.isLogin}
                 changeIsLogin={this.changeIsLogin}
               />
-              </div>
-              
-                {/* <Route exact path="/" render={() => <Home />} /> */}
-                <Route
+            </div>
+              <Route
                   exact
                   path="/"
                   render={props => (
@@ -86,20 +83,20 @@ class App extends Component {
                     />
                   )}
                 />
-                <Route
-                  path="/login"
-                  render={props => (
-                    <Login
-                      isLogin={this.state.isLogin}
-                      changeIsLogin={this.changeIsLogin}
-                    />
-                  )}
+              <Route
+                path="/login"
+                render={props => (
+                  <Login
+                    isLogin={this.state.isLogin}
+                    changeIsLogin={this.changeIsLogin}
+                  />
+                )}
                 />
-                <Route path="/signup" render={props => <Signup />} />
-                <Route path="/logout" component={Logout} />
+              <Route path="/signup" render={props => <Signup />} />
+              <Route path="/logout" component={Logout} />
           </Router>
-        </div>
-        <MyPage isLogin={this.state.isLogin}/>
+      </div>
+        <MyPage isLogin={this.state.isLogin} />
       </div>
     );
   }
