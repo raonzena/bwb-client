@@ -8,11 +8,13 @@ import Logout from "./Components/Logout";
 import MyPage from "./Pages/MyPage";
 import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
+import MapHouse from "./Pages/MapHouse";
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: null,
+      currentItem: {},
       searchValue: ""
     };
   }
@@ -27,20 +29,25 @@ class App extends Component {
       });
     }
   };
-  handleSearch = e => {
-    if (e.key === "Enter") {
-      this.setState({
-        searchValue: e.target.value
-      });
-    }
+  handleSearch = value => {
+    // if (e.key === "Enter") {
+    //   this.setState({
+    //     searchValue: e.target.value
+    //   });
+    // }
+    console.log(value);
+    this.setState({ searchValue: value });
   };
-
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   console.log(e.target.value)
+  // };
   changeIsLogin = value => {
     this.setState({
       isLogin: value
     });
   };
-  
+
   render() {
     console.log("app", this.state.isLogin);
     if (this.state.isLogin === null) {
@@ -82,7 +89,7 @@ class App extends Component {
             </div>
           </Router>
         </div>
-        <MyPage isLogin={this.state.isLogin}/>
+        <MyPage currentItem={this.state.currentItem} />
       </div>
     );
   }
