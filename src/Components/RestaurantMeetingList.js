@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 // import StarRatings from './react-star-ratings';
 
 
@@ -8,9 +8,12 @@ class RestaurantMeetingList extends Component {
   }
   
   render() {
+    console.log(this.props)
     let meetingInfos = this.props.meetingsInfos;
     let restaurantInfo = this.props.clickMarkerRestaurantInfo;
     return (
+      <Fragment>
+      {restaurantInfo ? 
       <div id="meetingListContainer">
         <div>
           <h1>{restaurantInfo.name}</h1>
@@ -51,6 +54,10 @@ class RestaurantMeetingList extends Component {
             <button onClick={this.props.backToMeetingList}>리스트로 이동</button>
         </div>
       </div>
+      :
+      null
+        }
+      </Fragment>
     );
   }
 }

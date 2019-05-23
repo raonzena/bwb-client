@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import MeetingListsContainer from "./MeetingListsContainer";
 import fetchHelper from "../helpers/fetch";
 
@@ -7,7 +8,8 @@ class LeftContainer extends React.Component {
     super(props);
     this.state = {
       meetingsInfos: undefined,
-      restaurantMeetingInfos: undefined
+      restaurantMeetingInfos: undefined,
+      clickMarkerRestaurantInfo: undefined,
     };
   }
 
@@ -48,7 +50,7 @@ class LeftContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="MeetingListsContainer">
         {this.props.restaurantInfos.length > 0 ? (
           this.props.clickMarkerRestaurantInfo ? (
             <MeetingListsContainer

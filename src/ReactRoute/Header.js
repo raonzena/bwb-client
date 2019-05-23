@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
+import HomeButton from ".././Pages/HomeButton";
 import Fetch from "../helpers/fetch";
 class Header extends Component {
   getHeader() {
@@ -9,8 +10,10 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-            홈
+          <HomeButton/>
           </NavLink>
+          <NavLink> </NavLink>
+          
           <NavLink to="/login" className="item" activeClassName="active">
             로그인
           </NavLink>
@@ -23,7 +26,7 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-            홈
+          <HomeButton/>
           </NavLink>
           <NavLink
             to="/logout"

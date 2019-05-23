@@ -9,6 +9,7 @@ import MyPage from "./Pages/MyPage";
 import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +18,7 @@ class App extends Component {
       searchValue: ""
     };
   }
+
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
       this.setState({
@@ -28,60 +30,74 @@ class App extends Component {
       });
     }
   };
+  
   handleSearch = e => {
-    if (e.key === "Enter") {
-      this.setState({
-        searchValue: e.target.value
-      });
+    console.log(e.target.value, 'e.target.value')
+    if(e.key === 'Enter'){
+      if( !e.target.value.length ){
+        alert(' 지역을 입력하세요! ')
+      }else{
+        let data = e.target.value;
+        e.target.value = '';
+        this.setState({
+          searchValue: data,
+        });
+     }
+     
     }
+  
   };
+
+  handleClickHome = (e) => {
+
+  }
 
   changeIsLogin = value => {
     this.setState({
-      isLogin: value
+      searchValue: '',
+      isLogin: value,
     });
   };
 
   render() {
-    console.log("app", this.state.isLogin);
     if (this.state.isLogin === null) {
       return <Loading />;
     }
     return (
       <div className="App">
-        <div className="js-signApp signApp">
+        <div className="js-Contents Contents">
           <Router>
-            <div>
+            <div className="Nav">
               <Header
                 isLogin={this.state.isLogin}
                 changeIsLogin={this.changeIsLogin}
               />
-              <div>
-                <Route
+            </div>
+              <Route
                   exact
                   path="/"
                   render={props => (
                     <Home
                       handleSearch={this.handleSearch}
                       searchValue={this.state.searchValue}
+                      handleClickHome={this.handleClickHome}
                     />
                   )}
                 />
-                <Route
-                  path="/login"
-                  render={props => (
-                    <Login
-                      isLogin={this.state.isLogin}
-                      changeIsLogin={this.changeIsLogin}
-                    />
-                  )}
+              <Route
+                path="/login"
+                render={props => (
+                  <Login
+                    isLogin={this.state.isLogin}
+                    changeIsLogin={this.changeIsLogin}
+                  />
+                )}
                 />
-                <Route path="/signup" render={props => <Signup />} />
-                <Route path="/logout" component={Logout} />
-              </div>
-            </div>
+              <Route path="/signup" render={props => <Signup />} />
+              <Route path="/logout" component={Logout} />
           </Router>
-        </div>
+      
+      </div>
         <MyPage isLogin={this.state.isLogin} />
       </div>
     );

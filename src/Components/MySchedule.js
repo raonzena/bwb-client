@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 class MySchedule extends Component {
   constructor(props) {
@@ -16,15 +16,17 @@ class MySchedule extends Component {
         : reservation_time.getMinutes();
 
     return (
-      <ul>
-        <li>{this.props.meeting.restaurant_name}</li>
-        <li>
-          {year}-{month}-{date} {hours}:{minutes}
-        </li>
-        <li>
-          {this.props.meeting.member_count}/{this.props.meeting.limit}명
-        </li>
-      </ul>
+      <Fragment>
+        <div className="scheduleContents">
+          <br/>
+          🍾  {this.props.meeting.restaurant_name}
+          <br/>
+          🍾  {year}-{month}-{date} {hours}:{minutes}
+          <br/>
+          🍾 {this.props.meeting.member_count}/{this.props.meeting.limit}
+          <br/>
+        </div>
+      </Fragment>
     );
   }
 }
