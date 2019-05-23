@@ -117,6 +117,7 @@ class MapHouse extends Component {
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log('!!!!!!!', place)
                 this.setState({
                   clickMarkerRestaurantInfo: place
                 });
@@ -153,13 +154,13 @@ class MapHouse extends Component {
       <Fragment>
         <div className="Middle">
           <div className="leftContainer">
-              <LeftContainer
-                restaurantInfos={this.state.restaurantInfos}
-                clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
-                backToMeetingList={this.backToMeetingList}
-              />
+            <LeftContainer
+              restaurantInfos={this.state.restaurantInfos}
+              clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+              backToMeetingList={this.backToMeetingList}
+            />
           </div>
-          
+
           <div className="rightContainer">
             <div className="mapHead">
               <div className="mapBody">
@@ -169,16 +170,16 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-        <div className="leftContainer">
-        {this.state.clickMarkerRestaurantInfo ?
-          <LeftContainer
-            restaurantInfos={this.state.restaurantInfos}
-            clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
-          />
-          :
-          false
-        }
-        </div>
+        {/* <div className="leftContainer">
+          {this.state.clickMarkerRestaurantInfo ?
+            <LeftContainer
+              restaurantInfos={this.state.restaurantInfos}
+              clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+            />
+            :
+            false
+          }
+        </div> */}
       </Fragment>
     );
   }
