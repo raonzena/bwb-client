@@ -1,28 +1,31 @@
 import React from "react";
 import MeetingListsContainer from "./MeetingListsContainer";
+import fetchHelper from "../helpers/fetch";
 
 class LeftContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      meetingsInfos: undefined
+      meetingsInfos: undefined,
+      restaurantMeetingInfos: undefined
     };
   }
 
   fetchMeetingLists = (restaurantInfos) => {
-    fetch("http://localhost:3000/meetings/list/region", {
-      method: "POST",
-      body: JSON.stringify({ restaurantInfos: restaurantInfos }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    fetchHelper
+      .fetchMeetingLists(restaurantInfos)
       .then(result => result.json())
       .then(fetchedMeetingLists => {
         console.log("fetched", fetchedMeetingLists);
-        this.setState({
-          meetingsInfos: fetchedMeetingLists
-        });
+        if (restaurantInfos === this.props.restaurantInfos) {
+          this.setState({
+            meetingsInfos: fetchedMeetingLists,
+          });
+        } else {
+          this.setState({
+            restaurantMeetingInfos: fetchedMeetingLists,
+          });
+        }
       });
   };
 
@@ -32,10 +35,14 @@ class LeftContainer extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
-        this.fetchMeetingLists(this.props.restaurantInfos);
+      this.fetchMeetingLists(this.props.restaurantInfos);
     }
     if (prevProps.clickMarkerRestaurantInfo !== this.props.clickMarkerRestaurantInfo) {
+      if (!this.props.clickMarkerRestaurantInfo) {
+        this.fetchMeetingLists(this.props.restaurantInfos);
+      } else {
         this.fetchMeetingLists(new Array(this.props.clickMarkerRestaurantInfo));
+      }
     }
   }
 
@@ -43,20 +50,22 @@ class LeftContainer extends React.Component {
     return (
       <div>
         {this.props.restaurantInfos.length > 0 ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-          />
-        ) : 
-        this.props.clickMarkerRestaurantInfo ? (
-          <MeetingListsContainer
-            meetingsInfos={this.state.meetingsInfos}
-            restaurantInfos={this.props.restaurantInfos}
-            fetchMeetingLists={this.fetchMeetingLists}
-            clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo} 
-          /> )
-        : null
+          this.props.clickMarkerRestaurantInfo ? (
+            <MeetingListsContainer
+              meetingsInfos={this.state.restaurantMeetingInfos}
+              restaurantInfos={this.props.restaurantInfos}
+              fetchMeetingLists={this.fetchMeetingLists}
+              clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
+              backToMeetingList={this.props.backToMeetingList}
+            />)
+            :
+            <MeetingListsContainer
+              meetingsInfos={this.state.meetingsInfos}
+              restaurantInfos={this.props.restaurantInfos}
+              fetchMeetingLists={this.fetchMeetingLists}
+            />
+        ) :
+          null
         }
       </div>
     );

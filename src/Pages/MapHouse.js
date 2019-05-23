@@ -10,8 +10,6 @@ Geocode.enableDebug();
 /* global google */
 
 var map;
-var infowindow;
-var service;
 
 class MapHouse extends Component {
   //레스토랑인포담기
@@ -25,19 +23,8 @@ class MapHouse extends Component {
 
   state = {
     //실제 지도 검색 키워드//
-    searchValue: "",
     restaurantInfos: [],
     clickMarkerRestaurantInfo: null
-  };
-
-  //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
-  handleSearch = e => {
-    if (e.key === "Enter") {
-      this.setState({
-        searchValue: e.target.value
-      });
-      this.loadSite();
-    }
   };
 
   //searchValue를 구글맵에 전달하여 위치 좌표를 받는 함수
@@ -132,8 +119,7 @@ class MapHouse extends Component {
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
                 this.setState({
-                  clickMarkerRestaurantInfo: place,
-                  restaurantInfos: []
+                  clickMarkerRestaurantInfo: place
                 });
               }
             });
@@ -149,6 +135,12 @@ class MapHouse extends Component {
 
     map.fitBounds(bounds);
   };
+
+  backToMeetingList = () => {
+    this.setState({
+      clickMarkerRestaurantInfo: null
+    });
+  }
 
   // bringMeetingData = async restaurantInfos => {
   //   var restaurantMeetingInfos = await Promise.all(
@@ -181,7 +173,6 @@ class MapHouse extends Component {
     this.loadSite(this.props.searchValue);
   }
   render() {
-    console.log(this.state.clickMarkerRestaurantInfo)
     return (
       <Fragment>
         <div className="rightContainer">
@@ -194,8 +185,9 @@ class MapHouse extends Component {
         </div>
         <div className="leftContainer">
           <LeftContainer
-            restaurantInfos={this.state.restaurantInfos} 
+            restaurantInfos={this.state.restaurantInfos}
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+            backToMeetingList={this.backToMeetingList}
           />
         </div>
       </Fragment>

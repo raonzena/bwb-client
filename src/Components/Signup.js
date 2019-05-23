@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import fetchHelper from "../helpers/fetch"
 class Signup extends Component {
   id_check = false;
   nickname_check = false;
@@ -9,9 +9,7 @@ class Signup extends Component {
       alert("아이디를 입력해주세요!");
       return false;
     }
-    fetch(`http://localhost:3000/id/check?id=${id}`, {
-      method: "GET"
-    })
+    fetchHelper.fetchSignup_IdCheck(id)
       .then(response => {
         return response.json();
       })
@@ -32,9 +30,7 @@ class Signup extends Component {
       alert("닉네임을 입력해주세요!");
       return false;
     }
-    fetch(`http://localhost:3000/nickname/check?nick_name=${nick_name}`, {
-      method: "GET"
-    })
+    fetchHelper.fetchSignup_NickNameCheck(nick_name)
       .then(response => {
         return response.json();
       })
@@ -107,7 +103,7 @@ class Signup extends Component {
             e.preventDefault();
             console.log(
               document.querySelector(".isPwCheck").innerHTML ===
-                "비밀번호가 일치하지 않습니다"
+              "비밀번호가 일치하지 않습니다"
             );
             if (this.id_check === false) {
               alert("아이디 중복확인을 해주세요!");
@@ -144,14 +140,32 @@ class Signup extends Component {
               this.pwCheck === true &&
               this.nickname_check === true &&
               document.querySelector(".isPwCheck").innerHTML ===
-                "비밀번호가 일치합니다"
+              "비밀번호가 일치합니다"
             ) {
-              this.props.onSubmit(
-                e.target.id.value,
-                e.target.pw.value,
-                e.target.nick_name.value,
-                e.target.gender.value
-              );
+              var user = {
+                id: e.target.id.value,
+                pw: e.target.pw.value,
+                nick_name: e.target.nick_name.value,
+                gender: e.target.gender.value
+              };
+              fetchHelper.fetchSignup(user)
+                .then(response => {
+                  console.log(response.status);
+                  if (response.status === 201) {
+                    // this.props.changeIsLogin(false);
+                    window.location.href = "/login";
+                    // history.push("/");
+                    // alert("정상적으로 회원가입 되었습니다!");
+                    return response;
+                  }
+
+                  return response;
+                })
+                .catch(err => {
+                  alert("회원가입에 실패하였습니다!");
+                  console.log(err);
+                  return err;
+                });
             }
           }}
         >
