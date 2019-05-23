@@ -29,12 +29,12 @@ function MainSearch(props) {
         <span className={classes.root}>
           <AppBar position="static" color="default">
             <Toolbar>
-            <Button color="inherit" onClick={props.handleClickHome} ><HomeButton className="HomeButton"  /></Button>
+            < Button color="inherit" onClick={props.handleClickHome} style={{ fontSize: 40 }} > 🔍 </Button>
               <Typography className="Input-Bar" variant="h6" color="inherit" >            
                 <InputBase
                     className="Input-Bar"
                     type="text"
-                    placeholder="     🔍     지역을 검색하시오  "
+                    placeholder="       지역을 검색하시오  "
                     classes={{
                       root: classes.inputRoot,
                       input: classes.inputInput,
