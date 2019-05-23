@@ -8,6 +8,7 @@ import Logout from "./Components/Logout";
 import MyPage from "./Pages/MyPage";
 import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,7 @@ class App extends Component {
       isLogin: value
     });
   };
-  
+
   render() {
     console.log("app", this.state.isLogin);
     if (this.state.isLogin === null) {
@@ -56,7 +57,6 @@ class App extends Component {
                 changeIsLogin={this.changeIsLogin}
               />
               <div>
-                {/* <Route exact path="/" render={() => <Home />} /> */}
                 <Route
                   exact
                   path="/"
@@ -82,7 +82,7 @@ class App extends Component {
             </div>
           </Router>
         </div>
-        <MyPage isLogin={this.state.isLogin}/>
+        <MyPage isLogin={this.state.isLogin} />
       </div>
     );
   }
