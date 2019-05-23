@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
-import PracticeModal from "../Pages/PracticeModal";
 
 class MyPage extends Component {
   constructor(props) {
@@ -38,9 +37,9 @@ class MyPage extends Component {
         });
     }
   };
-  
+
   componentDidMount = () => {
-    if(this.props.isLogin) {
+    if (this.props.isLogin) {
       this.closeMyPageList();
     } else {
       document.querySelector(".my-page").style.display = "none";
@@ -59,12 +58,11 @@ class MyPage extends Component {
   };
 
   render() {
-    console.log("123", this.state.currentItem);
     return (
       <Fragment>
-        
+
         <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
-        
+
           MyPage
         </button>
         <div className="my-page">
@@ -73,7 +71,7 @@ class MyPage extends Component {
             currentItem={this.state.currentItem}
           />
         </div>
-        
+
       </Fragment>
     );
   }

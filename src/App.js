@@ -32,7 +32,6 @@ class App extends Component {
   };
 
   handleSearch = e => {
-    console.log(e.target.value, 'e.target.value')
     if (e.key === 'Enter') {
       if (!e.target.value.length) {
         alert(' 지역을 입력하세요! ')
