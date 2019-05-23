@@ -1,4 +1,4 @@
-const serverEndpoint = "http://localhost";
+const serverEndpoint = "ec2-54-180-123-9.ap-northeast-2.compute.amazonaws.com";
 const port = "3000"
 //login fetch
 async function fetchLogin(loginUser) {
