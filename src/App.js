@@ -20,6 +20,8 @@ class App extends Component {
       searchValue: "",
     };
   }
+
+
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
       this.setState({
@@ -31,32 +33,50 @@ class App extends Component {
       });
     }
   };
+  
   handleSearch = e => {
-    if (e.key === "Enter") {
+    if(e.key === 'Enter'){
       if( !e.target.value.length ){
         alert(' 지역을 입력하세요! ')
-      }else{ 
+      }else{
         let data = e.target.value;
-        
         e.target.value = '';
-        
         this.setState({
           searchValue: data,
         });
-        console.log(this.state.searchValue, 'e.target')
-      }
+     }
+     console.log(e.target.value, 'e.target.value')
     }
+  
+    
+
+    // if ( e.keyCode === 13 ) {
+    //   console.log('hi')
+    //   if( !e.target.value.length ){
+    //     console.log('hi')
+    //     alert(' 지역을 입력하세요! ')
+    //   }else{ 
+    //     let data = e.target.value;
+    //     e.target.value = '';
+    //     this.setState({
+    //       searchValue: data,
+    //     });
+    //     console.log(this.state.searchValue, 'e.target')
+    //   }
+    // }
   };
 
   handleClickHome = (e) => {
- 
+
   }
 
   changeIsLogin = value => {
     this.setState({
-      isLogin: value
+      searchValue: '',
+      isLogin: value,
     });
   };
+
   getMyPageList = () => {
     var id = localStorage.getItem("token");
     fetch(`http://localhost:3000/mypage`, {
@@ -74,14 +94,13 @@ class App extends Component {
           currentItem: json
         });
         document.querySelector(".my-page").style.display = "block";
-        document.querySelector(".my-page-button").style.display = "none";
+        document.querySelector(".my-page-button").style.display = "block";
       })
       .catch(err => {
         return err;
       });
   };
   render() {
-    // console.log("app", this.state.isLogin);
     if (this.state.isLogin === null) {
       return <Loading />;
     }
@@ -121,13 +140,15 @@ class App extends Component {
                 <Route path="/logout" component={Logout} />
           </Router>
         </div>
+        
+        
         <div className="MyPageButton">
           <MyPageButton  currentItem={this.state.currentItem} getMyPageList={this.getMyPageList}/>
+          <button className="my-page-button" onClick={this.getMyPageList}>
+            MyPage
+          </button>
+          {/* <MyPage className="MyPage" currentItem={this.state.currentItem} /> */}
         </div>
-        {/* <button className="my-page-button" onClick={this.getMyPageList}>
-          MyPage
-        </button> */}
-        {/* <MyPage className="MyPage" currentItem={this.state.currentItem} /> */}
       </div>
     );
   }

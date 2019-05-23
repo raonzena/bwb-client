@@ -28,7 +28,7 @@ class MyPageButton extends React.Component {
   };
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <Fragment>
         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}  >

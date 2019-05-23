@@ -39,7 +39,9 @@ function MainSearch(props) {
                       root: classes.inputRoot,
                       input: classes.inputInput,
                     }}
-                    onKeyDown={props.handleSearch}
+                    // onKeyUp
+                    
+                    onKeyPress={props.handleSearch}
                     style={{ fontSize: 25 }}  
                 />
               </Typography>
@@ -47,7 +49,6 @@ function MainSearch(props) {
             </Toolbar>
            
           </AppBar>
-          
         </span>
     </Fragment>
   );

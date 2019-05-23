@@ -183,7 +183,7 @@ class MeetingListsContainer extends React.Component {
     };
 
     render() {
-        console.log(this.props.clickMarkerRestaurantInfo)
+        // console.log(this.props.clickMarkerRestaurantInfo)
         return (
             <div className="HelloWorld">
                 {this.props.meetingsInfos ?

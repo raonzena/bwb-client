@@ -50,8 +50,8 @@ class LeftContainer extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'fuck')
-    console.log(this.state, 'shit')
+    // console.log(this.props, 'fuck')
+    // console.log(this.state, 'shit')
     return (
       <div className="MeetingListsContainer">
         {this.props.restaurantInfos.length > 0 ? (

@@ -23,21 +23,12 @@ class MapHouse extends Component {
 
   state = {
     //실제 지도 검색 키워드//
-    searchValue: "",
     restaurantInfos: [],
     clickMarkerRestaurantInfo: null
   };
 
   //첫 대문에서 키워드 검색시 2번째 페이지로 넘어가기 위한 함수, 이때 작성하였던 키워드는 searchValue에 저장된다.
-  handleSearch = e => {
-    if (e.key === "Enter") {
-      this.setState({
-        searchValue: e.target.value
-      });
-      this.loadSite();
-    }
-  };
-
+  
   //searchValue를 구글맵에 전달하여 위치 좌표를 받는 함수
 
   loadSite = data => {
@@ -74,7 +65,7 @@ class MapHouse extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (JSON.stringify(results)) {
-          console.log(results, "음식점 정보");
+          // console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
           });
@@ -153,10 +144,15 @@ class MapHouse extends Component {
     });
   }
 
-  componentWillReceiveProps() {
+  componentDidMount = () => {
     this.loadSite(this.props.searchValue);
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.loadSite(nextProps.searchValue);
+  }
   render() {
+    
     return (
       <Fragment>
         <div className="Middle">
