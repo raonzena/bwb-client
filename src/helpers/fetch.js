@@ -1,4 +1,3 @@
-// localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTgwNjE3NTIwMDAsImRhdGEiOiJ0ZXN0NiIsImlzTG9naW4iOnRydWUsImV4cCI6MTU1ODE0ODE1MjAwMH0.pzw7IlVcnHFf24XqiYtxp4Lw9KDcF7ZoZLLI9dcBxBQ')
 const serverEndpoint = "http://localhost";
 const port = "3000"
 //login fetch
@@ -35,6 +34,7 @@ async function fetchSignup_NickNameCheck(nick_name) {
     }
   );
 }
+
 // logout fetch
 async function fetchLogout(token) {
   return await fetch(`${serverEndpoint}:${port}/logout`, {
@@ -136,6 +136,24 @@ async function createNewMeeting(data) {
   });
 }
 
+async function fetchMeetingLists(restaurantInfos) {
+  return await fetch(`${serverEndpoint}:${port}/meetings/list/region`, {
+    method: "POST",
+    body: JSON.stringify({ restaurantInfos: restaurantInfos }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+}
+
+async function getMyPageList(id) {
+  return await fetch(`${serverEndpoint}:${port}/mypage`, {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: id
+    }
+  })
+}
 module.exports = {
   fetchLogin,
   fetchSignup,
@@ -148,5 +166,7 @@ module.exports = {
   cancelMember,
   fetchNickname,
   createNewMeeting,
-  fetchMeetingList
+  fetchMeetingList,
+  fetchMeetingLists,
+  getMyPageList
 };
