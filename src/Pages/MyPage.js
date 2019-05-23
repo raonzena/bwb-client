@@ -46,7 +46,7 @@ class MyPage extends Component {
     }
   }
 
-  componentDidUpdate = (preProps) => {
+  componentDidUpdate = preProps => {
     if (preProps.isLogin !== this.props.isLogin) {
       this.getMyPageList();
     }
@@ -54,8 +54,8 @@ class MyPage extends Component {
       document.querySelector(".my-page").style.display = "none";
       document.querySelector(".my-page-button").style.display = "none";
     }
-  }
-  
+  };
+
   render() {
     console.log("123", this.state.currentItem)
     return (
