@@ -23,15 +23,18 @@ class NewMeetingModal extends React.Component {
   };
 
   createSubmitData = () => {
+    let date = this.state.date !== document.querySelector("#dateSelector").value ? document.querySelector("#dateSelector").value : this.state.date
+    let hour = this.state.hour !== document.querySelector("#dateSelector").value ? document.querySelector("#hourSelector").value : this.state.hour
+
     let submitData = {};
     submitData.meeting_name = this.name.value;
     submitData.time =
       "2019-" +
       this.state.month +
       "-" +
-      this.state.date +
+      date +
       " " +
-      this.state.hour +
+      hour +
       ":" +
       this.state.minute;
     submitData.limit = this.number.value;

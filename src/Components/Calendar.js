@@ -64,7 +64,6 @@ class Calendar extends React.Component {
     this.props.onHourChange(document.querySelector("#hourSelector").value)
   }
 
-
   render() {
     return (
       <React.Fragment>
