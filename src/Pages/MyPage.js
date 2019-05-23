@@ -41,13 +41,21 @@ class MyPage extends Component {
     }
   };
   
-
+  componentDidMount = () => {
+    if(this.props.isLogin) {
+      this.closeMyPageList();
+    } else {
+      document.querySelector(".my-page").style.display = "none";
+      document.querySelector(".my-page-button").style.display = "none";
+    }
+  }
   componentDidUpdate = (preProps) => {
     if(preProps.isLogin !== this.props.isLogin) {
       this.getMyPageList();
     }
     if(!this.props.isLogin) {
       document.querySelector(".my-page").style.display = "none";
+      document.querySelector(".my-page-button").style.display = "none";
     }
   }
 
