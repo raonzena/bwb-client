@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import MainSearch from "./MainSearch";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
 import LeftContainer from "../Components/LeftContainer";
@@ -63,7 +62,7 @@ class MapHouse extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (JSON.stringify(results)) {
-          console.log(results, "음식점 정보");
+          // console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
           });
@@ -142,56 +141,47 @@ class MapHouse extends Component {
     });
   }
 
-  // bringMeetingData = async restaurantInfos => {
-  //   var restaurantMeetingInfos = await Promise.all(
-  //     restaurantInfos.map((ele, idx) => {
-  //       return fetch(
-  //         "http://localhost:3000/meetings/list/region?q=" + ele.place_id,
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             "Content-Type": "application/json"
-  //           }
-  //         }
-  //       )
-  //         .then(response => {
-  //           return response.json();
-  //         })
-  //         .then(data => {
-  //           return data;
-  //         })
-  //         .catch(err => {
-  //           console.log(err);
-  //           return err;
-  //         });
-  //     })
-  //   );
-  //   console.log(restaurantMeetingInfos, "resInfo");
-  //   return restaurantMeetingInfos;
-  // };
-  componentWillReceiveProps() {
+  componentDidMount = () => {
     this.loadSite(this.props.searchValue);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.loadSite(nextProps.searchValue);
   }
   render() {
     return (
       <Fragment>
-        <div className="rightContainer">
-          <div className="mapHead">
-            <div className="mapBody">
-              <div className="map" />
-              <div className="infowindow-content" />
+        <div className="Middle">
+          <div className="leftContainer">
+              <LeftContainer
+                restaurantInfos={this.state.restaurantInfos}
+                clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
+                backToMeetingList={this.backToMeetingList}
+              />
+          </div>
+          
+          <div className="rightContainer">
+            <div className="mapHead">
+              <div className="mapBody">
+                <div className="map" />
+                <div className="infowindow-content" />
+              </div>
             </div>
           </div>
         </div>
         <div className="leftContainer">
+        {this.state.clickMarkerRestaurantInfo ?
           <LeftContainer
             restaurantInfos={this.state.restaurantInfos}
             clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
-            backToMeetingList={this.backToMeetingList}
           />
+          :
+          false
+        }
         </div>
       </Fragment>
     );
   }
 }
 export default MapHouse;
+

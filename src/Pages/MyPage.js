@@ -70,6 +70,7 @@ class MyPage extends Component {
             currentItem={this.state.currentItem}
           />
         </div>
+        
       </Fragment>
     );
   }

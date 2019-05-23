@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
+import "../App.css";
 import MeetingLists from "./MeetingLists";
 import fetchHelper from "../helpers/fetch";
 import MeetingDetailModal from "./MeetingDetailModal";
 import RestaurantMeetingList from "./RestaurantMeetingList";
 import NewMeetingModal from "./NewMeetingModal";
+
 
 class MeetingListsContainer extends React.Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class MeetingListsContainer extends React.Component {
             nickname: null
         };
     }
+    
 
     getMeetingDetail = (placeId, meetingId) => {
         fetchHelper
@@ -180,12 +183,14 @@ class MeetingListsContainer extends React.Component {
     };
 
     render() {
+        // console.log(this.props.clickMarkerRestaurantInfo)
         return (
-            <div>
+            <div className="HelloWorld">
                 {this.props.meetingsInfos ?
                     (
                         this.props.clickMarkerRestaurantInfo ? (
                             <Fragment>
+                                <div className="RestaurantMeetingList">
                                 <RestaurantMeetingList
                                     meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
                                     clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
@@ -194,6 +199,8 @@ class MeetingListsContainer extends React.Component {
                                     buttonHandler={this.fetchHandler}
                                     backToMeetingList={this.props.backToMeetingList}
                                 />
+                                </div>
+                                <div className="NewMeetingModal">
                                 <NewMeetingModal
                                     show={this.state.showNewMeetingModal}
                                     closeModal={this.toggleNewMeetingModal}
@@ -202,6 +209,7 @@ class MeetingListsContainer extends React.Component {
                                     nickname={this.state.nickname}
                                     buttonHandler={this.fetchHandler}
                                 />
+                                </div>
                             </Fragment>
                         )
                             : (

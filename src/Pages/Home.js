@@ -2,10 +2,15 @@ import React from "react";
 import MainSearch from "./MainSearch";
 import MapHouse from "./MapHouse";
 const Home = props => {
+  console.log(props, 'props')
   return (
-    <div>
-      <MainSearch handleSearch={props.handleSearch} />
-      <MapHouse searchValue={props.searchValue} />
+    <div className="Bodys">
+      <div className="MainSearch">
+        <MainSearch handleSearch={props.handleSearch} handleClickHome={props.handleClickHome} />
+      </div>
+      <div className="MapHouse">
+        <MapHouse searchValue={props.searchValue} />
+      </div>
     </div>
   );
 };
