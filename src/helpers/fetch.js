@@ -1,4 +1,6 @@
-const serverEndpoint = "http://localhost";
+const serverEndpoint = process.env.REACT_APP_NODE_ENV === "development" ? "http://localhost" : "ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com"
+
+
 const port = "3000"
 //login fetch
 async function fetchLogin(loginUser) {
