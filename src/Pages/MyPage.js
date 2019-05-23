@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
+import fetchHelper from "../helpers/fetch";
 
 class MyPage extends Component {
   constructor(props) {
@@ -20,12 +21,8 @@ class MyPage extends Component {
   getMyPageList = async () => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
-      await fetch(`http://localhost:3000/mypage`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: id
-        }
-      })
+      fetchHelper
+        .getMyPageList(id)
         .then(response => {
           return response.json();
         })

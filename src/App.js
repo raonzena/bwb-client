@@ -34,13 +34,8 @@ class App extends Component {
         searchValue: e.target.value
       });
     }
-    // console.log(value);
-    // this.setState({ searchValue: value });
   };
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   console.log(e.target.value)
-  // };
+
   changeIsLogin = value => {
     this.setState({
       isLogin: value
@@ -62,7 +57,6 @@ class App extends Component {
                 changeIsLogin={this.changeIsLogin}
               />
               <div>
-                {/* <Route exact path="/" render={() => <Home />} /> */}
                 <Route
                   exact
                   path="/"
