@@ -1,37 +1,60 @@
-import React, { Component } from "react";
-import MySchedule from "../Components/MySchedule";
+import React, { Component, Fragment } from "react";
+import MyPageContents from "../Components/MyPageContents";
 
 class MyPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentItem: null
+    };
+  }
   closeMyPageList = () => {
     document.querySelector(".my-page").style.display = "none";
     document.querySelector(".my-page-button").style.display = "block";
   };
+  getMyPageList = async () => {
+    var id = localStorage.getItem("token");
+    if (localStorage.getItem("token")) {
+      await fetch(`http://localhost:3000/mypage`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: id
+        }
+      })
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log(this)
+        this.setState({
+          currentItem : json
+        });
+        document.querySelector(".my-page").style.display = "block";
+        document.querySelector(".my-page-button").style.display = "none";
+      })
+      .catch(err => {
+        return err;
+      });
+    }
+  };
+
+  componentDidUpdate = (preProps) => {
+    if(preProps.isLogin !== this.props.isLogin) {
+      this.getMyPageList();
+    }
+  }
 
   render() {
+    console.log("123",this.state.currentItem)
     return (
-      <div className="my-page">
-        <div className="close-button" onClick={this.closeMyPageList}>
-          X
+      <Fragment>
+        <button className="my-page-button" onClick={this.getMyPageList}>
+            MyPage
+        </button>
+        <div className="my-page">
+          <MyPageContents closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem}/>
         </div>
-          
-        <h1>나의 BWB 일정</h1>
-        <div>
-          <h2>내가 만든 모임 일정</h2>
-          {this.props.currentItem.owner
-            ? this.props.currentItem.owner.map((meeting, index) => {
-                return <MySchedule meeting={meeting} key={index} />;
-              })
-            : ""}
-        </div>
-        <div>
-          <h2>내가 참여한 모임 일정</h2>
-          {this.props.currentItem.member
-            ? this.props.currentItem.member.map((meeting, index) => {
-                return <MySchedule meeting={meeting} key={index} />;
-              })
-            : ""}
-        </div>
-      </div>
+      </Fragment>
     );
   }
 }

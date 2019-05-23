@@ -16,8 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       isLogin: null,
-      currentItem: {},
-      searchValue: "",
+      searchValue: ""
     };
   }
 
@@ -76,30 +75,7 @@ class App extends Component {
       isLogin: value,
     });
   };
-
-  getMyPageList = () => {
-    var id = localStorage.getItem("token");
-    fetch(`http://localhost:3000/mypage`, {
-      headers: {
-        "Content-Type": "application/json",
-        authorization: id
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        // console.log("json", json);
-        this.setState({
-          currentItem: json
-        });
-        document.querySelector(".my-page").style.display = "block";
-        document.querySelector(".my-page-button").style.display = "block";
-      })
-      .catch(err => {
-        return err;
-      });
-  };
+  
   render() {
     if (this.state.isLogin === null) {
       return <Loading />;
@@ -140,15 +116,7 @@ class App extends Component {
                 <Route path="/logout" component={Logout} />
           </Router>
         </div>
-        
-        
-        <div className="MyPageButton">
-          <MyPageButton  currentItem={this.state.currentItem} getMyPageList={this.getMyPageList}/>
-          <button className="my-page-button" onClick={this.getMyPageList}>
-            MyPage
-          </button>
-          {/* <MyPage className="MyPage" currentItem={this.state.currentItem} /> */}
-        </div>
+        <MyPage isLogin={this.state.isLogin}/>
       </div>
     );
   }
