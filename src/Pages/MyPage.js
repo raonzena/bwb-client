@@ -45,7 +45,6 @@ class MyPage extends Component {
   }
 
   render() {
-    console.log("123",this.state.currentItem)
     return (
       <Fragment>
         <button className="my-page-button" onClick={this.getMyPageList}>

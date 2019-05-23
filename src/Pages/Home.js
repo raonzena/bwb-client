@@ -8,7 +8,9 @@ const Home = props => {
       <div className="MainSearch">
         <MainSearch handleSearch={props.handleSearch} handleClickHome={props.handleClickHome} />
       </div>
+      <div className="MapHouse">
         <MapHouse searchValue={props.searchValue} />
+      </div>
     </div>
   );
 };

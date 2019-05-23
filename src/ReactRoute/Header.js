@@ -12,8 +12,7 @@ class Header extends Component {
           <NavLink exact to="/" className="item" activeClassName="active">
           <HomeButton/>
           </NavLink>
-          <NavLink />
-          <NavLink />
+      
           <NavLink to="/login" className="item" activeClassName="active">
             로그인
           </NavLink>

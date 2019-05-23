@@ -10,7 +10,6 @@ import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
 import MyPageButton from "./Pages/MyPageButton";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +18,6 @@ class App extends Component {
       searchValue: ""
     };
   }
-
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {
@@ -34,6 +32,7 @@ class App extends Component {
   };
   
   handleSearch = e => {
+    console.log(e.target.value, 'e.target.value')
     if(e.key === 'Enter'){
       if( !e.target.value.length ){
         alert(' 지역을 입력하세요! ')
@@ -44,25 +43,9 @@ class App extends Component {
           searchValue: data,
         });
      }
-     console.log(e.target.value, 'e.target.value')
+     
     }
   
-    
-
-    // if ( e.keyCode === 13 ) {
-    //   console.log('hi')
-    //   if( !e.target.value.length ){
-    //     console.log('hi')
-    //     alert(' 지역을 입력하세요! ')
-    //   }else{ 
-    //     let data = e.target.value;
-    //     e.target.value = '';
-    //     this.setState({
-    //       searchValue: data,
-    //     });
-    //     console.log(this.state.searchValue, 'e.target')
-    //   }
-    // }
   };
 
   handleClickHome = (e) => {
