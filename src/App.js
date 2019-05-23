@@ -30,22 +30,22 @@ class App extends Component {
       });
     }
   };
-  
+
   handleSearch = e => {
     console.log(e.target.value, 'e.target.value')
-    if(e.key === 'Enter'){
-      if( !e.target.value.length ){
+    if (e.key === 'Enter') {
+      if (!e.target.value.length) {
         alert(' 지역을 입력하세요! ')
-      }else{
+      } else {
         let data = e.target.value;
         e.target.value = '';
         this.setState({
           searchValue: data,
         });
-     }
-     
+      }
+
     }
-  
+
   };
 
   handleClickHome = (e) => {
@@ -73,31 +73,31 @@ class App extends Component {
                 changeIsLogin={this.changeIsLogin}
               />
             </div>
-              <Route
-                  exact
-                  path="/"
-                  render={props => (
-                    <Home
-                      handleSearch={this.handleSearch}
-                      searchValue={this.state.searchValue}
-                      handleClickHome={this.handleClickHome}
-                    />
-                  )}
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <Home
+                  handleSearch={this.handleSearch}
+                  searchValue={this.state.searchValue}
+                  handleClickHome={this.handleClickHome}
                 />
-              <Route
-                path="/login"
-                render={props => (
-                  <Login
-                    isLogin={this.state.isLogin}
-                    changeIsLogin={this.changeIsLogin}
-                  />
-                )}
+              )}
+            />
+            <Route
+              path="/login"
+              render={props => (
+                <Login
+                  isLogin={this.state.isLogin}
+                  changeIsLogin={this.changeIsLogin}
                 />
-              <Route path="/signup" render={props => <Signup />} />
-              <Route path="/logout" component={Logout} />
+              )}
+            />
+            <Route path="/signup" render={props => <Signup />} />
+            <Route path="/logout" component={Logout} />
           </Router>
-      
-      </div>
+
+        </div>
         <MyPage isLogin={this.state.isLogin} />
       </div>
     );
