@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
-
+import MyPageButton from "../Pages/MyPageButton";
 class MyPage extends Component {
   constructor(props) {
     super(props);
@@ -50,9 +50,11 @@ class MyPage extends Component {
       <Fragment>
         <button className="my-page-button" onClick={this.getMyPageList}>
             MyPage
+            {/* <MyPageButton closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem}/> */}
         </button>
         <div className="my-page">
           <MyPageContents closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem}/>
+          
         </div>
       </Fragment>
     );
