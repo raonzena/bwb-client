@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import fetchHelper from "../helpers/fetch"
 class Signup extends Component {
   id_check = false;
   nickname_check = false;
@@ -8,9 +9,7 @@ class Signup extends Component {
       alert("아이디를 입력해주세요!");
       return false;
     }
-    fetch(`http://localhost:3000/id/check?id=${id}`, {
-      method: "GET"
-    })
+    fetchHelper.fetchSignup_IdCheck(id)
       .then(response => {
         return response.json();
       })
@@ -31,9 +30,7 @@ class Signup extends Component {
       alert("닉네임을 입력해주세요!");
       return false;
     }
-    fetch(`http://localhost:3000/nickname/check?nick_name=${nick_name}`, {
-      method: "GET"
-    })
+    fetchHelper.fetchSignup_NickNameCheck(nick_name)
       .then(response => {
         return response.json();
       })
@@ -106,7 +103,7 @@ class Signup extends Component {
             e.preventDefault();
             console.log(
               document.querySelector(".isPwCheck").innerHTML ===
-                "비밀번호가 일치하지 않습니다"
+              "비밀번호가 일치하지 않습니다"
             );
             if (this.id_check === false) {
               alert("아이디 중복확인을 해주세요!");
@@ -143,7 +140,7 @@ class Signup extends Component {
               this.pwCheck === true &&
               this.nickname_check === true &&
               document.querySelector(".isPwCheck").innerHTML ===
-                "비밀번호가 일치합니다"
+              "비밀번호가 일치합니다"
             ) {
               var user = {
                 id: e.target.id.value,
@@ -151,13 +148,7 @@ class Signup extends Component {
                 nick_name: e.target.nick_name.value,
                 gender: e.target.gender.value
               };
-              fetch("http://localhost:3000/signup", {
-                method: "POST",
-                body: JSON.stringify(user),
-                headers: {
-                  "Content-Type": "application/json"
-                }
-              })
+              fetchHelper.fetchSignup(user)
                 .then(response => {
                   console.log(response.status);
                   if (response.status === 201) {

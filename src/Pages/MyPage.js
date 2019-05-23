@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
+import fetchHelper from "../helpers/fetch"
 
 class MyPage extends Component {
   constructor(props) {
@@ -20,46 +21,41 @@ class MyPage extends Component {
   getMyPageList = async () => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
-      await fetch(`http://localhost:3000/mypage`, {
-        headers: {
-          "Content-Type": "application/json",
-          authorization: id
-        }
-      })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(this)
-        this.setState({
-          currentItem : json
+      fetchHelper.getMyPageList(id)
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          console.log(this)
+          this.setState({
+            currentItem: json
+          });
+        })
+        .catch(err => {
+          return err;
         });
-      })
-      .catch(err => {
-        return err;
-      });
     }
   };
-  
+
 
   componentDidUpdate = (preProps) => {
-    if(preProps.isLogin !== this.props.isLogin) {
+    if (preProps.isLogin !== this.props.isLogin) {
       this.getMyPageList();
     }
-    if(!this.props.isLogin) {
+    if (!this.props.isLogin) {
       document.querySelector(".my-page").style.display = "none";
     }
   }
 
   render() {
-    console.log("123",this.state.currentItem)
+    console.log("123", this.state.currentItem)
     return (
       <Fragment>
         <button className="my-page-button" onClick={this.openMyPageList}>
-            MyPage
+          MyPage
         </button>
         <div className="my-page">
-          <MyPageContents closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem}/>
+          <MyPageContents closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem} />
         </div>
       </Fragment>
     );
