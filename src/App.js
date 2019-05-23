@@ -28,14 +28,14 @@ class App extends Component {
       });
     }
   };
-  handleSearch = value => {
-    // if (e.key === "Enter") {
-    //   this.setState({
-    //     searchValue: e.target.value
-    //   });
-    // }
-    console.log(value);
-    this.setState({ searchValue: value });
+  handleSearch = e => {
+    if (e.key === "Enter") {
+      this.setState({
+        searchValue: e.target.value
+      });
+    }
+    // console.log(value);
+    // this.setState({ searchValue: value });
   };
   // handleSubmit = e => {
   //   e.preventDefault();

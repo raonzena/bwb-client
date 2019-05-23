@@ -16,7 +16,7 @@ class MyPage extends Component {
     this.getMyPageList();
     document.querySelector(".my-page").style.display = "block";
     document.querySelector(".my-page-button").style.display = "none";
-  }
+  };
   getMyPageList = async () => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
@@ -26,40 +26,43 @@ class MyPage extends Component {
           authorization: id
         }
       })
-      .then(response => {
-        return response.json();
-      })
-      .then(json => {
-        console.log(this)
-        this.setState({
-          currentItem : json
+        .then(response => {
+          return response.json();
+        })
+        .then(json => {
+          console.log(this);
+          this.setState({
+            currentItem: json
+          });
+        })
+        .catch(err => {
+          return err;
         });
-      })
-      .catch(err => {
-        return err;
-      });
     }
   };
-  
 
-  componentDidUpdate = (preProps) => {
-    if(preProps.isLogin !== this.props.isLogin) {
+  componentDidUpdate = preProps => {
+    if (preProps.isLogin !== this.props.isLogin) {
       this.getMyPageList();
     }
-    if(!this.props.isLogin) {
+    if (!this.props.isLogin) {
       document.querySelector(".my-page").style.display = "none";
+      document.querySelector(".my-page-button").style.display = "none";
     }
-  }
+  };
 
   render() {
-    console.log("123",this.state.currentItem)
+    console.log("123", this.state.currentItem);
     return (
       <Fragment>
         <button className="my-page-button" onClick={this.openMyPageList}>
-            MyPage
+          MyPage
         </button>
         <div className="my-page">
-          <MyPageContents closeMyPageList={this.closeMyPageList} currentItem={this.state.currentItem}/>
+          <MyPageContents
+            closeMyPageList={this.closeMyPageList}
+            currentItem={this.state.currentItem}
+          />
         </div>
       </Fragment>
     );

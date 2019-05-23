@@ -37,6 +37,7 @@ class Header extends Component {
                   if (response.status === 201) {
                     localStorage.removeItem("token");
                     this.props.changeIsLogin(false);
+
                     return response;
                   }
                   return response;
