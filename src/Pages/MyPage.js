@@ -55,7 +55,7 @@ class MyPage extends Component {
       document.querySelector(".my-page-button").style.display = "none";
     }
   }
-
+  
   render() {
     console.log("123", this.state.currentItem)
     return (
