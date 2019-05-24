@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : "ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com"
 
+=======
+const serverEndpoint = "ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com";
+>>>>>>> 21026f61ae358c27964061ebde6119bfb2593f02
 const port = "3000"
 //login fetch
 async function fetchLogin(loginUser) {
