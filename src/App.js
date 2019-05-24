@@ -31,7 +31,7 @@ class App extends Component {
     }
   };
 
-  handleSearch = e => {
+  handleSearch = (e) => {
     if (e.key === 'Enter') {
       if (!e.target.value.length) {
         alert(' 지역을 입력하세요! ')
@@ -42,10 +42,21 @@ class App extends Component {
           searchValue: data,
         });
       }
-
     }
-
   };
+
+  handleClickSearch = () => {
+      let data = document.querySelector('.MuiInputBase-input-100');
+      console.log(data, 'data')
+      if(data !== null){
+        if(data.value.length > 0){
+          this.setState({
+            searchValue: data.value,
+          });
+        }
+        data.value='';
+      }
+  }
 
   handleClickHome = (e) => {
 
@@ -78,6 +89,7 @@ class App extends Component {
               render={props => (
                 <Home
                   handleSearch={this.handleSearch}
+                  handleClickSearch={this.handleClickSearch}
                   searchValue={this.state.searchValue}
                   handleClickHome={this.handleClickHome}
                 />
@@ -97,7 +109,9 @@ class App extends Component {
           </Router>
 
         </div>
-        <MyPage isLogin={this.state.isLogin} />
+        <div className="MyPageSection">
+          <MyPage isLogin={this.state.isLogin} />
+        </div>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import RestaurantMeetingList from "./RestaurantMeetingList";
 import NewMeetingModal from "./NewMeetingModal";
 
 
+
 class MeetingListsContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -149,6 +150,7 @@ class MeetingListsContainer extends React.Component {
     // componentDidMount = () => {
     //     this.init();
     // };
+    
     placeNameDefinder = (meetingListArr) => {
         meetingListArr.forEach(e => {
             for (let i = 0; i < this.props.restaurantInfos.length; i++) {
@@ -191,6 +193,7 @@ class MeetingListsContainer extends React.Component {
                         this.props.clickMarkerRestaurantInfo ? (
                             <Fragment>
                                 <div className="RestaurantMeetingList">
+                                
                                 <RestaurantMeetingList
                                     meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
                                     clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
@@ -201,6 +204,7 @@ class MeetingListsContainer extends React.Component {
                                 />
                                 </div>
                                 <div className="NewMeetingModal">
+                                
                                 <NewMeetingModal
                                     show={this.state.showNewMeetingModal}
                                     closeModal={this.toggleNewMeetingModal}
@@ -213,14 +217,21 @@ class MeetingListsContainer extends React.Component {
                             </Fragment>
                         )
                             : (
-                                <MeetingLists
-                                    filteredMeetingLists={this.activationFilter(this.props.meetingsInfos.result)}
-                                    getMeetingDetail={this.getMeetingDetail}
-                                    restaurantInfos={this.props.restaurantInfos} />)
+                                <Fragment>
+
+                                    <MeetingLists
+                                        filteredMeetingLists={this.activationFilter(this.props.meetingsInfos.result)}
+                                        getMeetingDetail={this.getMeetingDetail}
+                                        restaurantInfos={this.props.restaurantInfos} />
+                                </Fragment>          
+                              )
+
+                     
                     )
                     :
                     null
                 }
+                
                 <MeetingDetailModal
                     show={this.state.showMeetingDetailModal}
                     closeModal={this.toggleMeetingDetailModal}

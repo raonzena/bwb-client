@@ -42,7 +42,7 @@ function SvgIcons(props) {
         
         className={classes.icon}
         color="primary"
-        style={{ fontSize: 50 }} fontSize="large"
+        style={{ fontSize: 70 }} fontSize="large"
         component={svgProps => (
           <svg {...svgProps}>
             <defs>

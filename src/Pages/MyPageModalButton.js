@@ -10,17 +10,21 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import MyPageContents from "../Components/MyPageContents";
 
 const styles = {
   list: {
-    width: 250,
+    width: 400,
+    margin:50,
+    font:'bold',
+    // color:'white',
   },
   fullList: {
     width: 'auto',
   },
 };
 
-class PracticeModal extends React.Component {
+class MyPageModalButton extends React.Component {
   state = {
     top: false,
     left: false,
@@ -40,21 +44,14 @@ class PracticeModal extends React.Component {
     const sideList = (
       <div className={classes.list}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+        <MyPageContents
+            closeMyPageList={this.props.closeMyPageList}
+            currentItem={this.props.currentItem}
+          />
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+         
         </List>
       </div>
     );
@@ -84,7 +81,7 @@ class PracticeModal extends React.Component {
     return (
       <div>
         
-        <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
+        <Button className="my-page-button" onClick={this.toggleDrawer('right', true)} style={{color:'primary', backgroundColor: 'white'}} > MyPage </Button>
         
         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
           <div
@@ -101,8 +98,8 @@ class PracticeModal extends React.Component {
   }
 }
 
-PracticeModal.propTypes = {
+MyPageModalButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PracticeModal);
+export default withStyles(styles)(MyPageModalButton);

@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import CloseButton from "../Pages/CloseButton";
+
 
 const displayParticipants = dataArray => {
   let displayItems = {};
@@ -26,7 +28,7 @@ const isParticipants = dataArray => {
 };
 
 const buttonDisplayIdentifier = dataArray => {
-  console.log(dataArray);
+  // console.log(dataArray);
   let identifier;
   //*****/
   if (dataArray[dataArray.length - 1].userId === dataArray[0].user.userId) {
@@ -65,13 +67,17 @@ const dateFormater = inputDate => {
   return returnDate;
 };
 
+
+
 const MeetingDetailModal = props => {
+  let buttonNameClose = "BACK";
+  let buttonNameCansle = "참가 취소"
+  let form;
+
   return props.show
     ? ReactDOM.createPortal(
-      <div className="modal">
-        <button className="closeBtn" onClick={props.closeModal}>
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div className="modal" > 
+        <CloseButton className="closeBtn"  aria-hidden="true" closeModal={props.closeModal} buttonName = {buttonNameClose}/>
         <h4>
           <strong>{props.data[0].meeting.name}</strong>{" "}
         </h4>
@@ -96,14 +102,75 @@ const MeetingDetailModal = props => {
                 props.data[0].meeting_id
               )
             }
+            style={{height:40}}
           >
             {buttonDisplayIdentifier(props.data)}
           </button>
         )}
+        
       </div>,
-      document.querySelector("#modal_root")
+      document.querySelector("#modal_root"),
+      
     )
     : null;
+
 };
 
+
+
 export default MeetingDetailModal;
+
+
+// import PropTypes from 'prop-types';
+
+// class Modal extends React.Component {
+//   render() {
+//     // Render nothing if the "show" prop is false
+//     if(!this.props.show) {
+//       return null;
+//     }
+
+//     // The gray background
+//     const backdropStyle = {
+//       position: 'fixed',
+//       top: 0,
+//       bottom: 0,
+//       left: 0,
+//       right: 0,
+//       backgroundColor: 'rgba(0,0,0,0.3)',
+//       padding: 50
+//     };
+
+//     // The modal "window"
+//     const modalStyle = {
+//       backgroundColor: '#fff',
+//       borderRadius: 5,
+//       maxWidth: 500,
+//       minHeight: 300,
+//       margin: '0 auto',
+//       padding: 30
+//     };
+
+//     return (
+//       <div className="backdrop" style={{backdropStyle}}>
+//         <div className="modal" style={{modalStyle}}>
+//           {this.props.children}
+
+//           <div className="footer">
+//             <button onClick={this.props.onClose}>
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// Modal.propTypes = {
+//   onClose: PropTypes.func.isRequired,
+//   show: PropTypes.bool,
+//   children: PropTypes.node
+// };
+
+// export default Modal;

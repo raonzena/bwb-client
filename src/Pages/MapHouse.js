@@ -52,7 +52,7 @@ class MapHouse extends Component {
 
     var request = {
       location: site,
-      radius: "75",
+      radius: "130",
       type: ["restaurant"]
     };
 
@@ -99,8 +99,8 @@ class MapHouse extends Component {
 
       infowindow.setContent(infowindowContent);
       infowindow.content.innerText = place.rating
-        ? place.name + " / 평점 : ⭐️x" + place.rating + "\n"
-        : place.name + "평점 : ⭐x0" + "\n";
+        ? place.name + " / 평점 : ⭐️ x " + place.rating + "\n"
+        : place.name + "평점 : ⭐ x 0 " + "\n";
 
       infowindow.setPosition();
 
@@ -170,16 +170,7 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="leftContainer">
-          {this.state.clickMarkerRestaurantInfo ?
-            <LeftContainer
-              restaurantInfos={this.state.restaurantInfos}
-              clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
-            />
-            :
-            false
-          }
-        </div> */}
+       
       </Fragment>
     );
   }

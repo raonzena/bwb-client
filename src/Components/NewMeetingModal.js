@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
 
 class NewMeetingModal extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {

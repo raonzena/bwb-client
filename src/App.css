@@ -7,8 +7,27 @@
 
 #modal_root {
   height: 0;
-  width: 0;
+  width: 100%;
+  margin-left: 20%;
 }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  
+  margin-top:  -35%;
+  margin-left: 5%;
+  
+  height: 350px;
+  width: 500px;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+
 .App {
   font-family: ‘Nanum Gothic’, sans-serif;
   overflow-x: hidden;
@@ -33,26 +52,31 @@
   width: 100%;
 }
 
-.modal {
-  position: absolute;
-  top: 250px;
-  left: 30px;
-  height: 350px;
-  width: 200px;
-  padding: 20px;
-  background-color:orange;
-  border: 1px solid grey;
-  border-radius: 10px;
-}
 
 .closeBtn {
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: white;
 }
 
 .participateBtn {
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: white;
+  font-size: 19px;
+  font-weight: bold;
+  color: rgb(89, 80, 212);
+}
+
+.participateBtn:hover {
+  border-radius: 10px;
+  background-color:  rgb(242, 238, 247);
+  font-size: 20px;
+  font-weight: bold;
+  transform:translate(0, -2px);
+  -webkit-transform:translate(0, -2px);
+  -moz-transform:translate(0, -2px);
+  -ms-transform:translate(0, -2px);
+  -o-transform:translate(0, -2px);
+  color:rgb(89, 80, 212);
 }
 
 /* 여기부터가 Middle 파트(rightContainer + leftContainer) */
@@ -89,31 +113,56 @@
   align-items: center;
 }
 
+
 .MainSearch{
   margin-left:10%;
   margin-right:10%;
   width: 80%;
-  height: 100px;
+  height: 60px;
 }
 
-.MainSearch-root-1{
-  width: 100%;
-  height:50px;
-}
+/* 서치바 */
 
 .Search-Div{
   width: 100%;
-  height: 50px;
+  height: 40px;
   align-content: center;
   align-items: center;
   margin:10px;
 }
+.searchSection{
+  display: flex;
+  width:100%;
+}
+
+/* 
+.MuiToolbar-root {
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.MuiToolbar-root {
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.MuiToolbar-root{
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+} */
 
 .Input-Bar {
-  margin-left:10%;
-  margin-right:10%;
-  width: 90%;
-  height: 40px;
+  width: 100%;
+  height: 30px;
   font-size: 10px;
 }
 
@@ -233,16 +282,26 @@
   width:60%;
 }
 
+
+
+/* 아래 : mypage... */
+.MyPageSection{
+  margin-top: 10%;
+  margin-left: 95%;
+}
+
 .my-page-button{
   border-radius: 10px;
-  /* height: 200px;
-  width: 200px; */
+  color: whitesmoke;
   
 }
+
 
 .MyPage{
   height:500px;
 }
+
+
 
 .my-page {
   font-size: 20px;
@@ -252,7 +311,7 @@
   text-align: left;
   background-color: #f7f4f1;
   border-radius: 10px;
-  /* display: none; */
+  display: none;
 }
 
 .MySchedule{
@@ -262,7 +321,10 @@
 }
 
 .ScheduleContents{
-  margin:5%;
+  margin:5%; 
+}
+
+.pastSchedule{
   
 }
 .verifyId, .isPwCheck, .verifyNickName{
