@@ -10,6 +10,7 @@ async function fetchLogin(loginUser) {
   });
 }
 
+//hi
 //signup fetch
 async function fetchSignup(user) {
   return await fetch(`${serverEndpoint}:${port}/signup`, {
