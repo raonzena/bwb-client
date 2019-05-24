@@ -46,3 +46,46 @@ code {
   right: 0px;
   margin-right: 500px;
 }
+#meetingListContainer {
+  background-color: white;
+  width: 70%;
+  height: 70%;
+  font-size: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 16), 0 3px rgba(0, 0, 0, 23);
+  margin: 0 auto;
+}
+.meeting-button {
+  font-size: bold;
+}
+
+.meeting-button:hover {
+  background: #748ffc;
+}
+.meeting-button:active,
+.meeting-button.active {
+  background: white;
+  color: #5c7cfa;
+}
+#restauranteInfo {
+}
+#meeting-state-Info {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+#meeting-box {
+  margin-bottom: 5%;
+  padding-top: 2%;
+}
+
+#current-meeting {
+  padding-top: 4%;
+  margin-bottom: 5%;
+}
+#before-meeting {
+  margin-bottom: ;
+}
+#meeting-create-button,
+#meeting-list-backbutton {
+  margin-top: 20px;
+}

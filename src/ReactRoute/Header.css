@@ -5,13 +5,12 @@
   width: 100%;
 }
 
-
 .item {
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
   /* display: table-cell; */
-  display:table-caption;
+  display: table-caption;
   color: white;
   text-decoration: none;
   font-size: 1.1rem;
