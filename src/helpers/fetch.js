@@ -1,4 +1,4 @@
-const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : "ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com"
+const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : "http://ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com"
 
 const port = "3000"
 //login fetch
@@ -155,7 +155,7 @@ async function getMyPageList(id) {
     }
   })
 }
-module.exports = {
+export default ({
   fetchLogin,
   fetchSignup,
   fetchSignup_IdCheck,
@@ -170,4 +170,4 @@ module.exports = {
   fetchMeetingList,
   fetchMeetingLists,
   getMyPageList
-};
+});
