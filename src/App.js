@@ -9,7 +9,6 @@ import MyPage from "./Pages/MyPage";
 import Header from "./ReactRoute/Header";
 import Home from "./Pages/Home";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -32,29 +31,25 @@ class App extends Component {
   };
 
   handleSearch = e => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (!e.target.value.length) {
-        alert(' 지역을 입력하세요! ')
+        alert(" 지역을 입력하세요! ");
       } else {
         let data = e.target.value;
-        e.target.value = '';
+        e.target.value = "";
         this.setState({
-          searchValue: data,
+          searchValue: data
         });
       }
-
     }
-
   };
 
-  handleClickHome = (e) => {
-
-  }
+  handleClickHome = e => {};
 
   changeIsLogin = value => {
     this.setState({
-      searchValue: '',
-      isLogin: value,
+      searchValue: "",
+      isLogin: value
     });
   };
 
@@ -95,7 +90,6 @@ class App extends Component {
             <Route path="/signup" render={props => <Signup />} />
             <Route path="/logout" component={Logout} />
           </Router>
-
         </div>
         <MyPage isLogin={this.state.isLogin} />
       </div>
