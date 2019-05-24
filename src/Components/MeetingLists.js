@@ -120,7 +120,7 @@ class MeetingLists extends React.Component {
       <div className="displayMeetingLists">
         <div className="meetingLists">
           {this.props.filteredMeetingLists.activeMeetings ||
-          this.props.filteredMeetingLists.inActiveMeetings
+            this.props.filteredMeetingLists.inActiveMeetings
             ? this.createMeetingListBtnByPage()
             : null}
         </div>
