@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 
 #root {
   
@@ -15,6 +16,7 @@
   width: 100%;
   height: 1300px;
   background-color: rgb(53, 53, 129);
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .MapHouse {
@@ -181,4 +183,8 @@
 .ScheduleContents{
   margin:5%;
   
+}
+.verifyId, .isPwCheck, .verifyNickName{
+  font-size:12px;
+  color:red;
 }
