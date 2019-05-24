@@ -10,10 +10,9 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-          <HomeButton/>
+            <HomeButton />
           </NavLink>
-          <NavLink> </NavLink>
-          
+
           <NavLink to="/login" className="item" activeClassName="active">
             로그인
           </NavLink>
@@ -26,7 +25,7 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-          <HomeButton/>
+            <HomeButton />
           </NavLink>
           <NavLink
             to="/logout"

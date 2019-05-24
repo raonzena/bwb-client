@@ -6,14 +6,12 @@ import PeoPle from "@material-ui/icons/People";
 // import StarRatings from './react-star-ratings';
 
 class RestaurantMeetingList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     console.log(this.props);
+
     let meetingInfos = this.props.meetingsInfos;
     let restaurantInfo = this.props.clickMarkerRestaurantInfo;
+    console.log(restaurantInfo.website);
     return (
       <Fragment>
         {restaurantInfo ? (
@@ -29,7 +27,12 @@ class RestaurantMeetingList extends Component {
                   {restaurantInfo.formatted_phone_number}
                 </div>
                 <br />
-                <a href="{restaurantInfo.website}">{restaurantInfo.website}</a>
+                <a
+                  href={restaurantInfo.website}
+                  style={{ textDecoration: "none" }}
+                >
+                  {restaurantInfo.website}
+                </a>
               </div>
 
               <div id="meeting-state-Info">

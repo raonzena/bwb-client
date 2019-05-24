@@ -3,7 +3,6 @@ import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
 import LeftContainer from "../Components/LeftContainer";
 
-Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
 
 /* global google */
@@ -142,6 +141,8 @@ class MapHouse extends Component {
   }
 
   componentDidMount = () => {
+    const API_KEY = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    Geocode.setApiKey(API_KEY);
     this.loadSite(this.props.searchValue);
   }
 
