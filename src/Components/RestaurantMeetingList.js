@@ -28,6 +28,7 @@ class RestaurantMeetingList extends Component {
                 </div>
                 <br />
                 <a
+                  className="store-url"
                   href={restaurantInfo.website}
                   style={{ textDecoration: "none" }}
                 >
