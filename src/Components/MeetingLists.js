@@ -21,6 +21,9 @@ class MeetingLists extends React.Component {
     ) {
       if (totalMeetingLists[i]) {
         let aList = totalMeetingLists[i];
+        if (aList.meetingName.length > 11) {
+          aList.meetingName = aList.meetingName.slice(0, 11) + '...';
+        }
         if (totalMeetingLists[i].isActive) {
           meetingBtnArr.push(
             <button
@@ -120,7 +123,7 @@ class MeetingLists extends React.Component {
       <div className="displayMeetingLists">
         <div className="meetingLists">
           {this.props.filteredMeetingLists.activeMeetings ||
-          this.props.filteredMeetingLists.inActiveMeetings
+            this.props.filteredMeetingLists.inActiveMeetings
             ? this.createMeetingListBtnByPage()
             : null}
         </div>
