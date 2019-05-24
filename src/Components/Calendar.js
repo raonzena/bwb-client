@@ -20,12 +20,8 @@ class Calendar extends React.Component {
     let dateOptionArr = [];
     let now = new Date();
     if (Number(month) === now.getMonth() + 1) {
-      let nowTime = Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) + 1
-      if (nowTime >= 22) {
-        startDate = now.getDate() + 1
-      } else {
-        startDate = now.getDate();
-      }
+      startDate = now.getDate();
+
     }
     for (let i = startDate; i <= dateByMonth[month - 1]; i++) {
       dateOptionArr.push(
@@ -42,14 +38,12 @@ class Calendar extends React.Component {
     let now = new Date();
     let nowTime =
       Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) + 1;
-    if (
-      !(month === new Date().getMonth() + 1) ||
-      !(date === new Date().getDate()) || nowTime >= 22
-    ) {
+    if (month !== new Date().getMonth() + 1 || date !== new Date().getDate()) {
       nowTime = 11;
     }
     //hour dropdown
-    for (let i = nowTime; i <= 21; i++) {
+    for (let i = nowTime; i <= 24; i++) {
+      console.log(i)
       hourOptionArr.push(
         <option value={i} key={i}>
           {i}
@@ -60,7 +54,7 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = () => {
-    this.props.onDateChage(document.querySelector("#dateSelector").value)
+    // this.props.onDateChage(document.querySelector("#dateSelector").value)
     this.props.onHourChange(document.querySelector("#hourSelector").value)
   }
 
