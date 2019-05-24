@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Header.css";
 import HomeButton from ".././Pages/HomeButton";
 import Fetch from "../helpers/fetch";
+import logo from "../img/logo.png";
 
 class Header extends Component {
   getHeader() {
@@ -11,12 +12,9 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-            <span>
-            <img src="../../img/logo.png"  width="100%" height="20px" /><HomeButton/>
-            </span>
-          
+        <img src={logo}/>
           </NavLink>
-          
+
           <NavLink to="/login" className="item" activeClassName="active">
             LOG IN
           </NavLink>
@@ -29,7 +27,8 @@ class Header extends Component {
       _button = (
         <div className="header">
           <NavLink exact to="/" className="item" activeClassName="active">
-          <HomeButton/>
+          <img src={logo}/>
+            
           </NavLink>
           <NavLink
             to="/logout"

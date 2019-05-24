@@ -13,7 +13,7 @@ const styles = {
 
 class SearchButton extends Component {
   state = {
-    open: false,
+    open: false
   };
 
   handleClickOpen = () => {
@@ -29,11 +29,9 @@ class SearchButton extends Component {
 
     return (
       <Fragment>
-       
         <Button variant="outlined" color='primary' onClick={this.props.handleClickSearch} style={{ fontSize: 30, margin:0, background: grey[50]}} >
           Search
         </Button>
-        
       </Fragment>
     );
   }
