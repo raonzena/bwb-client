@@ -46,16 +46,15 @@ class App extends Component {
   };
 
   handleClickSearch = () => {
-      let data = document.querySelector('.MuiInputBase-input-100');
-      console.log(data, 'data')
-      if(data !== null){
-        if(data.value.length > 0){
-          this.setState({
-            searchValue: data.value,
-          });
-        }
-        data.value='';
-      }
+      // let data = document.querySelector('.searchSection');
+      // if(data.value.length !== null){
+      //   if(data.value.length > 0){
+      //     this.setState({
+      //       searchValue: data.value,
+      //     });
+      //   }
+      //   data.value='';
+      // }
   }
 
   handleClickHome = (e) => {
