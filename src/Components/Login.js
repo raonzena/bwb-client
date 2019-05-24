@@ -14,7 +14,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-
 const styles = theme => ({
   main: {
     width: 'auto',
@@ -22,8 +21,7 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 500,
-      height: 500,
+      width: 400,
       marginLeft: 'auto',
       marginRight: 'auto',
     },

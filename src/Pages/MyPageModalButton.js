@@ -16,13 +16,15 @@ const styles = {
   list: {
     width: 400,
     margin:50,
+    font:'bold',
+    // color:'white',
   },
   fullList: {
     width: 'auto',
   },
 };
 
-class PracticeModal extends React.Component {
+class MyPageModalButton extends React.Component {
   state = {
     top: false,
     left: false,
@@ -79,7 +81,7 @@ class PracticeModal extends React.Component {
     return (
       <div>
         
-        <Button className="my-page-button" onClick={this.toggleDrawer('right', true)} > MyPage </Button>
+        <Button className="my-page-button" onClick={this.toggleDrawer('right', true)} style={{color:'primary', backgroundColor: 'white'}} > MyPage </Button>
         
         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
           <div
@@ -96,8 +98,8 @@ class PracticeModal extends React.Component {
   }
 }
 
-PracticeModal.propTypes = {
+MyPageModalButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PracticeModal);
+export default withStyles(styles)(MyPageModalButton);

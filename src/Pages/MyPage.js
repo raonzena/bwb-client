@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
-import PracticeModal from "../Pages/PracticeModal";
+import MyPageModalButton from "./MyPageModalButton";
 class MyPage extends Component {
   constructor(props) {
     super(props);
@@ -65,7 +65,7 @@ class MyPage extends Component {
 
           MyPage
         </button> */}
-        <PracticeModal className="my-page-button" onClick={this.openMyPageList} currentItem={this.state.currentItem} />
+        <MyPageModalButton className="my-page-button" onClick={this.openMyPageList} currentItem={this.state.currentItem} />
         <div className="my-page">
           <MyPageContents
             closeMyPageList={this.closeMyPageList}

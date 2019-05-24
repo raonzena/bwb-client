@@ -102,6 +102,7 @@ const MeetingDetailModal = props => {
                 props.data[0].meeting_id
               )
             }
+            style={{height:40}}
           >
             {buttonDisplayIdentifier(props.data)}
           </button>
@@ -113,7 +114,6 @@ const MeetingDetailModal = props => {
     )
     : null;
 
-    
 };
 
 
