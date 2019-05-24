@@ -107,8 +107,12 @@ class MeetingListsContainer extends React.Component {
   };
 
   submitNewMeeting = createSubmitData => {
-    createSubmitData.placeId = this.props.clickMarkerRestaurantInfo.place_id;
-    this.fetchHandler("모임 생성", createSubmitData);
+    if (createSubmitData.meeting_name.length === 0) {
+      alert('모임명을 입력해 주세요.')
+    } else {
+      createSubmitData.placeId = this.props.clickMarkerRestaurantInfo.place_id;
+      this.fetchHandler("모임 생성", createSubmitData);
+    }
   };
 
   toggleMeetingDetailModal = () => {
@@ -168,7 +172,7 @@ class MeetingListsContainer extends React.Component {
     let result = {};
     let activeMeetings = [];
     let inActiveMeetings = [];
-    meetingListArr.sort(function(a, b) {
+    meetingListArr.sort(function (a, b) {
       return (
         Number(a.meetingTime.slice(11, 13)) -
         Number(b.meetingTime.slice(11, 13))
@@ -220,14 +224,14 @@ class MeetingListsContainer extends React.Component {
               </div>
             </Fragment>
           ) : (
-            <MeetingLists
-              filteredMeetingLists={this.activationFilter(
-                this.props.meetingsInfos.result
-              )}
-              getMeetingDetail={this.getMeetingDetail}
-              restaurantInfos={this.props.restaurantInfos}
-            />
-          )
+              <MeetingLists
+                filteredMeetingLists={this.activationFilter(
+                  this.props.meetingsInfos.result
+                )}
+                getMeetingDetail={this.getMeetingDetail}
+                restaurantInfos={this.props.restaurantInfos}
+              />
+            )
         ) : null}
         <MeetingDetailModal
           show={this.state.showMeetingDetailModal}
