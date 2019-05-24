@@ -14,6 +14,7 @@ class LeftContainer extends React.Component {
   }
 
   fetchMeetingLists = (restaurantInfos) => {
+    console.log(restaurantInfos)
     fetchHelper
       .fetchMeetingLists(restaurantInfos)
       .then(result => result.json())

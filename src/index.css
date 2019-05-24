@@ -59,6 +59,7 @@ code {
 }
 
 .meeting-button:hover {
+  color: white;
   background: #748ffc;
 }
 .meeting-button:active,
@@ -66,26 +67,52 @@ code {
   background: white;
   color: #5c7cfa;
 }
-#restauranteInfo {
-}
+
 #meeting-state-Info {
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+  margin: 0 auto;
+  border-top: 10px solid rgb(53, 53, 129);
 }
 #meeting-box {
-  margin-bottom: 5%;
-  padding-top: 2%;
+  margin-bottom: 4%;
+}
+#restauranteInfo {
+  padding: 10px;
+}
+#current-meeting {
+  text-align: center;
+  padding: 2%;
+  margin-bottom: 2%;
+}
+.before-meeting {
+  padding: 10px;
+  /* background-color: #ced4da; */
+  opacity: 0.3;
+  margin-bottom: 5px;
+}
+#underline {
+  border-bottom: 1px black;
 }
 
-#current-meeting {
-  padding-top: 4%;
-  margin-bottom: 5%;
+#before-meeting-text {
+  border-top: 10px solid rgb(53, 53, 129);
+  margin-top: 3%;
 }
-#before-meeting {
-  margin-bottom: ;
+
+.fa-user-friends,
+.fa-user-times {
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
-#meeting-create-button,
-#meeting-list-backbutton {
-  margin-top: 20px;
+.fa-store {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+#margin-fix {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  color: #4c6ef5;
 }
