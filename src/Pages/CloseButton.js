@@ -11,9 +11,9 @@ const styles = {
 };
 
 
-class SearchButton extends Component {
+class CloseButton extends Component {
   state = {
-    open: false
+    open: false,
   };
 
   handleClickOpen = () => {
@@ -29,12 +29,12 @@ class SearchButton extends Component {
 
     return (
       <Fragment>
-        <Button variant="outlined" color='primary' onClick={this.props.handleClickSearch} style={{ fontSize: 30, margin:0, background: grey[50]}} >
-          Search
+        <Button variant="outlined" color='primary'  onClick={this.props.closeModal} style={{ fontSize: 20, margin:0, background: grey[50]}} >
+          {this.props.buttonName}
         </Button>
       </Fragment>
     );
   }
 }
-export default withStyles(styles)(SearchButton);
+export default withStyles(styles)(CloseButton);
 // export default SearchButton;

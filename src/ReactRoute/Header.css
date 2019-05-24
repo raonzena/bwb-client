@@ -3,17 +3,19 @@
   display: table;
   table-layout: fixed;
   width: 100%;
+  
 }
 
 .item {
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  /* display: table-cell; */
+
   display: table-caption;
   color: white;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .item:hover {
@@ -22,6 +24,6 @@
 
 .item:active,
 .item.active {
-  background: white;
-  color: #5c7cfa;
+  background: rgb(13, 212, 133);
+  color: #f6f7fc;
 }

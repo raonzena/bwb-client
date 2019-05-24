@@ -73,6 +73,7 @@ class App extends Component {
               render={props => (
                 <Home
                   handleSearch={this.handleSearch}
+                  handleClickSearch={this.handleClickSearch}
                   searchValue={this.state.searchValue}
                   handleClickHome={this.handleClickHome}
                 />
@@ -91,7 +92,9 @@ class App extends Component {
             <Route path="/logout" component={Logout} />
           </Router>
         </div>
-        <MyPage isLogin={this.state.isLogin} />
+        <div className="MyPageSection">
+          <MyPage isLogin={this.state.isLogin} />
+        </div>
       </div>
     );
   }
