@@ -54,7 +54,21 @@ code {
 .meeting-button {
   font-size: bold;
 }
-
+.store-url:hover {
+  font-size: 23px;
+  color: white;
+  background: #748ffc;
+  transform: translate(0, -2px);
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+}
+.store-url:active,
+.store-url.active {
+  background: white;
+  color: #5c7cfa;
+}
 .meeting-button:hover {
   color: white;
   background: #748ffc;
@@ -79,11 +93,12 @@ code {
 }
 #current-meeting {
   text-align: center;
-  padding: 2%;
+  padding: 3%;
   margin-bottom: 2%;
 }
 .before-meeting {
-  padding: 10px;
+  padding: 2%;
+  text-align: center;
   /* background-color: #ced4da; */
   opacity: 0.3;
   margin-bottom: 5px;
@@ -92,16 +107,17 @@ code {
   border-bottom: 1px black;
 }
 
-#before-meeting-text {
-  border-top: 10px solid rgb(53, 53, 129);
-  margin-top: 3%;
-}
-
-.fa-user-friends,
 .fa-user-times {
+  border-top: 10px solid rgb(53, 53, 129);
   font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 2%;
+  padding: 5%;
+  margin-top: 4%;
+}
+.fa-user-friends {
+  font-size: 30px;
+  margin-top: 4%;
+  margin-bottom: 5%;
 }
 .fa-store {
   font-size: 30px;
