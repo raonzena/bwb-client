@@ -111,20 +111,6 @@ class MeetingListsContainer extends React.Component {
     this.fetchHandler("모임 생성", createSubmitData);
   };
 
-<<<<<<< HEAD
-    // componentDidMount = () => {
-    //     this.init();
-    // };
-    
-    placeNameDefinder = (meetingListArr) => {
-        meetingListArr.forEach(e => {
-            for (let i = 0; i < this.props.restaurantInfos.length; i++) {
-                if (this.props.restaurantInfos[i].place_id === e.placeId) {
-                    e.restaurantName = this.props.restaurantInfos[i].name;
-                }
-            }
-        })
-=======
   toggleMeetingDetailModal = () => {
     this.setState({
       showMeetingDetailModal: !this.state.showMeetingDetailModal
@@ -150,7 +136,6 @@ class MeetingListsContainer extends React.Component {
       }
     } else {
       this.toggleNewMeetingModal();
->>>>>>> 7c9f45bde4ab45e29074ad22e4e261de576f6edd
     }
   };
 
@@ -165,61 +150,6 @@ class MeetingListsContainer extends React.Component {
       });
   };
 
-<<<<<<< HEAD
-    render() {
-        // console.log(this.props.clickMarkerRestaurantInfo)
-        return (
-            <div className="HelloWorld">
-                {this.props.meetingsInfos ?
-                    (
-                        this.props.clickMarkerRestaurantInfo ? (
-                            <Fragment>
-                                <div className="RestaurantMeetingList">
-                                
-                                <RestaurantMeetingList
-                                    meetingsInfos={this.activationFilter(this.props.meetingsInfos.result)}
-                                    clickMarkerRestaurantInfo={this.props.clickMarkerRestaurantInfo}
-                                    getMeetingDetail={this.getMeetingDetail}
-                                    getNewMeetingModal={this.getNewMeetingModal}
-                                    buttonHandler={this.fetchHandler}
-                                    backToMeetingList={this.props.backToMeetingList}
-                                />
-                                </div>
-                                <div className="NewMeetingModal">
-                                
-                                <NewMeetingModal
-                                    show={this.state.showNewMeetingModal}
-                                    closeModal={this.toggleNewMeetingModal}
-                                    submitNewMeeting={this.submitNewMeeting}
-                                    placeName={this.props.clickMarkerRestaurantInfo.name}
-                                    nickname={this.state.nickname}
-                                    buttonHandler={this.fetchHandler}
-                                />
-                                </div>
-                            </Fragment>
-                        )
-                            : (
-                                <Fragment>
-
-                                    <MeetingLists
-                                        filteredMeetingLists={this.activationFilter(this.props.meetingsInfos.result)}
-                                        getMeetingDetail={this.getMeetingDetail}
-                                        restaurantInfos={this.props.restaurantInfos} />
-                                </Fragment>          
-                              )
-
-                     
-                    )
-                    :
-                    null
-                }
-                
-                <MeetingDetailModal
-                    show={this.state.showMeetingDetailModal}
-                    closeModal={this.toggleMeetingDetailModal}
-                    buttonHandler={this.fetchHandler}
-                    data={this.state.fetchedDetail}
-=======
   // componentDidMount = () => {
   //     this.init();
   // };
@@ -276,7 +206,6 @@ class MeetingListsContainer extends React.Component {
                   getNewMeetingModal={this.getNewMeetingModal}
                   buttonHandler={this.fetchHandler}
                   backToMeetingList={this.props.backToMeetingList}
->>>>>>> 7c9f45bde4ab45e29074ad22e4e261de576f6edd
                 />
               </div>
               <div className="NewMeetingModal">

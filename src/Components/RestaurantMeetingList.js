@@ -18,7 +18,7 @@ class RestaurantMeetingList extends Component {
           <div id="meetingListContainer">
             <div id="meeting-box">
               <div id="restauranteInfo">
-                <div class="fas fa-store"> {restaurantInfo.name}</div>
+                <div className="fas fa-store"> {restaurantInfo.name}</div>
                 <div style={{ fontSize: "15px", margin: "10px" }}>
                   {restaurantInfo.formatted_address}
                 </div>
