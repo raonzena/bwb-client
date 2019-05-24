@@ -327,3 +327,7 @@
 .pastSchedule{
   
 }
+.verifyId, .isPwCheck, .verifyNickName{
+  font-size:12px;
+  color:red;
+}

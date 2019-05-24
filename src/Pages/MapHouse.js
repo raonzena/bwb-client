@@ -3,7 +3,6 @@ import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
 import LeftContainer from "../Components/LeftContainer";
 
-Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
 
 /* global google */
@@ -100,8 +99,8 @@ class MapHouse extends Component {
 
       infowindow.setContent(infowindowContent);
       infowindow.content.innerText = place.rating
-        ? place.name + " / 평점 : ⭐️x" + place.rating + "\n"
-        : place.name + "평점 : ⭐x0" + "\n";
+        ? place.name + " / 평점 : ⭐️ x " + place.rating + "\n"
+        : place.name + "평점 : ⭐ x 0 " + "\n";
 
       infowindow.setPosition();
 
@@ -142,6 +141,8 @@ class MapHouse extends Component {
   }
 
   componentDidMount = () => {
+    const API_KEY = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    Geocode.setApiKey(API_KEY);
     this.loadSite(this.props.searchValue);
   }
 
@@ -169,16 +170,7 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-        {/* <div className="leftContainer">
-          {this.state.clickMarkerRestaurantInfo ?
-            <LeftContainer
-              restaurantInfos={this.state.restaurantInfos}
-              clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
-            />
-            :
-            false
-          }
-        </div> */}
+       
       </Fragment>
     );
   }
