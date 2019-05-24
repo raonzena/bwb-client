@@ -12,13 +12,12 @@ class Header extends Component {
           <NavLink exact to="/" className="item" activeClassName="active">
           <HomeButton/>
           </NavLink>
-          <NavLink> </NavLink>
           
           <NavLink to="/login" className="item" activeClassName="active">
-            로그인
+            LOG IN
           </NavLink>
           <NavLink to="/signup" className="item" activeClassName="active">
-            회원가입
+            SIGN UP
           </NavLink>
         </div>
       );
@@ -51,7 +50,7 @@ class Header extends Component {
                 });
             }}
           >
-            로그아웃
+            LOG OUT
           </NavLink>
         </div>
       );

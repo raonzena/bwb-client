@@ -1,4 +1,7 @@
 
+
+
+
 #root {
   
   width: 100%;
@@ -10,6 +13,7 @@
   width: 0;
 }
 .App {
+  color: rgb(180, 80, 226);
   overflow-x: hidden;
   text-align: center;
   width: 100%;
@@ -169,7 +173,7 @@
   text-align: left;
   background-color: #f7f4f1;
   border-radius: 10px;
-  /* display: none; */
+  display: none;
 }
 
 .MySchedule{
@@ -182,3 +186,5 @@
   margin:5%;
   
 }
+
+ 

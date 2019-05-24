@@ -53,7 +53,7 @@ class MapHouse extends Component {
 
     var request = {
       location: site,
-      radius: "75",
+      radius: "130",
       type: ["restaurant"]
     };
 

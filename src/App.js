@@ -31,8 +31,7 @@ class App extends Component {
     }
   };
 
-  handleSearch = e => {
-    console.log(e.target.value, 'e.target.value')
+  handleSearch = (e) => {
     if (e.key === 'Enter') {
       if (!e.target.value.length) {
         alert(' 지역을 입력하세요! ')
@@ -43,10 +42,20 @@ class App extends Component {
           searchValue: data,
         });
       }
-
     }
-
   };
+
+  handleClickSearch = () => {
+      let data = document.querySelector('.MuiInputBase-input-145');
+      if(data !== null){
+        if(data.value.length > 0){
+          this.setState({
+            searchValue: data.value,
+          });
+        }
+        data.value='';
+      }
+  }
 
   handleClickHome = (e) => {
 
@@ -79,6 +88,7 @@ class App extends Component {
               render={props => (
                 <Home
                   handleSearch={this.handleSearch}
+                  handleClick={this.handleClickSearch}
                   searchValue={this.state.searchValue}
                   handleClickHome={this.handleClickHome}
                 />

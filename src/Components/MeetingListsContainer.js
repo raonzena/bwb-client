@@ -149,6 +149,7 @@ class MeetingListsContainer extends React.Component {
     // componentDidMount = () => {
     //     this.init();
     // };
+    
     placeNameDefinder = (meetingListArr) => {
         meetingListArr.forEach(e => {
             for (let i = 0; i < this.props.restaurantInfos.length; i++) {

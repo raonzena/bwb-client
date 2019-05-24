@@ -1,12 +1,12 @@
-import React, {Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
 
-class SearchButton extends React.Component {
+class SearchButton extends Component {
   state = {
     open: false,
   };
@@ -20,12 +20,13 @@ class SearchButton extends React.Component {
   };
 
   render() {
+    console.log(this.props, 'props')
     return (
       <Fragment>
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+        <Button variant="outlined" color="primary" onClick={this.props.handleClickSearch} style={{ fontSize: 30 }} >
           Search...
         </Button>
-        <Dialog
+        {/* <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
@@ -45,7 +46,7 @@ class SearchButton extends React.Component {
               열기
             </Button>
           </DialogActions>
-        </Dialog>
+        </Dialog> */}
       </Fragment>
     );
   }

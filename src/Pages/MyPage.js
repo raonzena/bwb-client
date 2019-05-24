@@ -59,14 +59,15 @@ class MyPage extends Component {
   };
 
   render() {
-    console.log("123", this.state.currentItem);
+    const {currentItem} = this.state
     return (
       <Fragment>
         
         <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
         
-          MyPage
+          mypage
         </button>
+        <PracticeModal onClick={this.openMyPageList} currentItem={this.state.currentItem} />
         <div className="my-page">
           <MyPageContents
             closeMyPageList={this.closeMyPageList}

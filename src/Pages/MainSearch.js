@@ -18,15 +18,14 @@ const styles = {
 
 function MainSearch(props) {
   const { classes } = props;
-  
-  
+  console.log(props, 'props MainSearch')
+
   return (
-    
     <Fragment>
         <span className={classes.root}>
           <AppBar position="static" color="default">
             <Toolbar>
-            < Button color="inherit" onClick={props.handleClickHome} style={{ fontSize: 40 }} > 🔍 </Button>
+            < Button color="inherit" onClick={props.handleClickSearch} style={{ fontSize: 40 }} > 🔍</Button>
               <Typography className="Input-Bar" variant="h6" color="inherit" >            
                 <InputBase
                     className="Input-Bar"
@@ -40,7 +39,7 @@ function MainSearch(props) {
                     style={{ fontSize: 25 }}  
                 />
               </Typography>
-              <SearchButton className="Test" style={{ fontSize: 40 }} /> 
+              <SearchButton className="Test" handleClickSearch={props.handleClickSearch} style={{ fontSize: 40 }} /> 
             </Toolbar>
            
           </AppBar>
