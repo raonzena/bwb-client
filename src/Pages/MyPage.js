@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import MyPageContents from "../Components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
 import PracticeModal from "../Pages/PracticeModal";
-
 class MyPage extends Component {
   constructor(props) {
     super(props);
@@ -38,9 +37,9 @@ class MyPage extends Component {
         });
     }
   };
-  
+
   componentDidMount = () => {
-    if(this.props.isLogin) {
+    if (this.props.isLogin) {
       this.closeMyPageList();
     } else {
       document.querySelector(".my-page").style.display = "none";
@@ -59,22 +58,21 @@ class MyPage extends Component {
   };
 
   render() {
-    const {currentItem} = this.state
     return (
       <Fragment>
-        
-        <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
-        
-          mypage
-        </button>
-        <PracticeModal onClick={this.openMyPageList} currentItem={this.state.currentItem} />
+
+        {/* <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
+
+          MyPage
+        </button> */}
+        <PracticeModal className="my-page-button" onClick={this.openMyPageList} currentItem={this.state.currentItem} />
         <div className="my-page">
           <MyPageContents
             closeMyPageList={this.closeMyPageList}
             currentItem={this.state.currentItem}
           />
         </div>
-        
+
       </Fragment>
     );
   }

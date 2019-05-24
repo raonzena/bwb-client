@@ -79,7 +79,7 @@ class PracticeModal extends React.Component {
     return (
       <div>
         
-        <Button onClick={this.toggleDrawer('right', true)}>Open Right</Button>
+        <Button className="my-page-button" onClick={this.toggleDrawer('right', true)} > MyPage </Button>
         
         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
           <div

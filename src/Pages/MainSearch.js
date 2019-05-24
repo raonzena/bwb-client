@@ -13,6 +13,8 @@ import { Button } from "@material-ui/core";
 const styles = {
   root: {
     flexGrow: 1,
+    margin:0,
+    padding:0,
   },
 };
 
@@ -22,11 +24,11 @@ function MainSearch(props) {
 
   return (
     <Fragment>
-        <span className={classes.root}>
-          <AppBar position="static" color="default">
+      <div className="searchSection">
+        <span className={classes.root + ' searchBar'} style={{margin:0, padding: 0}}>
+          <AppBar position="static" color="default" style={{margin: 0, padding: 0}}>
             <Toolbar>
-            < Button color="inherit" onClick={props.handleClickSearch} style={{ fontSize: 40 }} > 🔍</Button>
-              <Typography className="Input-Bar" variant="h6" color="inherit" >            
+              <Typography className="Input-Bar" variant="h6" color="inherit" style={{margin:0, padding: 0}}>            
                 <InputBase
                     className="Input-Bar"
                     type="text"
@@ -36,14 +38,18 @@ function MainSearch(props) {
                       input: classes.inputInput,
                     }}
                     onKeyPress={props.handleSearch}
-                    style={{ fontSize: 25 }}  
+                    style={{ fontSize: 25, margin: 0, padding: 0 }}  
                 />
               </Typography>
-              <SearchButton className="Test" handleClickSearch={props.handleClickSearch} style={{ fontSize: 40 }} /> 
+                   
+              {/* < Button color="inherit" onClick={props.handleClickSearch} style={{ fontSize: 50, width: 40 }} > 🔍</Button> */}
             </Toolbar>
-           
           </AppBar>
         </span>
+        <span className='searchButton'>
+        <SearchButton className="Test" handleClickSearch={props.handleClickSearch} style={{ fontSize: 40, margin: 0, padding: 0}} /> 
+        </span>
+        </div>
     </Fragment>
   );
 }

@@ -1,5 +1,5 @@
 
-
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 
 
 #root {
@@ -10,15 +10,35 @@
 
 #modal_root {
   height: 0;
-  width: 0;
+  width: 100%;
+  margin-left: 20%;
 }
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  
+  margin-top:  -35%;
+  margin-left: 5%;
+  
+  height: 350px;
+  width: 500px;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+}
+
 .App {
-  color: rgb(180, 80, 226);
+  color: rgb(241, 236, 243);
   overflow-x: hidden;
   text-align: center;
   width: 100%;
   height: 1300px;
   background-color: rgb(53, 53, 129);
+  font-family: 'Nanum Gothic', sans-serif;
 }
 
 .MapHouse {
@@ -35,26 +55,15 @@
   width: 100%;
 }
 
-.modal {
-  position: absolute;
-  top: 250px;
-  left: 30px;
-  height: 350px;
-  width: 200px;
-  padding: 20px;
-  background-color:orange;
-  border: 1px solid grey;
-  border-radius: 10px;
-}
 
 .closeBtn {
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: white;
 }
 
 .participateBtn {
   border-radius: 10px;
-  background-color: blanchedalmond;
+  background-color: white;
 }
 
 /* 여기부터가 Middle 파트(rightContainer + leftContainer) */
@@ -91,31 +100,56 @@
   align-items: center;
 }
 
+
 .MainSearch{
   margin-left:10%;
   margin-right:10%;
   width: 80%;
-  height: 100px;
+  height: 60px;
 }
 
-.MainSearch-root-1{
-  width: 100%;
-  height:50px;
-}
+/* 서치바 */
 
 .Search-Div{
   width: 100%;
-  height: 50px;
+  height: 40px;
   align-content: center;
   align-items: center;
   margin:10px;
 }
+.searchSection{
+  display: flex;
+  width:100%;
+}
+
+/* 
+.MuiToolbar-root {
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.MuiToolbar-root {
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.MuiToolbar-root{
+  display: flex;
+  justify-content: space-between;
+  margin:0;
+  padding-left: 0px;
+  padding-right: 0px;
+} */
 
 .Input-Bar {
-  margin-left:10%;
-  margin-right:10%;
-  width: 90%;
-  height: 40px;
+  width: 100%;
+  height: 30px;
   font-size: 10px;
 }
 
@@ -154,16 +188,26 @@
   width:60%;
 }
 
+
+
+/* 아래 : mypage... */
+.MyPageSection{
+  margin-top: 10%;
+  margin-left: 95%;
+}
+
 .my-page-button{
   border-radius: 10px;
-  /* height: 200px;
-  width: 200px; */
+  color: whitesmoke;
   
 }
+
 
 .MyPage{
   height:500px;
 }
+
+
 
 .my-page {
   font-size: 20px;
@@ -183,8 +227,7 @@
 }
 
 .ScheduleContents{
-  margin:5%;
-  
+  margin:5%; 
 }
 
  

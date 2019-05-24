@@ -1,14 +1,11 @@
 import React from "react";
 import MainSearch from "./MainSearch";
 import MapHouse from "./MapHouse";
-
 const Home = props => {
-  console.log(props, 'props')
   return (
     <div className="Bodys">
       <div className="MainSearch">
-      
-        <MainSearch handleSearch={props.handleSearch} handleClickHome={props.handleClickHome} handleClickSearch={props.handleClick} />
+        <MainSearch handleSearch={props.handleSearch} handleClickSearch={props.handleClickSearch} handleClickHome={props.handleClickHome} style={{margin:0, padding:0}} />
       </div>
       <div className="MapHouse">
         <MapHouse searchValue={props.searchValue} />

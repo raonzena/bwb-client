@@ -21,7 +21,7 @@ class Calendar extends React.Component {
     let now = new Date();
     if (Number(month) === now.getMonth() + 1) {
       let nowTime = Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) + 1
-      if (nowTime >= 21) {
+      if (nowTime >= 22) {
         startDate = now.getDate() + 1
       } else {
         startDate = now.getDate();
@@ -41,11 +41,10 @@ class Calendar extends React.Component {
     let hourOptionArr = [];
     let now = new Date();
     let nowTime =
-      Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) +
-      1;
+      Number(now.toLocaleTimeString("en-US", { hour12: false }).slice(0, 2)) + 1;
     if (
       !(month === new Date().getMonth() + 1) ||
-      !(date === new Date().getDate()) || nowTime >= 21
+      !(date === new Date().getDate()) || nowTime >= 22
     ) {
       nowTime = 11;
     }
@@ -59,6 +58,12 @@ class Calendar extends React.Component {
     }
     return hourOptionArr;
   };
+
+  componentDidMount = () => {
+    this.props.onDateChage(document.querySelector("#dateSelector").value)
+    this.props.onHourChange(document.querySelector("#hourSelector").value)
+  }
+
   render() {
     return (
       <React.Fragment>

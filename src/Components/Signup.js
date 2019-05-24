@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fetchHelper from "../helpers/fetch"
+
 class Signup extends Component {
   id_check = false;
   nickname_check = false;
@@ -259,3 +260,267 @@ class Signup extends Component {
   }
 }
 export default Signup;
+
+
+
+// import React from "react";
+// import Fetch from "../helpers/fetch";
+// import { Redirect } from "react-router-dom";
+// import PropTypes from 'prop-types';
+// import Avatar from '@material-ui/core/Avatar';
+// import Button from '@material-ui/core/Button';
+// import CssBaseline from '@material-ui/core/CssBaseline';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Checkbox from '@material-ui/core/Checkbox';
+// import Input from '@material-ui/core/Input';
+// import InputLabel from '@material-ui/core/InputLabel';
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+// import Paper from '@material-ui/core/Paper';
+// import Typography from '@material-ui/core/Typography';
+// import withStyles from '@material-ui/core/styles/withStyles';
+
+
+// const styles = theme => ({
+//   main: {
+//     width: 'auto',
+//     display: 'block', // Fix IE 11 issue.
+//     marginLeft: theme.spacing.unit * 3,
+//     marginRight: theme.spacing.unit * 3,
+//     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+//       width: 400,
+//       marginLeft: 'auto',
+//       marginRight: 'auto',
+//     },
+//   },
+//   paper: {
+//     marginTop: theme.spacing.unit * 8,
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+//   },
+//   avatar: {
+//     margin: theme.spacing.unit,
+//     backgroundColor: theme.palette.secondary.main,
+//   },
+//   form: {
+//     width: '100%', // Fix IE 11 issue.
+//     marginTop: theme.spacing.unit,
+//   },
+//   submit: {
+//     marginTop: theme.spacing.unit * 3,
+//   },
+// });
+
+
+// const Signup = props => {
+//   const { classes } = props;
+  
+//   id_check = false;
+//   nickname_check = false;
+//   pwCheck = false;
+//   isIdCheck = id => {
+//     if (id === "") {
+//       alert("아이디를 입력해주세요!");
+//       return false;
+//     }
+//     fetchHelper.fetchSignup_IdCheck(id)
+//       .then(response => {
+//         return response.json();
+//       })
+//       .then(check => {
+//         if (check === 0) {
+//           alert("사용이 가능한 아이디 입니다");
+//           this.id_check = true;
+//         } else if (check >= 1) {
+//           alert("이미 사용중인 아이디 입니다");
+//         }
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   };
+//   isNickNameCheck = nick_name => {
+//     if (nick_name === "") {
+//       alert("닉네임을 입력해주세요!");
+//       return false;
+//     }
+//     fetchHelper.fetchSignup_NickNameCheck(nick_name)
+//       .then(response => {
+//         return response.json();
+//       })
+//       .then(check => {
+//         if (check === 0) {
+//           alert("사용이 가능한 닉네임 입니다");
+//           this.nickname_check = true;
+//         } else if (check >= 1) {
+//           alert("이미 사용중인 닉네임 입니다");
+//         }
+//       })
+//       .catch(err => {
+//         console.log(err);
+//       });
+//   };
+//   isPwCheck = (pw, pw_check) => {
+//     if (pw === "" || pw_check === "") {
+//       alert("비밀번호를 입력해주세요!");
+//       return false;
+//     }
+//     if (pw === pw_check) {
+//       document.querySelector(".isPwCheck").innerHTML = "비밀번호가 일치합니다";
+//       document.querySelector(".isPwCheck").style.display = "block";
+//       this.pwCheck = true;
+//     } else {
+//       document.querySelector(".isPwCheck").innerHTML =
+//         "비밀번호가 일치하지 않습니다";
+//       document.querySelector(".isPwCheck").style.display = "block";
+//     }
+//   };
+//   verifyId = e => {
+//     this.id_check = false;
+//     var regType1 = /^[A-Za-z0-9+]{4,8}$/;
+
+//     if (regType1.test(e.target.value)) {
+//       document.querySelector(".verifyId").style.display = "none";
+//     } else {
+//       document.querySelector(".verifyId").style.display = "block";
+//     }
+//   };
+//   verifyNickName = e => {
+//     this.nickname_check = false;
+//     var regType1 = /^[가-힣|ㄱ-ㅎ|ㅏ-ㅣ|a-zA-Z0-9+]{4,8}/gi;
+
+//     if (regType1.test(e.target.value)) {
+//       document.querySelector(".verifyNickName").style.display = "none";
+//     } else {
+//       document.querySelector(".verifyNickName").style.display = "block";
+//     }
+//   };
+//   verifyPw = e => {
+//     this.pwcheck = false;
+//     var regType1 = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{6,20}$/;
+
+//     if (regType1.test(e.target.value)) {
+//       document.querySelector(".verifyPw").style.display = "none";
+//     } else {
+//       document.querySelector(".verifyPw").style.display = "block";
+//     }
+//   };
+//   verifyPwCheck = e => {
+//     this.pwCheck = false;
+//   };
+
+//   if (props.isLogin === false) {
+//     return (
+//       <main className={classes.main}>
+//         <CssBaseline />
+//         <Paper className={classes.paper}>
+//         <Avatar className={classes.avatar}>
+//           <LockOutlinedIcon />
+//         </Avatar>
+//         <Typography component="h1" variant="h5">회원가입</Typography>
+//         <form
+//           className={classes.form}
+//           onSubmit={
+//             e => {
+//               e.preventDefault();
+//               console.log(
+//                 document.querySelector(".isPwCheck").innerHTML ===
+//                 "비밀번호가 일치하지 않습니다"
+//               );
+//               if (this.id_check === false) {
+//                 alert("아이디 중복확인을 해주세요!");
+//                 return false;
+//               }
+//               if (this.nickname_check === false) {
+//                 alert("닉네임 중복확인을 해주세요!");
+//                 return false;
+//               }
+//               if (this.pwCheck === false) {
+//                 alert("비밀번호 확인을 해주세요!");
+//                 return false;
+//               }
+//               if (e.target.id.value === "") {
+//                 alert("아이디를 입력해주세요!");
+//                 return false;
+//               } else if (e.target.pw.value === "") {
+//                 alert("비밀번호를 입력해주세요!");
+//                 return false;
+//               } else if (
+//                 document.querySelector(".isPwCheck").innerHTML ===
+//                 "비밀번호가 일치하지 않습니다"
+//               ) {
+//                 alert("비밀번호가 일치하지 않습니다!");
+//                 return false;
+//               } else if (e.target.nick_name.value === "") {
+//                 alert("닉네임을 입력해주세요!");
+//                 return false;
+//               } else if (e.target.gender.value === "") {
+//                 alert("성별을 체크해주세요!");
+//                 return false;
+//               } else if (
+//                 this.id_check === true &&
+//                 this.pwCheck === true &&
+//                 this.nickname_check === true &&
+//                 document.querySelector(".isPwCheck").innerHTML ===
+//                 "비밀번호가 일치합니다"
+//               ) {
+//                 var user = {
+//                   id: e.target.id.value,
+//                   pw: e.target.pw.value,
+//                   nick_name: e.target.nick_name.value,
+//                   gender: e.target.gender.value
+//                 };
+//                 fetchHelper.fetchSignup(user)
+//                   .then(response => {
+//                     console.log(response.status);
+//                     if (response.status === 201) {
+//                       window.location.href = "/login";
+//                       return response;
+//                     }
+//                     return response;
+//                   })
+//                   .catch(err => {
+//                     alert("회원가입에 실패하였습니다!");
+//                     console.log(err);
+//                     return err;
+//                   });
+//               }
+//             }
+            
+//           }
+//         >
+//           <FormControl margin="normal" required fullWidth>
+//             <InputLabel htmlFor="id">아이디</InputLabel>
+//             <Input id="id" name="id" autoComplete="id" autoFocus />
+//           </FormControl>
+//           <FormControl margin="normal" required fullWidth>
+//             <InputLabel htmlFor="password">비밀번호</InputLabel>
+//             <Input name="pw" type="password" id="password" autoComplete="current-password" />
+//           </FormControl>
+//           <Button
+//             type="submit"
+//             fullWidth
+//             variant="contained"
+//             color="primary"
+//             className={classes.submit}
+//           >로그인</Button>
+//         </form>
+//         </Paper>
+//       </main>
+//     );
+//   } else {
+//     return (
+//       <div>
+//         <Redirect to="/" />
+//       </div>
+//     );
+//   }
+// };
+
+// // export default Login;
+// Login.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
+// export default withStyles(styles)(Login);
