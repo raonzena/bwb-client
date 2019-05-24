@@ -223,7 +223,8 @@ class Signup extends Component {
                 placeholder="4-8글자(한영,숫자)"
                 onChange={e => {
                   this.isIdCheck(document.querySelector("#id").value);
-                }} />
+                }}
+                autoFocus />
             </FormControl>
             <span className="verifyId">아이디를 입력해주세요</span>
             <FormControl margin="normal" required fullWidth>
