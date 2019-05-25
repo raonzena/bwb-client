@@ -1,4 +1,4 @@
-const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : "http://ec2-13-124-113-204.ap-northeast-2.compute.amazonaws.com"
+const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : `${process.env.REACT_APP_GOOGLE_SERVER_ENDPOINT}`
 
 const port = "3000"
 //login fetch
