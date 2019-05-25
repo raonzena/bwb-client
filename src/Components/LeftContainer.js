@@ -12,9 +12,7 @@ class LeftContainer extends React.Component {
       clickMarkerRestaurantInfo: undefined,
     };
   }
-
   fetchMeetingLists = (restaurantInfos) => {
-    console.log(restaurantInfos)
     fetchHelper
       .fetchMeetingLists(restaurantInfos)
       .then(result => result.json())
@@ -35,7 +33,6 @@ class LeftContainer extends React.Component {
   shouldComponentUpdate() {
     return true;
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.restaurantInfos !== this.props.restaurantInfos) {
       this.fetchMeetingLists(this.props.restaurantInfos);

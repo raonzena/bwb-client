@@ -46,7 +46,7 @@ class MapHouse extends Component {
     var site = new google.maps.LatLng(lat, lng);
 
     map = new google.maps.Map(document.querySelector(".map"), {
-      center: site,
+      // center: site,
       zoom: 15
     });
 
@@ -55,6 +55,8 @@ class MapHouse extends Component {
       radius: "130",
       type: ["restaurant"]
     };
+
+    google.maps.event.addListener(map, 'dragend', this.getMoveData)
 
     var service = new google.maps.places.PlacesService(map);
 
@@ -66,12 +68,48 @@ class MapHouse extends Component {
             restaurantInfos: results
           });
           this.createMarkers(lat, lng, results, map);
-          map.setCenter(results[0].geometry.location);
+          // map.setCenter(results[0].geometry.location);
           // this.meetingsInfos = this.bringMeetingData(results);
         }
       }
     });
   };
+
+  getMoveData = () => {
+    let currentLocation = map.getCenter();
+    let newCurrLocation = currentLocation.toString();
+    newCurrLocation = newCurrLocation.replace('(', '');
+    newCurrLocation = newCurrLocation.replace(')', '');
+    let latlngArray = [];
+    latlngArray = newCurrLocation.split(",")
+    for (let a in latlngArray) {
+      latlngArray[a] = parseFloat(latlngArray[a]);
+    }
+
+    let newLat = latlngArray[0]
+    let newLng = latlngArray[1]
+    var service = new google.maps.places.PlacesService(map);
+    var site = new google.maps.LatLng(newLat, newLng);
+
+    var request = {
+      location: site,
+      radius: "130",
+      type: ["restaurant"]
+    };
+    service.nearbySearch(request, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        if (JSON.stringify(results)) {
+          // console.log(results, "음식점 정보");
+          this.setState({
+            restaurantInfos: results
+          });
+          this.createMarkers(newLat, newLng, results, map);
+          // map.setCenter(results[0].geometry.location);
+          // this.meetingsInfos = this.bringMeetingData(results);
+        }
+      }
+    });
+  }
 
   createMarkers = (lat, lng, places, map) => {
     var bounds = new google.maps.LatLngBounds();
@@ -133,6 +171,7 @@ class MapHouse extends Component {
 
     map.fitBounds(bounds);
   };
+
 
   backToMeetingList = () => {
     this.setState({
