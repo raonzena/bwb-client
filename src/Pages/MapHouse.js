@@ -150,7 +150,9 @@ class MapHouse extends Component {
           thisMarker = marker,
           placeId = place.place_id
         ) => {
-          return (() => {        
+          return (() => {    
+            infowindow.close()
+            
             infowindow.open(locationMarker.latLng, thisMarker);
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
