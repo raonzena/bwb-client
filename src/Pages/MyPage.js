@@ -93,7 +93,6 @@ class MyPage extends Component {
             className={classes.list}
           >
             <MyPageContents
-              closeMyPageList={this.closeMyPageList}
               currentItem={this.state.currentItem}
             />
           </div>
