@@ -78,9 +78,11 @@ const MeetingDetailModal = props => {
     ? ReactDOM.createPortal(
       <div className="modal" > 
         <CloseButton className="closeBtn"  aria-hidden="true" closeModal={props.closeModal} buttonName = {buttonNameClose}/>
-        <h4>
-          <strong>{props.data[0].meeting.name}</strong>{" "}
-        </h4>
+        <div className="modalTitle">
+          <h1>
+            <strong>{props.data[0].meeting.name}</strong>{" "}
+          </h1>
+        </div>
         <div>
           <strong>주최자</strong> {props.data[0].meeting.user.nickname}
         </div>
