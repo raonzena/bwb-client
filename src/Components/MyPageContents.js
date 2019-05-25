@@ -9,7 +9,7 @@ class MyPageContents extends Component {
         <div className="close-button" onClick={this.props.closeMyPageList}>
             ✖️
           </div>
-        <h2 style={{'text-align':'center'}}>나의 BWB 일정</h2>
+        <h2>나의 BWB 일정</h2>
         <div className="MySchedule">
           
 

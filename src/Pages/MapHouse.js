@@ -116,6 +116,7 @@ class MapHouse extends Component {
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+                console.log(place, "음식점 정보");
                 this.setState({
                   clickMarkerRestaurantInfo: place
                 });

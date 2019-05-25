@@ -107,11 +107,21 @@ class MeetingListsContainer extends React.Component {
   };
 
   submitNewMeeting = createSubmitData => {
-    createSubmitData.placeId = this.props.clickMarkerRestaurantInfo.place_id;
-    this.fetchHandler("모임 생성", createSubmitData);
+    if (createSubmitData.meeting_name.length === 0) {
+      alert('모임명을 입력해 주세요.')
+    } else {
+      createSubmitData.placeId = this.props.clickMarkerRestaurantInfo.place_id;
+      this.fetchHandler("모임 생성", createSubmitData);
+    }
   };
 
   toggleMeetingDetailModal = () => {
+    let app = document.getElementsByClassName("App")[0];
+    if (this.state.showMeetingDetailModal) {
+      app.className = "App"
+    } else {
+      app.className = "App is-blurred"
+    }
     this.setState({
       showMeetingDetailModal: !this.state.showMeetingDetailModal
     });
@@ -119,11 +129,19 @@ class MeetingListsContainer extends React.Component {
 
   toggleNewMeetingModal = async () => {
     let result = await this.getNickname();
+    let app = document.getElementsByClassName("App")[0];
+    if (this.state.showNewMeetingModal) {
+      app.className = "App"
+    } else {
+      app.className = "App is-blurred"
+    }
     this.setState({
       showNewMeetingModal: !this.state.showNewMeetingModal,
       nickname: result.nickname
     });
   };
+
+  
 
   getNewMeetingModal = () => {
     if (!localStorage.getItem("token")) {
@@ -168,7 +186,7 @@ class MeetingListsContainer extends React.Component {
     let result = {};
     let activeMeetings = [];
     let inActiveMeetings = [];
-    meetingListArr.sort(function(a, b) {
+    meetingListArr.sort(function (a, b) {
       return (
         Number(a.meetingTime.slice(11, 13)) -
         Number(b.meetingTime.slice(11, 13))
@@ -220,14 +238,14 @@ class MeetingListsContainer extends React.Component {
               </div>
             </Fragment>
           ) : (
-            <MeetingLists
-              filteredMeetingLists={this.activationFilter(
-                this.props.meetingsInfos.result
-              )}
-              getMeetingDetail={this.getMeetingDetail}
-              restaurantInfos={this.props.restaurantInfos}
-            />
-          )
+              <MeetingLists
+                filteredMeetingLists={this.activationFilter(
+                  this.props.meetingsInfos.result
+                )}
+                getMeetingDetail={this.getMeetingDetail}
+                restaurantInfos={this.props.restaurantInfos}
+              />
+            )
         ) : null}
         <MeetingDetailModal
           show={this.state.showMeetingDetailModal}

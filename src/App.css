@@ -23,12 +23,23 @@
   border-radius: 10px;
   height: 600px;
   width: 700px;
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
   font-size:20px;
 }
 
+
+.is-blurred{
+  /* filter: blur(2px);
+  -webkit-filter: blur(2px); */
+  background: black;
+  opacity: 0.3 !important;
+}
+
 .modalTitle{
-  margin-left:16%;
+  margin-left:18%;
 }
 
 .App {
