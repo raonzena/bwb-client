@@ -21,8 +21,8 @@ class MeetingLists extends React.Component {
     ) {
       if (totalMeetingLists[i]) {
         let aList = totalMeetingLists[i];
-        if (aList.meetingName.length > 11) {
-          aList.meetingName = aList.meetingName.slice(0, 11) + '...';
+        if (aList.meetingName.length > 8) {
+          aList.meetingName = aList.meetingName.slice(0, 8) + '...';
         }
         if (totalMeetingLists[i].isActive) {
           meetingBtnArr.push(

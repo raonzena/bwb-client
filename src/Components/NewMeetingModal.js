@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Calendar from "./Calendar";
 
 class NewMeetingModal extends React.Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +26,6 @@ class NewMeetingModal extends React.Component {
   createSubmitData = () => {
     let date = this.state.date !== document.querySelector("#dateSelector").value ? document.querySelector("#dateSelector").value : this.state.date
     let hour = this.state.hour !== document.querySelector("#dateSelector").value ? document.querySelector("#hourSelector").value : this.state.hour
-
     let submitData = {};
     submitData.meeting_name = this.name.value;
     submitData.time =
