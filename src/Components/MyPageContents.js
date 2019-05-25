@@ -6,13 +6,8 @@ class MyPageContents extends Component {
   render() {
     return (
       <Fragment>
-        <div className="close-button" onClick={this.props.closeMyPageList}>
-            ✖️
-          </div>
-        <h2>나의 BWB 일정</h2>
+        <h2 style={{'textAlign':'center'}}>나의 BWB 일정</h2>
         <div className="MySchedule">
-          
-
           <div className="presentSchedule">
             <h4>🥢 내가 만든 모임 일정</h4>
             {this.props.currentItem && this.props.currentItem.owner

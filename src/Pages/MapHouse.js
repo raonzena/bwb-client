@@ -181,10 +181,9 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-       
+
       </Fragment>
     );
   }
 }
 export default MapHouse;
-
