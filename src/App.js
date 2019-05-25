@@ -44,7 +44,7 @@ class App extends Component {
     }
   };
 
-  handleClickHome = e => {};
+  handleClickHome = e => { };
 
   changeIsLogin = value => {
     this.setState({
