@@ -11,14 +11,17 @@
 }
 
 .modal {
-  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   position: absolute;
-  margin-top:  -35%;
-  margin-left: 5%;
-  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 10px;
+
   height: 350px;
   width: 500px;
   padding: 20px;
@@ -51,7 +54,6 @@
   width: 100%;
 }
 
-
 .closeBtn {
   border-radius: 10px;
   background-color: white;
@@ -67,15 +69,15 @@
 
 .participateBtn:hover {
   border-radius: 10px;
-  background-color:  rgb(242, 238, 247);
+  background-color: rgb(242, 238, 247);
   font-size: 20px;
   font-weight: bold;
-  transform:translate(0, -2px);
-  -webkit-transform:translate(0, -2px);
-  -moz-transform:translate(0, -2px);
-  -ms-transform:translate(0, -2px);
-  -o-transform:translate(0, -2px);
-  color:rgb(89, 80, 212);
+  transform: translate(0, -2px);
+  -webkit-transform: translate(0, -2px);
+  -moz-transform: translate(0, -2px);
+  -ms-transform: translate(0, -2px);
+  -o-transform: translate(0, -2px);
+  color: rgb(89, 80, 212);
 }
 
 /* 여기부터가 Middle 파트(rightContainer + leftContainer) */
@@ -111,10 +113,10 @@
   align-items: center;
 }
 
-
-.MainSearch{
-  margin-left:10%;
-  margin-right:10%;
+.MainSearch {
+  margin: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
   width: 80%;
   height: 60px;
 }
@@ -128,9 +130,9 @@
   align-items: center;
   margin: 10px;
 }
-.searchSection{
+.searchSection {
   display: flex;
-  width:100%;
+  width: 100%;
 }
 
 .Input-Bar {
@@ -253,23 +255,19 @@
 }
 
 /* 아래 : mypage... */
-.MyPageSection{
+.MyPageSection {
   margin-top: 10%;
   margin-left: 95%;
 }
 
-.my-page-button{
+.my-page-button {
   border-radius: 10px;
   color: whitesmoke;
-  
 }
 
-
-.MyPage{
-  height:500px;
+.MyPage {
+  height: 500px;
 }
-
-
 
 .my-page {
   font-size: 20px;
