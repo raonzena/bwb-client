@@ -2,8 +2,7 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import SearchButton from "../Pages/SearchButton";
 import PeoPle from "@material-ui/icons/People";
-
-// import StarRatings from './react-star-ratings';
+import StarRatings from 'react-star-ratings';
 
 class RestaurantMeetingList extends Component {
   render() {
@@ -26,13 +25,23 @@ class RestaurantMeetingList extends Component {
                   {" "}
                   {restaurantInfo.formatted_phone_number}
                 </div>
+                <StarRatings
+                  rating={restaurantInfo.rating}
+                  starRatedColor="#ffd43b"
+                  // starEmptyColor
+                  starDimension="30px"
+                  starSpacing="10px"
+                />
                 <br />
+
                 <a
                   className="store-url"
                   href={restaurantInfo.website}
-                  style={{ textDecoration: "none" }}
+                  style={{
+                    textDecoration: "none"
+                  }}
                 >
-                  {restaurantInfo.website}
+                  {restaurantInfo.website.slice(0, 30) + "..."}
                 </a>
               </div>
 
