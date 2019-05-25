@@ -14,12 +14,12 @@ class LeftContainer extends React.Component {
   }
 
   fetchMeetingLists = (restaurantInfos) => {
-    console.log(restaurantInfos)
+    // console.log(restaurantInfos)
     fetchHelper
       .fetchMeetingLists(restaurantInfos)
       .then(result => result.json())
       .then(fetchedMeetingLists => {
-        console.log("fetched", fetchedMeetingLists);
+        // console.log("fetched", fetchedMeetingLists);
         if (restaurantInfos === this.props.restaurantInfos) {
           this.setState({
             meetingsInfos: fetchedMeetingLists,

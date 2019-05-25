@@ -17,6 +17,15 @@ class App extends Component {
       searchValue: ""
     };
   }
+  
+  //  fadeInfadeOut 준비중
+  paintImage= () =>{
+    const image = new Image();
+    image.src = `../img/logo.png`;
+    image.classList.add("bgImage");
+    let body = document.querySelector('body');
+    body.prepend(image)
+  }
 
   componentDidMount = () => {
     if (localStorage.getItem("token")) {

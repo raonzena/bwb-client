@@ -4,12 +4,12 @@ import Button from "@material-ui/core/Button";
 
 class RestaurantMeetingList extends Component {
   render() {
-    console.log(this.props);
+
 
     let meetingInfos = this.props.meetingsInfos;
     let restaurantInfo = this.props.clickMarkerRestaurantInfo;
     
-    console.log(restaurantInfo.website);
+    // console.log(restaurantInfo.website);
     return (
       <Fragment>
         {restaurantInfo ? (

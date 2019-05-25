@@ -201,7 +201,7 @@ class MeetingListsContainer extends React.Component {
     });
     result.activeMeetings = activeMeetings;
     result.inActiveMeetings = inActiveMeetings;
-    console.log("filter", result);
+    // console.log("filter", result);
     return result;
   };
 

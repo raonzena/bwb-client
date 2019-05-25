@@ -46,7 +46,7 @@ class MapHouse extends Component {
     var site = new google.maps.LatLng(lat, lng);
 
     map = new google.maps.Map(document.querySelector(".map"), {
-      center: site,
+      
       zoom: 15
     });
 
@@ -67,7 +67,7 @@ class MapHouse extends Component {
           });
           this.createMarkers(lat, lng, results, map);
           map.setCenter(results[0].geometry.location);
-          // this.meetingsInfos = this.bringMeetingData(results);
+          
         }
       }
     });
@@ -92,6 +92,7 @@ class MapHouse extends Component {
         position: place.geometry.location
       });
 
+      
       var site = new google.maps.LatLng(lat, lng);
 
       let infowindow = new google.maps.InfoWindow();
@@ -112,11 +113,23 @@ class MapHouse extends Component {
           placeId = place.place_id
         ) => {
           return (() => {
+            for(let i = 0, place; (place = places[i]); i++){
+              console.log(infowindow.close,'place')
+              let marker = new google.maps.Marker({
+                map: map,
+                icon: image,
+                title: place.name,
+                position: place.geometry.location
+              });
+              let infowindow = new google.maps.InfoWindow();
+              infowindow.style.display = "none"
+            }
+            
             infowindow.open(locationMarker.latLng, thisMarker);
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-                console.log(place, "음식점 정보");
+                // console.log(place, "음식점 정보");
                 this.setState({
                   clickMarkerRestaurantInfo: place
                 });
@@ -125,10 +138,7 @@ class MapHouse extends Component {
           })(locationMarker, thisMarker, placeId);
         }
       );
-
-      var li = document.createElement("li");
-      li.textContent = place.name;
-
+      
       bounds.extend(place.geometry.location);
     }
 
