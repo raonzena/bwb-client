@@ -27,12 +27,15 @@ class RestaurantMeetingList extends Component {
                   {restaurantInfo.formatted_phone_number}
                 </div>
                 <br />
+
                 <a
                   className="store-url"
                   href={restaurantInfo.website}
-                  style={{ textDecoration: "none" }}
+                  style={{
+                    textDecoration: "none"
+                  }}
                 >
-                  {restaurantInfo.website}
+                  {restaurantInfo.website.slice(0, 30) + "..."}
                 </a>
               </div>
 
