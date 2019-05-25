@@ -9,7 +9,9 @@ import List from '@material-ui/core/List';
 
 const styles = {
   list: {
-    width: 250,
+    width: 400,
+    margin: 30,
+    font:'bold',
   },
   fullList: {
     width: 'auto',
@@ -83,12 +85,18 @@ class MyPage extends Component {
           MyPage
         </button>
         <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
-          <List>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={this.toggleDrawer('right', false)}
+            onKeyDown={this.toggleDrawer('right', false)}
+            className={classes.list}
+          >
             <MyPageContents
               closeMyPageList={this.closeMyPageList}
               currentItem={this.state.currentItem}
             />
-          </List>
+          </div>
         </Drawer>
       </Fragment>
     );
