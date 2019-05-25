@@ -1,36 +1,56 @@
 import React, { Component, Fragment } from "react";
+import PropTypes from 'prop-types';
 import MyPageContents from "../Components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
-import MyPageModalButton from "./MyPageModalButton";
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+
+const styles = {
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+};
+
 class MyPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      top: false,
+      left: false,
+      bottom: false,
+      right: false,
       currentItem: null
     };
   }
-  closeMyPageList = () => {
-    document.querySelector(".my-page").style.display = "none";
-    document.querySelector(".my-page-button").style.display = "block";
+
+  toggleDrawer = (side, open) => event => {
+    this.getMyPageList(side, open);
   };
-  openMyPageList = () => {
-    this.getMyPageList();
-    document.querySelector(".my-page").style.display = "block";
-    document.querySelector(".my-page-button").style.display = "none";
-  };
-  getMyPageList = async () => {
+  
+  getMyPageList = async (side, open) => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
       fetchHelper
-        .getMyPageList(id)
-        .then(response => {
+      .getMyPageList(id)
+      .then(response => {
           return response.json();
         })
         .then(json => {
-          console.log(this);
-          this.setState({
-            currentItem: json
-          });
+          if(side) {
+            this.setState({
+              currentItem: json,
+              [side]: open 
+            });
+          } else {
+            this.setState({
+              currentItem: json
+            });
+          }
         })
         .catch(err => {
           return err;
@@ -39,43 +59,46 @@ class MyPage extends Component {
   };
 
   componentDidMount = () => {
-    if (this.props.isLogin) {
-      this.closeMyPageList();
+    if(!this.props.isLogin) {
+      document.querySelector(".my-page-button").style.display = "none"
     } else {
-      document.querySelector(".my-page").style.display = "none";
-      document.querySelector(".my-page-button").style.display = "none";
+      document.querySelector(".my-page-button").style.display = "block"
+    }
+    this.getMyPageList();
+  }
+  
+  componentDidUpdate = () => {
+    if(!this.props.isLogin) {
+      document.querySelector(".my-page-button").style.display = "none"
+    } else {
+      document.querySelector(".my-page-button").style.display = "block"
     }
   }
 
-  componentDidUpdate = preProps => {
-    if (preProps.isLogin !== this.props.isLogin) {
-      this.getMyPageList();
-    }
-    if (!this.props.isLogin) {
-      document.querySelector(".my-page").style.display = "none";
-      document.querySelector(".my-page-button").style.display = "none";
-    }
-  };
-
   render() {
+    const {classes} = this.props;
     return (
       <Fragment>
-
-        {/* <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
-
+        <button className="my-page-button w3-button w3-white" onClick={this.toggleDrawer('right', true)}>
           MyPage
-        </button> */}
-        <MyPageModalButton className="my-page-button" onClick={this.openMyPageList} currentItem={this.state.currentItem} />
-        <div className="my-page">
-          <MyPageContents
-            closeMyPageList={this.closeMyPageList}
-            currentItem={this.state.currentItem}
-          />
-        </div>
-
+        </button>
+        <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
+          <List>
+            <MyPageContents
+              closeMyPageList={this.closeMyPageList}
+              currentItem={this.state.currentItem}
+            />
+          </List>
+        </Drawer>
       </Fragment>
     );
   }
 }
 
-export default MyPage;
+// export default MyPage;
+
+MyPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(MyPage);
