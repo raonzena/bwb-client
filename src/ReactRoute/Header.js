@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import HomeButton from ".././Pages/HomeButton";
 import Fetch from "../helpers/fetch";
 import logo from "../img/logo.png";
 

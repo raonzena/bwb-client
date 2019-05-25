@@ -6,11 +6,12 @@ import StarRatings from "react-star-ratings";
 
 class RestaurantMeetingList extends Component {
   render() {
-    console.log(this.props);
+
 
     let meetingInfos = this.props.meetingsInfos;
     let restaurantInfo = this.props.clickMarkerRestaurantInfo;
-    console.log(restaurantInfo.website);
+    
+    // console.log(restaurantInfo.website);
     return (
       <Fragment>
         {restaurantInfo ? (
@@ -18,6 +19,15 @@ class RestaurantMeetingList extends Component {
             <div id="meeting-box">
               <div id="restauranteInfo">
                 <div className="fas fa-store"> {restaurantInfo.name}</div>
+                <div>
+
+                  {/* 서버관리자에 의해서 x-frame-options를 설정해주면 화면에 표시가능 */}
+                  {/* <button >
+                    <iframe src={restaurantInfo.url} 
+                    width="400" height="300" frameborder="0" 
+                    marginwidth="0" marginheight="0" scrolling="no"/>
+                  </button> */}
+                </div>
                 <div style={{ fontSize: "15px", margin: "10px" }}>
                   {restaurantInfo.formatted_address}
                 </div>

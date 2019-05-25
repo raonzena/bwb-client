@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 import "./App.css";
 import Loading from "./Components/Loading";
 import Login from "./Components/Login";
@@ -16,6 +16,15 @@ class App extends Component {
       isLogin: null,
       searchValue: ""
     };
+  }
+  
+  //  fadeInfadeOut 준비중
+  paintImage= () =>{
+    const image = new Image();
+    image.src = `../img/logo.png`;
+    image.classList.add("bgImage");
+    let body = document.querySelector('body');
+    body.prepend(image)
   }
 
   componentDidMount = () => {

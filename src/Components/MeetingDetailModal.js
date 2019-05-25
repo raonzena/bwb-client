@@ -77,20 +77,29 @@ const MeetingDetailModal = props => {
   return props.show
     ? ReactDOM.createPortal(
       <div className="modal" > 
-        <CloseButton className="closeBtn"  aria-hidden="true" closeModal={props.closeModal} buttonName = {buttonNameClose}/>
-        <h4>
-          <strong>{props.data[0].meeting.name}</strong>{" "}
-        </h4>
-        <div>
-          <strong>주최자</strong> {props.data[0].meeting.user.nickname}
+        <CloseButton className="closeBtn" aria-hidden="true" closeModal={props.closeModal} buttonName = {buttonNameClose}/>
+        <div className="modalTitle">
+          <h1>
+            <strong>{props.data[0].meeting.name}</strong>{"  "}
+          </h1>
         </div>
         <div>
-          <strong>날짜/시간</strong>{" "}
+          
+          <h3><strong>주최자</strong></h3> {props.data[0].meeting.user.nickname}
+        </div>
+        <div>
+          <h3><strong>날짜/시간</strong></h3>{"  "}
           {dateFormater(props.data[0].meeting.time)}
         </div>
         <div>
-          <strong>참가자</strong>{" "}
-          {displayParticipants(props.data).displayNames}{" "}
+          <h3><strong>참가자</strong></h3>{"  "}
+          {displayParticipants(props.data).displayNames}
+          
+          <span>{"  =>   "}</span>
+          <img className="numOfParticipants"
+                src="https://i.ibb.co/pyW3HKh/baseline-people-outline-white-18dp.png"
+                alt="baseline-people-outline-pink"
+          />
           {displayParticipants(props.data).displayCounts}
         </div>
         {buttonDisplayIdentifier(props.data) === 0 ? null : (

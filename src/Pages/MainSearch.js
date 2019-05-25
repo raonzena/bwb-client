@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import SearchButton from './SearchButton'
 
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { Button } from "@material-ui/core";
+
 
 
 const styles = {
@@ -20,7 +20,7 @@ const styles = {
 
 function MainSearch(props) {
   const { classes } = props;
-  console.log(props, 'props MainSearch')
+  
 
   return (
     <Fragment>

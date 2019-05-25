@@ -130,11 +130,12 @@ class MapHouse extends Component {
         position: place.geometry.location
       });
 
+      
       var site = new google.maps.LatLng(lat, lng);
 
       let infowindow = new google.maps.InfoWindow();
       let infowindowContent = document.createElement("span");
-
+      infowindow.className= 'Info-Window';
       infowindow.setContent(infowindowContent);
       infowindow.content.innerText = place.rating
         ? place.name + " / 평점 : ⭐️ x " + place.rating + "\n"
@@ -149,11 +150,14 @@ class MapHouse extends Component {
           thisMarker = marker,
           placeId = place.place_id
         ) => {
-          return (() => {
+          return (() => {    
+            infowindow.close()
+            
             infowindow.open(locationMarker.latLng, thisMarker);
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+                // console.log(place, "음식점 정보");
                 this.setState({
                   clickMarkerRestaurantInfo: place
                 });
@@ -162,10 +166,7 @@ class MapHouse extends Component {
           })(locationMarker, thisMarker, placeId);
         }
       );
-
-      var li = document.createElement("li");
-      li.textContent = place.name;
-
+      
       bounds.extend(place.geometry.location);
     }
 

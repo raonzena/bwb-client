@@ -1,4 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap");
+
+@keyframes fadeIn{
+  from{
+      opacity: 20;
+  }
+  to {
+      opacity: 0;
+  }
+}
+
 #root {
   width: 100%;
   height: 100%;
@@ -21,13 +31,27 @@
   background-color: white;
   border: 2px solid grey;
   border-radius: 10px;
+  height: 600px;
+  width: 700px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+  font-size:20px;
+}
 
-  height: 350px;
-  width: 500px;
-  padding: 20px;
-  background-color: white;
-  border: 2px solid grey;
-  border-radius: 10px;
+
+
+
+.is-blurred{
+  /* filter: blur(2px);
+  -webkit-filter: blur(2px); */
+  background: black;
+  opacity: 0.3 !important;
+}
+
+.modalTitle{
+  margin-left:18%;
 }
 
 .App {

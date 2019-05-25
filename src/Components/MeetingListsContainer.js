@@ -99,6 +99,12 @@ class MeetingListsContainer extends React.Component {
   };
 
   toggleMeetingDetailModal = () => {
+    let app = document.getElementsByClassName("App")[0];
+    if (this.state.showMeetingDetailModal) {
+      app.className = "App"
+    } else {
+      app.className = "App is-blurred"
+    }
     this.setState({
       showMeetingDetailModal: !this.state.showMeetingDetailModal
     });
@@ -106,11 +112,19 @@ class MeetingListsContainer extends React.Component {
 
   toggleNewMeetingModal = async () => {
     let result = await this.getNickname();
+    let app = document.getElementsByClassName("App")[0];
+    if (this.state.showNewMeetingModal) {
+      app.className = "App"
+    } else {
+      app.className = "App is-blurred"
+    }
     this.setState({
       showNewMeetingModal: !this.state.showNewMeetingModal,
       nickname: result.nickname
     });
   };
+
+  
 
   getNewMeetingModal = () => {
     if (!localStorage.getItem("token")) {
@@ -170,7 +184,7 @@ class MeetingListsContainer extends React.Component {
     });
     result.activeMeetings = activeMeetings;
     result.inActiveMeetings = inActiveMeetings;
-    console.log("filter", result);
+    // console.log("filter", result);
     return result;
   };
 
