@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
-import SearchButton from "../Pages/SearchButton";
-import PeoPle from "@material-ui/icons/People";
-
 // import StarRatings from './react-star-ratings';
 
 class RestaurantMeetingList extends Component {

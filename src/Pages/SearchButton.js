@@ -25,8 +25,6 @@ class SearchButton extends Component {
   };
 
   render() {
-    console.log(this.props, 'props')
-
     return (
       <Fragment>
         <Button variant="outlined" color='primary' onClick={this.props.handleClickSearch} style={{ fontSize: 30, margin:0, background: grey[50]}} >
@@ -37,4 +35,3 @@ class SearchButton extends Component {
   }
 }
 export default withStyles(styles)(SearchButton);
-// export default SearchButton;

@@ -66,6 +66,10 @@ class MyPageModalButton extends React.Component {
             </ListItem>
           ))}
         </List>
+        <MyPageContents
+            closeMyPageList={this.props.closeMyPageList}
+            currentItem={this.props.currentItem}
+          />
         <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
