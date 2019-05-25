@@ -51,7 +51,7 @@ const Login = props => {
   const { classes } = props;
   if (props.isLogin === false) {
     return (
-      <main className={classes.main}>
+      <main className={classes.main} style={{width: '500px'}}>
         <CssBaseline />
         <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>

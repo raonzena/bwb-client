@@ -3,15 +3,14 @@
   display: table;
   table-layout: fixed;
   width: 100%;
-  
 }
 
 .item {
   text-align: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
-
-  display: table-caption;
+  display: table-cell;
+  /* display: table-caption; */
   color: white;
   text-decoration: none;
   font-size: 1.5rem;
@@ -26,4 +25,30 @@
 .item.active {
   background: rgb(13, 212, 133);
   color: #f6f7fc;
+}
+.signup {
+  margin-right: 2%;
+}
+.login {
+  margin-left: 1%;
+}
+.logout {
+  margin-right: 2%;
+}
+.sign-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  float: right;
+  margin-left: 2%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.sign-link:hover {
+  color: #748ffc;
+}
+.sign-link:active,
+.sign-link.sign-active {
+  color: rgb(13, 212, 133);
 }
