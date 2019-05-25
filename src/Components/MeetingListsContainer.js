@@ -42,69 +42,52 @@ class MeetingListsContainer extends React.Component {
     var resultInfo = this.props.clickMarkerRestaurantInfo
       ? new Array(this.props.clickMarkerRestaurantInfo)
       : this.props.restaurantInfos;
-    if (!localStorage.getItem("token")) {
+    if (!identifier && !localStorage.getItem("token")) {
+      console.log('identifier', identifier)
       let response = window.confirm(
         "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
       );
       if (response) {
         this.props.history.push("/login");
       }
-    } else {
-      if (identifier === "참가하기") {
-        fetchHelper.addMember(meetingId).then(result => {
-          if (result.status === 405) {
-            let response = window.confirm(
-              "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
-            );
-            if (response) {
-              this.props.history.push("/login");
-            }
-          } else {
+    } else if (identifier) {
+      if (!localStorage.getItem("token")) {
+        let response = window.confirm(
+          "로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
+        );
+        if (response) {
+          this.props.history.push("/login");
+        }
+      } else {
+        if (identifier === "참가하기") {
+          fetchHelper.addMember(meetingId).then(result => {
             this.toggleMeetingDetailModal();
             this.props.fetchMeetingLists(resultInfo);
-          }
-        });
-      } else if (identifier === "참가 취소") {
-        fetchHelper.cancelMember(meetingId).then(result => {
-          if (result.status === 405) {
-            let response = window.confirm(
-              "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
-            );
-            if (response) {
-              this.props.history.push("/login");
-            }
-          } else {
-            this.toggleMeetingDetailModal();
-            this.props.fetchMeetingLists(resultInfo);
-          }
-        });
-      } else if (identifier === "모임 삭제") {
-        fetchHelper.deleteMeeting(meetingId).then(result => {
-          if (result.status === 405) {
-            let response = window.confirm(
-              "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
-            );
-            if (response) {
-              this.props.history.push("/login");
-            }
-          } else {
-            this.toggleMeetingDetailModal();
-            this.props.fetchMeetingLists(resultInfo);
-          }
-        });
-      } else if (identifier === "모임 생성") {
-        fetchHelper.createNewMeeting(meetingId).then(result => {
-          alert("모임이 생성되었습니다.");
-          this.setState({
-            showNewMeetingModal: !this.state.showNewMeetingModal
           });
-          this.props.fetchMeetingLists(
-            new Array(this.props.clickMarkerRestaurantInfo)
-          );
-        });
+        } else if (identifier === "참가 취소") {
+          fetchHelper.cancelMember(meetingId).then(result => {
+            this.toggleMeetingDetailModal();
+            this.props.fetchMeetingLists(resultInfo);
+          });
+        } else if (identifier === "모임 삭제") {
+          fetchHelper.deleteMeeting(meetingId).then(result => {
+            this.toggleMeetingDetailModal();
+            this.props.fetchMeetingLists(resultInfo);
+          });
+        } else if (identifier === "모임 생성") {
+          fetchHelper.createNewMeeting(meetingId).then(result => {
+            alert("모임이 생성되었습니다.");
+            this.setState({
+              showNewMeetingModal: !this.state.showNewMeetingModal
+            });
+            this.props.fetchMeetingLists(
+              new Array(this.props.clickMarkerRestaurantInfo)
+            );
+          });
+        }
       }
-    }
-  };
+    };
+  }
 
   submitNewMeeting = createSubmitData => {
     if (createSubmitData.meeting_name.length === 0) {
