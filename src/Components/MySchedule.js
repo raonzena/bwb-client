@@ -6,6 +6,7 @@ class MySchedule extends Component {
   }
   render() {
     let reservation_time = new Date(this.props.meeting.reservation_time);
+    console.log(reservation_time)
     let year = reservation_time.getFullYear();
     let month = reservation_time.getMonth();
     let date = reservation_time.getDate();
