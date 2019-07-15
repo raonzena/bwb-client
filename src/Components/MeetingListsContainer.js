@@ -22,11 +22,9 @@ class MeetingListsContainer extends React.Component {
       .fetchMeetingDetail(placeId, meetingId)
       .then(result => result.json())
       .then(json => {
-        console.log(json, "json");
         this.setfetchedDetail(json);
       })
       .catch(err => {
-        console.log(err);
         throw err;
       });
   };
@@ -43,7 +41,6 @@ class MeetingListsContainer extends React.Component {
       ? new Array(this.props.clickMarkerRestaurantInfo)
       : this.props.restaurantInfos;
     if (!identifier && !localStorage.getItem("token")) {
-      console.log('identifier', identifier)
       let response = window.confirm(
         "새로운 모임을 생성하기 위해서는 로그인이 필요합니다.\n로그인 페이지로 이동하시겠습니까?"
       );
@@ -182,12 +179,10 @@ class MeetingListsContainer extends React.Component {
     });
     result.activeMeetings = activeMeetings;
     result.inActiveMeetings = inActiveMeetings;
-    // console.log("filter", result);
     return result;
   };
 
   render() {
-    // console.log(this.props.clickMarkerRestaurantInfo)
     return (
       <div className="HelloWorld">
         {this.props.meetingsInfos ? (

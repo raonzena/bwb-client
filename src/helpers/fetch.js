@@ -9,8 +9,6 @@ async function fetchLogin(loginUser) {
     headers: { "Content-Type": "application/json" }
   });
 }
-
-
 //signup fetch
 async function fetchSignup(user) {
   return await fetch(`${serverEndpoint}:${port}/signup`, {
@@ -49,7 +47,6 @@ async function fetchLogout(token) {
 //미팅 디테일 fetch
 async function fetchMeetingDetail(placeId, index) {
   let token = localStorage.getItem("token");
-  console.log(token);
 
   if (token === null) {
     token = "";

@@ -47,7 +47,6 @@ class Calendar extends React.Component {
     }
     //hour dropdown
     for (let i = nowTime; i <= 23; i++) {
-      console.log(i)
       hourOptionArr.push(
         <option value={i} key={i}>
           {i}
@@ -58,7 +57,6 @@ class Calendar extends React.Component {
   };
 
   componentDidMount = () => {
-    // this.props.onDateChage(document.querySelector("#dateSelector").value)
     this.props.onHourChange(document.querySelector("#hourSelector").value)
   }
 

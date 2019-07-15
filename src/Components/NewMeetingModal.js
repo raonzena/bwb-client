@@ -38,7 +38,6 @@ class NewMeetingModal extends React.Component {
       ":" +
       this.state.minute;
     submitData.limit = this.number.value;
-    console.log(submitData);
     return submitData;
   };
 
@@ -53,21 +52,18 @@ class NewMeetingModal extends React.Component {
   };
 
   setDate = date => {
-    console.log(date);
     this.setState({
       date: date
     });
   };
 
   setHour = hour => {
-    console.log(hour);
     this.setState({
       hour: hour
     });
   };
 
   setMinute = minute => {
-    console.log(minute);
     this.setState({
       minute: minute
     });

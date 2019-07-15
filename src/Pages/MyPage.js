@@ -1,11 +1,9 @@
 import React, { Component, Fragment } from "react";
 import PropTypes from 'prop-types';
-import MyPageContents from "../Components/MyPageContents";
+import MyPageContents from "../components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
 
 const styles = {
   list: {
@@ -22,39 +20,26 @@ class MyPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      top: false,
-      left: false,
-      bottom: false,
       right: false,
       currentItem: null
     };
   }
-
-  toggleDrawer = (side, open) => event => {
-    this.getMyPageList(side, open);
-  };
   
   getMyPageList = async (side, open) => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
-      fetchHelper
-      .getMyPageList(id)
-      .then(response => {
+      await fetchHelper.getMyPageList(id)
+        .then(response => {
           return response.json();
         })
         .then(json => {
-          if(side) {
-            this.setState({
-              currentItem: json,
-              [side]: open 
-            });
-          } else {
-            this.setState({
-              currentItem: json
-            });
-          }
+          this.setState({
+            currentItem: json,
+            right: open 
+          });
         })
         .catch(err => {
+          console.log('error')
           return err;
         });
     }
@@ -81,15 +66,15 @@ class MyPage extends Component {
     const {classes} = this.props;
     return (
       <Fragment>
-        <button className="my-page-button w3-button w3-white" onClick={this.toggleDrawer('right', true)}>
+        <button className="my-page-button" onClick={()=>{this.getMyPageList('right', true)}}>
           MyPage
         </button>
-        <Drawer anchor="right" open={this.state.right} onClose={this.toggleDrawer('right', false)}>
+        <Drawer anchor="right" open={this.state.right} onClose={()=>{this.getMyPageList('right', false)}}>
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('right', false)}
-            onKeyDown={this.toggleDrawer('right', false)}
+            onClick={()=>{this.getMyPageList('right', false)}}
+            onKeyDown={()=>{this.getMyPageList('right', false)}}
             className={classes.list}
           >
             <MyPageContents

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route} from "react-router-dom";
 import "./App.css";
-import Loading from "./Components/Loading";
-import Login from "./Components/Login";
-import Signup from "./Components/Signup";
-import Logout from "./Components/Logout";
-import MyPage from "./Pages/MyPage";
+import Loading from "./components/Loading";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Logout from "./components/Logout";
+import MyPage from "./pages/MyPage";
 import Header from "./ReactRoute/Header";
-import Home from "./Pages/Home";
+import Home from "./pages/Home";
 
 class App extends Component {
   constructor(props) {

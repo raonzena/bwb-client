@@ -25,8 +25,6 @@ class CloseButton extends Component {
   };
 
   render() {
-    console.log(this.props, 'props')
-
     return (
       <Fragment>
         <Button variant="outlined" color='primary' onClick={this.props.closeModal} style={{ fontSize: 20, margin:0, background: grey[50]}} >
