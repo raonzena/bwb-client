@@ -2,7 +2,7 @@
        * element that contains the map. */
 .map {
   height: 100%;
-  width: 60%;
+  width: 65%;
 }
 /* Optional: Makes the sample page fill the window. */
 .mapHead {
@@ -19,3 +19,6 @@
 }
 
 
+.Info-Window{
+  font-size: 10px;
+}

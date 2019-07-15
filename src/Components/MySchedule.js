@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from "react";
 
 class MySchedule extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let reservation_time = new Date(this.props.meeting.reservation_time);
     let year = reservation_time.getFullYear();
@@ -19,11 +16,11 @@ class MySchedule extends Component {
       <Fragment>
         <div className="scheduleContents">
           <br/>
-          🍾  {this.props.meeting.restaurant_name}
+           Party : {this.props.meeting.restaurant_name}
           <br/>
-          🍾  {year}-{month}-{date} {hours}:{minutes}
+           Date : {year}-{month}-{date} {hours}:{minutes}
           <br/>
-          🍾 {this.props.meeting.member_count}/{this.props.meeting.limit}
+           Limit : {this.props.meeting.member_count}{this.props.meeting.limit}
           <br/>
         </div>
       </Fragment>

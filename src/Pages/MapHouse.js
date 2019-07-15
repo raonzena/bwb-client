@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
-import LeftContainer from "../Components/LeftContainer";
+import LeftContainer from "../components/LeftContainer";
 
-Geocode.setApiKey("AIzaSyDUvVw2xYB2MK4oFr8L2RLu-ukm7rbwxrM");
 Geocode.enableDebug();
 
 /* global google */
@@ -37,8 +36,7 @@ class MapHouse extends Component {
           this.createMap(this.lat, this.lng);
         })
         .catch(err => {
-          console.log(err);
-          return err;
+          throw err;
         });
     }
   };
@@ -47,32 +45,64 @@ class MapHouse extends Component {
     var site = new google.maps.LatLng(lat, lng);
 
     map = new google.maps.Map(document.querySelector(".map"), {
-      center: site,
+      // center: site,
       zoom: 15
     });
 
     var request = {
       location: site,
-      radius: "75",
+      radius: "130",
       type: ["restaurant"]
     };
+
+    google.maps.event.addListener(map, 'dragend', this.getMoveData)
 
     var service = new google.maps.places.PlacesService(map);
 
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (JSON.stringify(results)) {
-          // console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
           });
           this.createMarkers(lat, lng, results, map);
-          map.setCenter(results[0].geometry.location);
-          // this.meetingsInfos = this.bringMeetingData(results);
         }
       }
     });
   };
+
+  getMoveData = () => {
+    let currentLocation = map.getCenter();
+    let newCurrLocation = currentLocation.toString();
+    newCurrLocation = newCurrLocation.replace('(', '');
+    newCurrLocation = newCurrLocation.replace(')', '');
+    let latlngArray = [];
+    latlngArray = newCurrLocation.split(",")
+    for (let a in latlngArray) {
+      latlngArray[a] = parseFloat(latlngArray[a]);
+    }
+
+    let newLat = latlngArray[0]
+    let newLng = latlngArray[1]
+    var service = new google.maps.places.PlacesService(map);
+    var site = new google.maps.LatLng(newLat, newLng);
+
+    var request = {
+      location: site,
+      radius: "130",
+      type: ["restaurant"]
+    };
+    service.nearbySearch(request, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        if (JSON.stringify(results)) {
+          this.setState({
+            restaurantInfos: results
+          });
+          this.createMarkers(newLat, newLng, results, map);
+        }
+      }
+    });
+  }
 
   createMarkers = (lat, lng, places, map) => {
     var bounds = new google.maps.LatLngBounds();
@@ -93,15 +123,13 @@ class MapHouse extends Component {
         position: place.geometry.location
       });
 
-      var site = new google.maps.LatLng(lat, lng);
-
       let infowindow = new google.maps.InfoWindow();
       let infowindowContent = document.createElement("span");
-
+      infowindow.className= 'Info-Window';
       infowindow.setContent(infowindowContent);
       infowindow.content.innerText = place.rating
-        ? place.name + " / 평점 : ⭐️x" + place.rating + "\n"
-        : place.name + "평점 : ⭐x0" + "\n";
+        ? place.name + " / 평점 : ⭐️ x " + place.rating + "\n"
+        : place.name + "평점 : ⭐ x 0 \n";
 
       infowindow.setPosition();
 
@@ -112,7 +140,9 @@ class MapHouse extends Component {
           thisMarker = marker,
           placeId = place.place_id
         ) => {
-          return (() => {
+          return (() => {    
+            infowindow.close()
+            
             infowindow.open(locationMarker.latLng, thisMarker);
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
@@ -125,15 +155,13 @@ class MapHouse extends Component {
           })(locationMarker, thisMarker, placeId);
         }
       );
-
-      var li = document.createElement("li");
-      li.textContent = place.name;
-
+      
       bounds.extend(place.geometry.location);
     }
 
     map.fitBounds(bounds);
   };
+
 
   backToMeetingList = () => {
     this.setState({
@@ -142,6 +170,8 @@ class MapHouse extends Component {
   }
 
   componentDidMount = () => {
+    const API_KEY = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
+    Geocode.setApiKey(API_KEY);
     this.loadSite(this.props.searchValue);
   }
 
@@ -153,13 +183,13 @@ class MapHouse extends Component {
       <Fragment>
         <div className="Middle">
           <div className="leftContainer">
-              <LeftContainer
-                restaurantInfos={this.state.restaurantInfos}
-                clickMarkerRestaurantInfo={this.clickMarkerRestaurantInfo}
-                backToMeetingList={this.backToMeetingList}
-              />
+            <LeftContainer
+              restaurantInfos={this.state.restaurantInfos}
+              clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
+              backToMeetingList={this.backToMeetingList}
+            />
           </div>
-          
+
           <div className="rightContainer">
             <div className="mapHead">
               <div className="mapBody">
@@ -169,19 +199,9 @@ class MapHouse extends Component {
             </div>
           </div>
         </div>
-        <div className="leftContainer">
-        {this.state.clickMarkerRestaurantInfo ?
-          <LeftContainer
-            restaurantInfos={this.state.restaurantInfos}
-            clickMarkerRestaurantInfo={this.state.clickMarkerRestaurantInfo}
-          />
-          :
-          false
-        }
-        </div>
+
       </Fragment>
     );
   }
 }
 export default MapHouse;
-

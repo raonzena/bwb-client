@@ -1,4 +1,5 @@
-const serverEndpoint = "http://localhost";
+const serverEndpoint = process.env.NODE_ENV === "development" ? "http://localhost" : `${process.env.REACT_APP_GOOGLE_SERVER_ENDPOINT}`
+
 const port = "3000"
 //login fetch
 async function fetchLogin(loginUser) {
@@ -8,7 +9,6 @@ async function fetchLogin(loginUser) {
     headers: { "Content-Type": "application/json" }
   });
 }
-
 //signup fetch
 async function fetchSignup(user) {
   return await fetch(`${serverEndpoint}:${port}/signup`, {
@@ -47,7 +47,6 @@ async function fetchLogout(token) {
 //미팅 디테일 fetch
 async function fetchMeetingDetail(placeId, index) {
   let token = localStorage.getItem("token");
-  console.log(token);
 
   if (token === null) {
     token = "";
@@ -154,7 +153,7 @@ async function getMyPageList(id) {
     }
   })
 }
-module.exports = {
+export default ({
   fetchLogin,
   fetchSignup,
   fetchSignup_IdCheck,
@@ -169,4 +168,4 @@ module.exports = {
   fetchMeetingList,
   fetchMeetingLists,
   getMyPageList
-};
+});

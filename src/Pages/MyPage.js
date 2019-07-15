@@ -1,82 +1,96 @@
 import React, { Component, Fragment } from "react";
-import MyPageContents from "../Components/MyPageContents";
+import PropTypes from 'prop-types';
+import MyPageContents from "../components/MyPageContents";
 import fetchHelper from "../helpers/fetch";
-import PracticeModal from "../Pages/PracticeModal";
+import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+
+const styles = {
+  list: {
+    width: 400,
+    margin: 30,
+    font:'bold',
+  },
+  fullList: {
+    width: 'auto',
+  },
+};
 
 class MyPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      right: false,
       currentItem: null
     };
   }
-  closeMyPageList = () => {
-    document.querySelector(".my-page").style.display = "none";
-    document.querySelector(".my-page-button").style.display = "block";
-  };
-  openMyPageList = () => {
-    this.getMyPageList();
-    document.querySelector(".my-page").style.display = "block";
-    document.querySelector(".my-page-button").style.display = "none";
-  };
-  getMyPageList = async () => {
+  
+  getMyPageList = async (side, open) => {
     var id = localStorage.getItem("token");
     if (localStorage.getItem("token")) {
-      fetchHelper
-        .getMyPageList(id)
+      await fetchHelper.getMyPageList(id)
         .then(response => {
           return response.json();
         })
         .then(json => {
-          console.log(this);
           this.setState({
-            currentItem: json
+            currentItem: json,
+            right: open 
           });
         })
         .catch(err => {
+          console.log('error')
           return err;
         });
     }
   };
-  
+
   componentDidMount = () => {
-    if(this.props.isLogin) {
-      this.closeMyPageList();
+    if(!this.props.isLogin) {
+      document.querySelector(".my-page-button").style.display = "none"
     } else {
-      document.querySelector(".my-page").style.display = "none";
-      document.querySelector(".my-page-button").style.display = "none";
+      document.querySelector(".my-page-button").style.display = "block"
+    }
+    this.getMyPageList();
+  }
+  
+  componentDidUpdate = () => {
+    if(!this.props.isLogin) {
+      document.querySelector(".my-page-button").style.display = "none"
+    } else {
+      document.querySelector(".my-page-button").style.display = "block"
     }
   }
 
-  componentDidUpdate = preProps => {
-    if (preProps.isLogin !== this.props.isLogin) {
-      this.getMyPageList();
-    }
-    if (!this.props.isLogin) {
-      document.querySelector(".my-page").style.display = "none";
-      document.querySelector(".my-page-button").style.display = "none";
-    }
-  };
-
   render() {
-    console.log("123", this.state.currentItem);
+    const {classes} = this.props;
     return (
       <Fragment>
-        
-        <button className="my-page-button w3-button w3-white" onClick={this.openMyPageList}>
-        
+        <button className="my-page-button" onClick={()=>{this.getMyPageList('right', true)}}>
           MyPage
         </button>
-        <div className="my-page">
-          <MyPageContents
-            closeMyPageList={this.closeMyPageList}
-            currentItem={this.state.currentItem}
-          />
-        </div>
-        
+        <Drawer anchor="right" open={this.state.right} onClose={()=>{this.getMyPageList('right', false)}}>
+          <div
+            tabIndex={0}
+            role="button"
+            onClick={()=>{this.getMyPageList('right', false)}}
+            onKeyDown={()=>{this.getMyPageList('right', false)}}
+            className={classes.list}
+          >
+            <MyPageContents
+              currentItem={this.state.currentItem}
+            />
+          </div>
+        </Drawer>
       </Fragment>
     );
   }
 }
 
-export default MyPage;
+// export default MyPage;
+
+MyPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(MyPage);

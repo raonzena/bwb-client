@@ -1,13 +1,55 @@
 import React from "react";
 import Fetch from "../helpers/fetch";
 import { Redirect } from "react-router-dom";
+import PropTypes from 'prop-types';
+import {Avatar, Button, CssBaseline, FormControl, Input, InputLabel, Paper, Typography, withStyles } from '@material-ui/core/';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block', // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+});
+
+
 const Login = props => {
+  const { classes } = props;
   if (props.isLogin === false) {
     return (
-      <div className="login">
-        <h2>로그인</h2>
+      <main className={classes.main} style={{width: '500px'}}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">로그인</Typography>
         <form
-          className="login-form"
+          className={classes.form}
           onSubmit={
             e => {
               e.preventDefault();
@@ -34,36 +76,36 @@ const Login = props => {
                   })
                   .then(token => {
                     localStorage.setItem("token", token.token);
-                    // document.querySelector(".login").style.display = "none";
-                    // document.querySelector(".signup").style.display = "none";
-                    // document.querySelector(".logout").style.display = "block";
 
                     document.querySelector(".my-page-button").style.display =
                       "block";
                     props.changeIsLogin(true);
                   })
                   .catch(err => {
-                    // console.log(err);
                     return err;
                   });
               }
             }
-            // this.props.onSubmit(e.target.id.value, e.target.pw.value);
           }
         >
-          <p>
-            아이디:
-            <input type="text" name="id" placeholder="아이디" />
-          </p>
-          <p>
-            비밀번호:
-            <input type="password" name="pw" placeholder="비밀번호" />
-          </p>
-          <p>
-            <input type="submit" value="로그인" />
-          </p>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="id">아이디</InputLabel>
+            <Input id="id" name="id" autoComplete="id" autoFocus />
+          </FormControl>
+          <FormControl margin="normal" required fullWidth>
+            <InputLabel htmlFor="password">비밀번호</InputLabel>
+            <Input name="pw" type="password" id="password" autoComplete="current-password" />
+          </FormControl>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >로그인</Button>
         </form>
-      </div>
+        </Paper>
+      </main>
     );
   } else {
     return (
@@ -74,4 +116,8 @@ const Login = props => {
   }
 };
 
-export default Login;
+// export default Login;
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+export default withStyles(styles)(Login);

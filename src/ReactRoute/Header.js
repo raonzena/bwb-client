@@ -1,59 +1,81 @@
 import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
-import HomeButton from ".././Pages/HomeButton";
 import Fetch from "../helpers/fetch";
+import logo from "../img/logo.png";
+
 class Header extends Component {
   getHeader() {
     var _button;
     if (this.props.isLogin === false) {
       _button = (
-        <div className="header">
-          <NavLink exact to="/" className="item" activeClassName="active">
-          <HomeButton/>
-          </NavLink>
-          <NavLink> </NavLink>
-          
-          <NavLink to="/login" className="item" activeClassName="active">
-            로그인
-          </NavLink>
-          <NavLink to="/signup" className="item" activeClassName="active">
-            회원가입
-          </NavLink>
-        </div>
+        <Fragment>
+          <div className="header">
+            <NavLink
+              exact
+              to="/"
+              className="item"
+              activeClassName="sign-active"
+            >
+              <img src={logo} style={{ height: "70%" }} alt="" />
+            </NavLink>
+          </div>
+          <div className="signup-button">
+            <NavLink
+              to="/signup"
+              className="sign-link signup"
+              activeClassName="sign-active"
+            >
+              SIGN UP
+            </NavLink>
+          </div>
+          <div className="login-button">
+            <NavLink
+              to="/login"
+              className="sign-link loginin"
+              activeClassName="sign-active"
+            >
+              LOG IN
+            </NavLink>
+          </div>
+        </Fragment>
       );
     } else if (this.props.isLogin === true) {
       _button = (
-        <div className="header">
-          <NavLink exact to="/" className="item" activeClassName="active">
-          <HomeButton/>
-          </NavLink>
-          <NavLink
-            to="/logout"
-            className="item"
-            activeClassName="active"
-            onClick={() => {
-              let token = localStorage.getItem("token");
+        <Fragment>
+          <div className="header">
+            <NavLink exact to="/" className="item" activeClassName="active">
+              <img src={logo} style={{ height: "70%" }} alt="" />
+            </NavLink>
+          </div>
 
-              Fetch.fetchLogout(token)
-                .then(response => {
-                  if (response.status === 201) {
-                    localStorage.removeItem("token");
-                    this.props.changeIsLogin(false);
+          <div className="logout-button">
+            <NavLink
+              to="/logout"
+              className="sign-link logout"
+              activeClassName="sign-active"
+              onClick={() => {
+                let token = localStorage.getItem("token");
 
+                Fetch.fetchLogout(token)
+                  .then(response => {
+                    if (response.status === 201) {
+                      localStorage.removeItem("token");
+                      this.props.changeIsLogin(false);
+
+                      return response;
+                    }
                     return response;
-                  }
-                  return response;
-                })
-                .catch(err => {
-                  console.log(err);
-                  return err;
-                });
-            }}
-          >
-            로그아웃
-          </NavLink>
-        </div>
+                  })
+                  .catch(err => {
+                    return err;
+                  });
+              }}
+            >
+              LOG OUT
+            </NavLink>
+          </div>
+        </Fragment>
       );
     }
     return _button;
