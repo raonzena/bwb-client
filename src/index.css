@@ -11,13 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.verifyId {
-}
-.verifyNickName {
-}
-.verifyPw {
-}
 .my-page {
   display: none;
   position: fixed;
@@ -31,10 +24,18 @@ code {
 }
 .my-page-button {
   position: fixed;
-  right: 100px;
-  bottom: 100px;
-  border-radius: 10px;
-  color: whitesmoke;
+  right: 80px;
+  bottom: 80px;
+  border: none;
+  border-radius: 100px;
+  padding: 10px;
+  font-weight: 800;
+  color: #353580;
+  background-color: #FFFFFF;
+}
+.my-page-button:hover {
+  background-color: #17DE90;
+  cursor: pointer;
 }
 .close-button {
   position: fixed;

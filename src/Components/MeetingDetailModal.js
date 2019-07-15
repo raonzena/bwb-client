@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CloseButton from "../Pages/CloseButton";
+import CloseButton from "../pages/CloseButton";
 
 
 const displayParticipants = dataArray => {
@@ -28,28 +28,21 @@ const isParticipants = dataArray => {
 };
 
 const buttonDisplayIdentifier = dataArray => {
-  // console.log(dataArray);
   let identifier;
   //*****/
   if (dataArray[dataArray.length - 1].userId === dataArray[0].user.userId) {
-    //user가 모임의 주최자
     if (dataArray.length === 2) {
-      //참가자가 0명 (오너만 참가)
       identifier = "모임 삭제";
     } else {
-      //참가자가 1명 이상
       identifier = 0; //[no button]
     }
   } else {
-    //user가 오너가 아닌 경우
     if (isParticipants(dataArray)) {
       identifier = "참가 취소";
     } else {
       if (dataArray.length - 1 === dataArray[0].meeting.limit) {
-        //참가인원 초과
         identifier = 0; //[no button]
       } else {
-        //참가 가능
         identifier = "참가하기";
       }
     }
@@ -71,8 +64,6 @@ const dateFormater = inputDate => {
 
 const MeetingDetailModal = props => {
   let buttonNameClose = "BACK";
-  let buttonNameCansle = "참가 취소"
-  let form;
 
   return props.show
     ? ReactDOM.createPortal(

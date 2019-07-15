@@ -1,7 +1,6 @@
 import React from "react";
 import MainSearch from "./MainSearch";
 import MapHouse from "./MapHouse";
-import logo from "../img/logo.png";
 const Home = props => {
   return (
     <div className="Bodys">

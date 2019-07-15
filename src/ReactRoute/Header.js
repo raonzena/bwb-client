@@ -17,7 +17,7 @@ class Header extends Component {
               className="item"
               activeClassName="sign-active"
             >
-              <img src={logo} style={{ height: "70%" }} />
+              <img src={logo} style={{ height: "70%" }} alt="" />
             </NavLink>
           </div>
           <div className="signup-button">
@@ -45,7 +45,7 @@ class Header extends Component {
         <Fragment>
           <div className="header">
             <NavLink exact to="/" className="item" activeClassName="active">
-              <img src={logo} style={{ height: "70%" }} />
+              <img src={logo} style={{ height: "70%" }} alt="" />
             </NavLink>
           </div>
 
@@ -68,7 +68,6 @@ class Header extends Component {
                     return response;
                   })
                   .catch(err => {
-                    console.log(err);
                     return err;
                   });
               }}

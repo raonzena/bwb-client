@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Geocode from "react-geocode";
 import "./MapSearchPlace.css";
-import LeftContainer from "../Components/LeftContainer";
+import LeftContainer from "../components/LeftContainer";
 
 Geocode.enableDebug();
 
@@ -36,8 +36,7 @@ class MapHouse extends Component {
           this.createMap(this.lat, this.lng);
         })
         .catch(err => {
-          console.log(err);
-          return err;
+          throw err;
         });
     }
   };
@@ -63,13 +62,10 @@ class MapHouse extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (JSON.stringify(results)) {
-          // console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
           });
           this.createMarkers(lat, lng, results, map);
-          // map.setCenter(results[0].geometry.location);
-          // this.meetingsInfos = this.bringMeetingData(results);
         }
       }
     });
@@ -99,13 +95,10 @@ class MapHouse extends Component {
     service.nearbySearch(request, (results, status) => {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         if (JSON.stringify(results)) {
-          // console.log(results, "음식점 정보");
           this.setState({
             restaurantInfos: results
           });
           this.createMarkers(newLat, newLng, results, map);
-          // map.setCenter(results[0].geometry.location);
-          // this.meetingsInfos = this.bringMeetingData(results);
         }
       }
     });
@@ -130,16 +123,13 @@ class MapHouse extends Component {
         position: place.geometry.location
       });
 
-      
-      var site = new google.maps.LatLng(lat, lng);
-
       let infowindow = new google.maps.InfoWindow();
       let infowindowContent = document.createElement("span");
       infowindow.className= 'Info-Window';
       infowindow.setContent(infowindowContent);
       infowindow.content.innerText = place.rating
         ? place.name + " / 평점 : ⭐️ x " + place.rating + "\n"
-        : place.name + "평점 : ⭐ x 0 " + "\n";
+        : place.name + "평점 : ⭐ x 0 \n";
 
       infowindow.setPosition();
 
@@ -157,7 +147,6 @@ class MapHouse extends Component {
             var service = new google.maps.places.PlacesService(map);
             service.getDetails({ placeId: placeId }, (place, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-                // console.log(place, "음식점 정보");
                 this.setState({
                   clickMarkerRestaurantInfo: place
                 });

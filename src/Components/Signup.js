@@ -1,18 +1,7 @@
 import React, { Component } from "react";
 import fetchHelper from "../helpers/fetch"
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
+import { Avatar, Button, CssBaseline, Input, InputLabel, FormControl, Paper, Typography, withStyles, Radio, RadioGroup, FormControlLabel} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const styles = theme => ({
   signup: {
@@ -83,7 +72,7 @@ class Signup extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        throw err;
       });
   };
   isNickNameCheck = nick_name => {
@@ -109,7 +98,7 @@ class Signup extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
+        throw err;
       });
   };
   isPwCheck = (pw, pw_check) => {
@@ -150,7 +139,6 @@ class Signup extends Component {
           <form
             className={classes.form}
             onSubmit={e => {
-              console.log(this.id_check, this.nickname_check, this.pwCheck, e.target.gender.value)
               e.preventDefault();
               if (this.id_check === false) {
                 alert("아이디 중복확인을 해주세요!");
@@ -197,7 +185,6 @@ class Signup extends Component {
                 };
                 fetchHelper.fetchSignup(user)
                   .then(response => {
-                    console.log(response.status);
                     if (response.status === 201) {
                       window.location.href = "/login";
                       return response;
@@ -207,7 +194,6 @@ class Signup extends Component {
                   })
                   .catch(err => {
                     alert("회원가입에 실패하였습니다!");
-                    console.log(err);
                     return err;
                   });
               }
